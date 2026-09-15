@@ -1,0 +1,1654 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3] [cursor=pointer]: 
+    - navigation [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - generic [ref=e8]:
+            - searchbox "Search..." [ref=e9]
+            - button "" [ref=e11] [cursor=pointer]
+            - text:     
+          - list [ref=e13]:
+            - listitem "Quick Create" [ref=e14]:
+              - link "+" [ref=e15] [cursor=pointer]:
+                - /url: "#"
+              - text:             
+        - text: 
+        - list [ref=e18]:
+          - listitem [ref=e19]:
+            - link "Share documents, ideas.." [ref=e20] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e23]:
+            - link "2" [ref=e24] [cursor=pointer]:
+              - /url: https://crm.anhtester.com/admin/todo
+          - listitem [ref=e1731]:
+            - link [ref=e29] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e31]:
+            - link "1" [ref=e32] [cursor=pointer]:
+              - /url: "#"
+            - text:  
+          - listitem "Notifications" [ref=e37]:
+            - link [ref=e38] [cursor=pointer]:
+              - /url: "#"
+  - text: 
+  - complementary [ref=e42]:
+    - list [ref=e43]:
+      - listitem [ref=e44]:
+        - link [ref=e46] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/
+          - img "Perfex CRM | Anh Tester Demo" [ref=e47]
+      - listitem [ref=e48]:
+        - link " Dashboard" [ref=e49] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/
+          - generic [ref=e50]: 
+          - text: Dashboard
+      - listitem [ref=e51]:
+        - link " Customers" [ref=e52] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/clients
+          - generic [ref=e53]: 
+          - text: Customers
+      - listitem [ref=e54]:
+        - link " Projects" [ref=e55] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/projects
+          - generic [ref=e56]: 
+          - text: Projects
+      - listitem [ref=e57]:
+        - link " Tasks" [ref=e58] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/tasks
+          - generic [ref=e59]: 
+          - text: Tasks
+      - listitem [ref=e60]:
+        - link " Contracts" [ref=e61] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/contracts
+          - generic [ref=e62]: 
+          - text: Contracts
+      - listitem [ref=e63]:
+        - link " Sales " [ref=e64] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e65]: 
+          - text: Sales
+          - generic [ref=e66]: 
+      - listitem [ref=e67]:
+        - link " Subscriptions" [ref=e68] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/subscriptions
+          - generic [ref=e69]: 
+          - text: Subscriptions
+      - listitem [ref=e70]:
+        - link " Expenses" [ref=e71] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/expenses
+          - generic [ref=e72]: 
+          - text: Expenses
+      - listitem [ref=e73]:
+        - link " Support" [ref=e74] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/tickets
+          - generic [ref=e75]: 
+          - text: Support
+      - listitem [ref=e76]:
+        - link " Leads" [ref=e77] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/leads
+          - generic [ref=e78]: 
+          - text: Leads
+      - listitem [ref=e79]:
+        - link " Estimate Request" [ref=e80] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/estimate_request
+          - generic [ref=e81]: 
+          - text: Estimate Request
+      - listitem [ref=e82]:
+        - link " Knowledge Base" [ref=e83] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/knowledge_base
+          - generic [ref=e84]: 
+          - text: Knowledge Base
+      - listitem [ref=e85]:
+        - link " Utilities " [ref=e86] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e87]: 
+          - text: Utilities
+          - generic [ref=e88]: 
+      - listitem [ref=e89]:
+        - link " Reports " [ref=e90] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e91]: 
+          - text: Reports
+          - generic [ref=e92]: 
+  - generic [ref=e93]:
+    - text:           
+    - generic [ref=e94] [cursor=pointer]: Dashboard Options
+    - generic [ref=e99]:
+      - generic [ref=e103]:
+        - generic [ref=e107]:
+          - generic [ref=e108]: 
+          - generic [ref=e109]:
+            - generic [ref=e111]:
+              - paragraph [ref=e113]:
+                - generic [ref=e116]: Invoice overview
+              - link "1 Draft" [ref=e118] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/invoices/list_invoices?status=6
+              - generic [ref=e119]:
+                - text: 14.29%
+                - progressbar [ref=e121]
+              - link "4 Not Sent" [ref=e123] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/invoices/list_invoices?filter=not_sent
+              - generic [ref=e124]:
+                - text: 57.14%
+                - progressbar [ref=e126]
+              - link "3 Unpaid" [ref=e128] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/invoices/list_invoices?status=1
+              - generic [ref=e129]:
+                - text: 42.86%
+                - progressbar [ref=e131]
+              - link "0 Partially Paid" [ref=e133] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/invoices/list_invoices?status=3
+              - generic [ref=e134]:
+                - text: 0.00%
+                - generic [ref=e135]:
+                  - progressbar
+              - link "0 Overdue" [ref=e137] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/invoices/list_invoices?status=4
+              - generic [ref=e138]:
+                - text: 0.00%
+                - generic [ref=e139]:
+                  - progressbar
+              - link "3 Paid" [ref=e141] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/invoices/list_invoices?status=2
+              - generic [ref=e142]:
+                - text: 42.86%
+                - progressbar [ref=e144]
+            - generic [ref=e146]:
+              - paragraph [ref=e148]:
+                - generic [ref=e151]: Estimate overview
+              - link "0 Draft" [ref=e153] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/estimates/list_estimates?status=1
+              - generic [ref=e154]:
+                - text: 0.00%
+                - generic [ref=e155]:
+                  - progressbar
+              - link "3 Not Sent" [ref=e157] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/estimates/list_estimates?not_sent=1
+              - generic [ref=e158]:
+                - text: 100.00%
+                - progressbar [ref=e160]
+              - link "0 Sent" [ref=e162] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/estimates/list_estimates?status=2
+              - generic [ref=e163]:
+                - text: 0.00%
+                - generic [ref=e164]:
+                  - progressbar
+              - link "3 Expired" [ref=e166] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/estimates/list_estimates?status=5
+              - generic [ref=e167]:
+                - text: 100.00%
+                - progressbar [ref=e169]
+              - link "0 Declined" [ref=e171] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/estimates/list_estimates?status=3
+              - generic [ref=e172]:
+                - text: 0.00%
+                - generic [ref=e173]:
+                  - progressbar
+              - link "0 Accepted" [ref=e175] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/estimates/list_estimates?status=4
+              - generic [ref=e176]:
+                - text: 0.00%
+                - generic [ref=e177]:
+                  - progressbar
+            - generic [ref=e179]:
+              - paragraph [ref=e181]:
+                - generic [ref=e184]: Proposal overview
+              - link "0 Draft" [ref=e186] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/proposals/list_proposals?status=6
+              - generic [ref=e187]:
+                - text: 0.00%
+                - generic [ref=e188]:
+                  - progressbar
+              - link "1 Sent" [ref=e190] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/proposals/list_proposals?status=4
+              - generic [ref=e191]:
+                - text: 20.00%
+                - progressbar [ref=e193]
+              - link "4 Open" [ref=e195] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/proposals/list_proposals?status=1
+              - generic [ref=e196]:
+                - text: 80.00%
+                - progressbar [ref=e198]
+              - link "0 Revised" [ref=e200] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/proposals/list_proposals?status=5
+              - generic [ref=e201]:
+                - text: 0.00%
+                - generic [ref=e202]:
+                  - progressbar
+              - link "0 Declined" [ref=e204] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/proposals/list_proposals?status=2
+              - generic [ref=e205]:
+                - text: 0.00%
+                - generic [ref=e206]:
+                  - progressbar
+              - link "0 Accepted" [ref=e208] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/proposals/list_proposals?status=3
+              - generic [ref=e209]:
+                - text: 0.00%
+                - generic [ref=e210]:
+                  - progressbar
+          - separator [ref=e212]
+          - generic [ref=e213]:
+            - generic [ref=e216]:
+              - listbox [ref=e217]:
+                - option "2026" [selected] [ref=e218]
+                - option "2025" [ref=e219]
+                - option "2024" [ref=e220]
+              - combobox "2026" [ref=e221] [cursor=pointer]
+            - generic [ref=e226]:
+              - generic [ref=e228]:
+                - term [ref=e229]: Outstanding Invoices
+                - definition [ref=e230]:
+                  - generic [ref=e231]: $2.00
+              - generic [ref=e233]:
+                - term [ref=e234]: Past Due Invoices
+                - definition [ref=e235]:
+                  - generic [ref=e236]: $0.00
+              - generic [ref=e238]:
+                - term [ref=e239]: Paid Invoices
+                - definition [ref=e240]:
+                  - generic [ref=e241]: $14.00
+        - generic [ref=e242]:
+          - generic [ref=e243]: 
+          - generic [ref=e244]:
+            - generic [ref=e246]:
+              - generic [ref=e247]:
+                - generic [ref=e248]: Invoices Awaiting Payment
+                - generic [ref=e252]: 3 / 6
+              - progressbar [ref=e254]
+            - generic [ref=e256]:
+              - generic [ref=e257]:
+                - generic [ref=e258]: Converted Leads
+                - generic [ref=e262]: 0 / 0
+              - generic [ref=e263]:
+                - progressbar
+            - generic [ref=e265]:
+              - generic [ref=e266]:
+                - generic [ref=e267]: Projects In Progress
+                - generic [ref=e271]: 70 / 163
+              - progressbar [ref=e273]
+            - generic [ref=e275]:
+              - generic [ref=e276]:
+                - generic [ref=e277]: Tasks Not Finished
+                - generic [ref=e281]: 248 / 249
+              - progressbar [ref=e283]
+        - generic [ref=e286]:
+          - generic [ref=e287]: 
+          - generic [ref=e288]:
+            - text:  
+            - tablist [ref=e290]:
+              - tab " My Tasks" [ref=e291]:
+                - generic [ref=e292]: 
+                - text: My Tasks
+              - tab " My Projects" [ref=e293] [cursor=pointer]:
+                - generic [ref=e294]: 
+                - text: My Projects
+              - tab " My Reminders" [ref=e295] [cursor=pointer]:
+                - generic [ref=e296]: 
+                - text: My Reminders
+              - tab " Tickets" [ref=e297] [cursor=pointer]:
+                - generic [ref=e298]: 
+                - text: Tickets
+              - tab " Announcements" [ref=e299] [cursor=pointer]:
+                - generic [ref=e300]: 
+                - text: Announcements
+          - tabpanel [ref=e302]:
+            - link "View All" [ref=e303] [cursor=pointer]:
+              - /url: https://crm.anhtester.com/admin/tasks/list_tasks
+            - generic [ref=e305]:
+              - generic [ref=e306]:
+                - generic [ref=e307]:
+                  - combobox [ref=e310]:
+                    - option "10"
+                    - option "25" [selected]
+                    - option "50"
+                    - option "100"
+                    - option "All"
+                  - generic [ref=e311]:
+                    - button "Export" [ref=e312] [cursor=pointer]
+                    - button "" [ref=e313] [cursor=pointer]
+                - generic [ref=e319]:
+                  - generic [ref=e320]: 
+                  - searchbox "" [ref=e322]
+              - text: x200B x200B
+              - grid [ref=e324]:
+                - rowgroup [ref=e325]:
+                  - row [ref=e326]:
+                    - columnheader "# activate to sort column ascending" [ref=e327] [cursor=pointer]: "#"
+                    - columnheader "Name activate to sort column ascending" [ref=e328] [cursor=pointer]: Name
+                    - columnheader "Status activate to sort column ascending" [ref=e329] [cursor=pointer]: Status
+                    - columnheader "Start Date activate to sort column ascending" [ref=e330] [cursor=pointer]: Start Date
+                    - columnheader "Tags activate to sort column ascending" [ref=e331] [cursor=pointer]: Tags
+                    - columnheader "Priority activate to sort column ascending" [ref=e332] [cursor=pointer]: Priority
+                - rowgroup [ref=e333]:
+                  - row [ref=e334]:
+                    - gridcell [ref=e335]:
+                      - link "1787" [ref=e336] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1787
+                    - 'gridcell "go go #2364 - Mua hàng qua app - Công ty Hải Lê Recurring Task Start Timer | Edit | Delete" [ref=e337]':
+                      - link "go go" [ref=e338] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1787
+                      - link "#2364 - Mua hàng qua app - Công ty Hải Lê" [ref=e339] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/projects/view/2364
+                      - generic [ref=e340]: Recurring Task
+                      - generic [ref=e341]:
+                        - link "Start Timer" [ref=e343] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e344] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e345] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1787
+                    - gridcell [ref=e346]:
+                      - generic [ref=e347]:
+                        - text: Awaiting Feedback
+                        - link "" [ref=e349] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e350]: 
+                    - gridcell "05-05-2026" [ref=e352]
+                    - gridcell [ref=e353]
+                    - gridcell [ref=e354]:
+                      - generic [ref=e355]:
+                        - text: Medium
+                        - link "" [ref=e357] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e358]: 
+                  - row [ref=e360]:
+                    - gridcell [ref=e361]:
+                      - link "1658" [ref=e362] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1658
+                    - gridcell [ref=e363]:
+                      - link "auto_bva_date_1777940837865" [ref=e364] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1658
+                      - generic [ref=e365]:
+                        - link "Start Timer" [ref=e367] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e368] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e369] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1658
+                    - gridcell [ref=e370]:
+                      - generic [ref=e371]:
+                        - text: In Progress
+                        - link "" [ref=e373] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e374]: 
+                    - gridcell "10-05-2026" [ref=e376]
+                    - gridcell [ref=e377]
+                    - gridcell [ref=e378]:
+                      - generic [ref=e379]:
+                        - text: Medium
+                        - link "" [ref=e381] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e382]: 
+                  - row [ref=e384]:
+                    - gridcell [ref=e385]:
+                      - link "1664" [ref=e386] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1664
+                    - gridcell [ref=e387]:
+                      - link "auto_bva_date_1777940973417" [ref=e388] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1664
+                      - generic [ref=e389]:
+                        - link "Start Timer" [ref=e391] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e392] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e393] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1664
+                    - gridcell [ref=e394]:
+                      - generic [ref=e395]:
+                        - text: In Progress
+                        - link "" [ref=e397] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e398]: 
+                    - gridcell "10-05-2026" [ref=e400]
+                    - gridcell [ref=e401]
+                    - gridcell [ref=e402]:
+                      - generic [ref=e403]:
+                        - text: Medium
+                        - link "" [ref=e405] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e406]: 
+                  - row [ref=e408]:
+                    - gridcell [ref=e409]:
+                      - link "1667" [ref=e410] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1667
+                    - gridcell [ref=e411]:
+                      - link "auto_bva_date_1777945717204" [ref=e412] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1667
+                      - generic [ref=e413]:
+                        - link "Start Timer" [ref=e415] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e416] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e417] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1667
+                    - gridcell [ref=e418]:
+                      - generic [ref=e419]:
+                        - text: Not Started
+                        - link "" [ref=e421] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e422]: 
+                    - gridcell "10-05-2026" [ref=e424]
+                    - gridcell [ref=e425]
+                    - gridcell [ref=e426]:
+                      - generic [ref=e427]:
+                        - text: Medium
+                        - link "" [ref=e429] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e430]: 
+                  - row [ref=e432]:
+                    - gridcell [ref=e433]:
+                      - link "1678" [ref=e434] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1678
+                    - gridcell [ref=e435]:
+                      - link "auto_bva_date_1777945985225" [ref=e436] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1678
+                      - generic [ref=e437]:
+                        - link "Start Timer" [ref=e439] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e440] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e441] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1678
+                    - gridcell [ref=e442]:
+                      - generic [ref=e443]:
+                        - text: Not Started
+                        - link "" [ref=e445] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e446]: 
+                    - gridcell "10-05-2026" [ref=e448]
+                    - gridcell [ref=e449]
+                    - gridcell [ref=e450]:
+                      - generic [ref=e451]:
+                        - text: Medium
+                        - link "" [ref=e453] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e454]: 
+                  - row [ref=e456]:
+                    - gridcell [ref=e457]:
+                      - link "1688" [ref=e458] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1688
+                    - gridcell [ref=e459]:
+                      - link "auto_bva_date_1777947767478" [ref=e460] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1688
+                      - generic [ref=e461]:
+                        - link "Start Timer" [ref=e463] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e464] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e465] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1688
+                    - gridcell [ref=e466]:
+                      - generic [ref=e467]:
+                        - text: Not Started
+                        - link "" [ref=e469] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e470]: 
+                    - gridcell "10-05-2026" [ref=e472]
+                    - gridcell [ref=e473]
+                    - gridcell [ref=e474]:
+                      - generic [ref=e475]:
+                        - text: Medium
+                        - link "" [ref=e477] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e478]: 
+                  - row [ref=e480]:
+                    - gridcell [ref=e481]:
+                      - link "1832" [ref=e482] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1832
+                    - 'gridcell "Discuss về plan #2451 - Tổ ấm nhỏ - Công ty CP YHL Recurring Task Start Timer | Edit | Delete" [ref=e483]':
+                      - link "Discuss về plan" [ref=e484] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1832
+                      - link "#2451 - Tổ ấm nhỏ - Công ty CP YHL" [ref=e485] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/projects/view/2451
+                      - generic [ref=e486]: Recurring Task
+                      - generic [ref=e487]:
+                        - link "Start Timer" [ref=e489] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e490] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e491] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1832
+                    - gridcell [ref=e492]:
+                      - generic [ref=e493]:
+                        - text: In Progress
+                        - link "" [ref=e495] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e496]: 
+                    - gridcell "10-05-2026" [ref=e498]
+                    - gridcell "nhanhotiennghi" [ref=e499]
+                    - gridcell [ref=e502]:
+                      - generic [ref=e503]:
+                        - text: Medium
+                        - link "" [ref=e505] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e506]: 
+                  - row [ref=e508]:
+                    - gridcell [ref=e509]:
+                      - link "1837" [ref=e510] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1837
+                    - 'gridcell "Lên plan #2464 - Nhà là nơi để về - Công ty vật liệu YHL Recurring Task Start Timer | Edit | Delete" [ref=e511]':
+                      - link "Lên plan" [ref=e512] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1837
+                      - link "#2464 - Nhà là nơi để về - Công ty vật liệu YHL" [ref=e513] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/projects/view/2464
+                      - generic [ref=e514]: Recurring Task
+                      - generic [ref=e515]:
+                        - link "Start Timer" [ref=e517] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e518] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e519] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1837
+                    - gridcell [ref=e520]:
+                      - generic [ref=e521]:
+                        - text: In Progress
+                        - link "" [ref=e523] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e524]: 
+                    - gridcell "10-05-2026" [ref=e526]
+                    - gridcell "nhanhotiennghi" [ref=e527]
+                    - gridcell [ref=e530]:
+                      - generic [ref=e531]:
+                        - text: Medium
+                        - link "" [ref=e533] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e534]: 
+                  - row [ref=e536]:
+                    - gridcell [ref=e537]:
+                      - link "1670" [ref=e538] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1670
+                    - gridcell [ref=e539]:
+                      - link "Test Date BVA" [ref=e540] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1670
+                      - generic [ref=e541]:
+                        - link "Start Timer" [ref=e543] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e544] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e545] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1670
+                    - gridcell [ref=e546]:
+                      - generic [ref=e547]:
+                        - text: Not Started
+                        - link "" [ref=e549] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e550]: 
+                    - gridcell "20-05-2026" [ref=e552]
+                    - gridcell [ref=e553]
+                    - gridcell [ref=e554]:
+                      - generic [ref=e555]:
+                        - text: Medium
+                        - link "" [ref=e557] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e558]: 
+                  - row [ref=e560]:
+                    - gridcell [ref=e561]:
+                      - link "1795" [ref=e562] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1795
+                    - 'gridcell "rrrrrrrrrrrrrrr #2374 - Mua hàng qua app - Công ty Hải Lê Recurring Task Start Timer | Edit | Delete" [ref=e563]':
+                      - link "rrrrrrrrrrrrrrr" [ref=e564] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1795
+                      - link "#2374 - Mua hàng qua app - Công ty Hải Lê" [ref=e565] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/projects/view/2374
+                      - generic [ref=e566]: Recurring Task
+                      - generic [ref=e567]:
+                        - link "Start Timer" [ref=e569] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e570] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e571] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1795
+                    - gridcell [ref=e572]:
+                      - generic [ref=e573]:
+                        - text: In Progress
+                        - link "" [ref=e575] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e576]: 
+                    - gridcell "05-05-2026" [ref=e578]
+                    - gridcell [ref=e579]
+                    - gridcell [ref=e580]:
+                      - generic [ref=e581]:
+                        - text: Medium
+                        - link "" [ref=e583] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e584]: 
+                  - row [ref=e586]:
+                    - gridcell [ref=e587]:
+                      - link "1851" [ref=e588] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1851
+                    - gridcell [ref=e589]:
+                      - link "auto_task_create_20260525165250149Z" [ref=e590] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1851
+                      - generic [ref=e591]:
+                        - link "Start Timer" [ref=e593] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e594] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e595] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1851
+                    - gridcell [ref=e596]:
+                      - generic [ref=e597]:
+                        - text: In Progress
+                        - link "" [ref=e599] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e600]: 
+                    - gridcell "25-05-2026" [ref=e602]
+                    - gridcell [ref=e603]
+                    - gridcell [ref=e604]:
+                      - generic [ref=e605]:
+                        - text: High
+                        - link "" [ref=e607] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e608]: 
+                  - row [ref=e610]:
+                    - gridcell [ref=e611]:
+                      - link "1858" [ref=e612] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1858
+                    - gridcell [ref=e613]:
+                      - link "auto_task_create_20260525171131046Z" [ref=e614] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1858
+                      - generic [ref=e615]:
+                        - link "Start Timer" [ref=e617] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e618] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e619] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1858
+                    - gridcell [ref=e620]:
+                      - generic [ref=e621]:
+                        - text: In Progress
+                        - link "" [ref=e623] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e624]: 
+                    - gridcell "25-05-2026" [ref=e626]
+                    - gridcell [ref=e627]
+                    - gridcell [ref=e628]:
+                      - generic [ref=e629]:
+                        - text: High
+                        - link "" [ref=e631] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e632]: 
+                  - row [ref=e634]:
+                    - gridcell [ref=e635]:
+                      - link "1865" [ref=e636] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1865
+                    - gridcell [ref=e637]:
+                      - link "auto_task_create_20260526085917930Z" [ref=e638] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1865
+                      - generic [ref=e639]:
+                        - link "Start Timer" [ref=e641] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e642] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e643] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1865
+                    - gridcell [ref=e644]:
+                      - generic [ref=e645]:
+                        - text: In Progress
+                        - link "" [ref=e647] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e648]: 
+                    - gridcell "25-05-2026" [ref=e650]
+                    - gridcell [ref=e651]
+                    - gridcell [ref=e652]:
+                      - generic [ref=e653]:
+                        - text: High
+                        - link "" [ref=e655] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e656]: 
+                  - row [ref=e658]:
+                    - gridcell [ref=e659]:
+                      - link "1873" [ref=e660] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1873
+                    - gridcell [ref=e661]:
+                      - link "auto_task_create_20260526090050154Z" [ref=e662] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1873
+                      - generic [ref=e663]:
+                        - link "Start Timer" [ref=e665] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e666] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e667] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1873
+                    - gridcell [ref=e668]:
+                      - generic [ref=e669]:
+                        - text: In Progress
+                        - link "" [ref=e671] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e672]: 
+                    - gridcell "25-05-2026" [ref=e674]
+                    - gridcell [ref=e675]
+                    - gridcell [ref=e676]:
+                      - generic [ref=e677]:
+                        - text: High
+                        - link "" [ref=e679] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e680]: 
+                  - row [ref=e682]:
+                    - gridcell [ref=e683]:
+                      - link "1651" [ref=e684] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1651
+                    - gridcell [ref=e685]:
+                      - link "auto_task_create_20260505001832893Z" [ref=e686] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1651
+                      - generic [ref=e687]:
+                        - link "Start Timer" [ref=e689] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e690] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e691] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1651
+                    - gridcell [ref=e692]:
+                      - generic [ref=e693]:
+                        - text: Not Started
+                        - link "" [ref=e695] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e696]: 
+                    - gridcell "25-05-2026" [ref=e698]
+                    - gridcell [ref=e699]
+                    - gridcell [ref=e700]:
+                      - generic [ref=e701]:
+                        - text: High
+                        - link "" [ref=e703] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e704]: 
+                  - row [ref=e706]:
+                    - gridcell [ref=e707]:
+                      - link "1659" [ref=e708] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1659
+                    - gridcell [ref=e709]:
+                      - link "auto_task_create_20260505002713693Z" [ref=e710] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1659
+                      - generic [ref=e711]:
+                        - link "Start Timer" [ref=e713] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e714] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e715] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1659
+                    - gridcell [ref=e716]:
+                      - generic [ref=e717]:
+                        - text: Not Started
+                        - link "" [ref=e719] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e720]: 
+                    - gridcell "25-05-2026" [ref=e722]
+                    - gridcell [ref=e723]
+                    - gridcell [ref=e724]:
+                      - generic [ref=e725]:
+                        - text: High
+                        - link "" [ref=e727] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e728]: 
+                  - row [ref=e730]:
+                    - gridcell [ref=e731]:
+                      - link "1662" [ref=e732] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1662
+                    - gridcell [ref=e733]:
+                      - link "auto_task_create_20260505002929012Z" [ref=e734] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1662
+                      - generic [ref=e735]:
+                        - link "Start Timer" [ref=e737] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e738] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e739] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1662
+                    - gridcell [ref=e740]:
+                      - generic [ref=e741]:
+                        - text: Not Started
+                        - link "" [ref=e743] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e744]: 
+                    - gridcell "25-05-2026" [ref=e746]
+                    - gridcell [ref=e747]
+                    - gridcell [ref=e748]:
+                      - generic [ref=e749]:
+                        - text: High
+                        - link "" [ref=e751] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e752]: 
+                  - row [ref=e754]:
+                    - gridcell [ref=e755]:
+                      - link "1666" [ref=e756] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1666
+                    - gridcell [ref=e757]:
+                      - link "auto_task_create_20260505014826284Z" [ref=e758] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1666
+                      - generic [ref=e759]:
+                        - link "Start Timer" [ref=e761] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e762] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e763] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1666
+                    - gridcell [ref=e764]:
+                      - generic [ref=e765]:
+                        - text: Not Started
+                        - link "" [ref=e767] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e768]: 
+                    - gridcell "25-05-2026" [ref=e770]
+                    - gridcell [ref=e771]
+                    - gridcell [ref=e772]:
+                      - generic [ref=e773]:
+                        - text: High
+                        - link "" [ref=e775] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e776]: 
+                  - row [ref=e778]:
+                    - gridcell [ref=e779]:
+                      - link "1675" [ref=e780] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1675
+                    - gridcell [ref=e781]:
+                      - link "auto_task_create_20260505015250408Z" [ref=e782] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1675
+                      - generic [ref=e783]:
+                        - link "Start Timer" [ref=e785] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e786] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e787] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1675
+                    - gridcell [ref=e788]:
+                      - generic [ref=e789]:
+                        - text: Not Started
+                        - link "" [ref=e791] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e792]: 
+                    - gridcell "25-05-2026" [ref=e794]
+                    - gridcell [ref=e795]
+                    - gridcell [ref=e796]:
+                      - generic [ref=e797]:
+                        - text: High
+                        - link "" [ref=e799] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e800]: 
+                  - row [ref=e802]:
+                    - gridcell [ref=e803]:
+                      - link "1687" [ref=e804] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1687
+                    - gridcell [ref=e805]:
+                      - link "auto_task_create_20260505022236167Z" [ref=e806] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1687
+                      - generic [ref=e807]:
+                        - link "Start Timer" [ref=e809] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e810] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e811] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1687
+                    - gridcell [ref=e812]:
+                      - generic [ref=e813]:
+                        - text: Not Started
+                        - link "" [ref=e815] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e816]: 
+                    - gridcell "25-05-2026" [ref=e818]
+                    - gridcell [ref=e819]
+                    - gridcell [ref=e820]:
+                      - generic [ref=e821]:
+                        - text: High
+                        - link "" [ref=e823] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e824]: 
+                  - row [ref=e826]:
+                    - gridcell [ref=e827]:
+                      - link "1699" [ref=e828] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1699
+                    - gridcell [ref=e829]:
+                      - link "auto_task_create_20260505022436274Z" [ref=e830] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1699
+                      - generic [ref=e831]:
+                        - link "Start Timer" [ref=e833] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e834] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e835] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1699
+                    - gridcell [ref=e836]:
+                      - generic [ref=e837]:
+                        - text: Not Started
+                        - link "" [ref=e839] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e840]: 
+                    - gridcell "25-05-2026" [ref=e842]
+                    - gridcell [ref=e843]
+                    - gridcell [ref=e844]:
+                      - generic [ref=e845]:
+                        - text: High
+                        - link "" [ref=e847] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e848]: 
+                  - row [ref=e850]:
+                    - gridcell [ref=e851]:
+                      - link "1707" [ref=e852] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1707
+                    - gridcell [ref=e853]:
+                      - link "auto_task_create_20260505022652485Z" [ref=e854] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1707
+                      - generic [ref=e855]:
+                        - link "Start Timer" [ref=e857] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e858] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e859] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1707
+                    - gridcell [ref=e860]:
+                      - generic [ref=e861]:
+                        - text: Not Started
+                        - link "" [ref=e863] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e864]: 
+                    - gridcell "25-05-2026" [ref=e866]
+                    - gridcell [ref=e867]
+                    - gridcell [ref=e868]:
+                      - generic [ref=e869]:
+                        - text: High
+                        - link "" [ref=e871] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e872]: 
+                  - row [ref=e874]:
+                    - gridcell [ref=e875]:
+                      - link "1716" [ref=e876] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1716
+                    - gridcell [ref=e877]:
+                      - link "auto_task_create_20260505022902544Z" [ref=e878] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1716
+                      - generic [ref=e879]:
+                        - link "Start Timer" [ref=e881] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e882] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e883] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1716
+                    - gridcell [ref=e884]:
+                      - generic [ref=e885]:
+                        - text: Not Started
+                        - link "" [ref=e887] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e888]: 
+                    - gridcell "25-05-2026" [ref=e890]
+                    - gridcell [ref=e891]
+                    - gridcell [ref=e892]:
+                      - generic [ref=e893]:
+                        - text: High
+                        - link "" [ref=e895] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e896]: 
+                  - row [ref=e898]:
+                    - gridcell [ref=e899]:
+                      - link "1729" [ref=e900] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1729
+                    - gridcell [ref=e901]:
+                      - link "auto_task_create_20260505023106010Z" [ref=e902] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1729
+                      - generic [ref=e903]:
+                        - link "Start Timer" [ref=e905] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e906] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e907] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1729
+                    - gridcell [ref=e908]:
+                      - generic [ref=e909]:
+                        - text: Not Started
+                        - link "" [ref=e911] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e912]: 
+                    - gridcell "25-05-2026" [ref=e914]
+                    - gridcell [ref=e915]
+                    - gridcell [ref=e916]:
+                      - generic [ref=e917]:
+                        - text: High
+                        - link "" [ref=e919] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e920]: 
+                  - row [ref=e922]:
+                    - gridcell [ref=e923]:
+                      - link "1734" [ref=e924] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1734
+                    - gridcell [ref=e925]:
+                      - link "auto_task_create_20260505023230080Z" [ref=e926] [cursor=pointer]:
+                        - /url: https://crm.anhtester.com/admin/tasks/view/1734
+                      - generic [ref=e927]:
+                        - link "Start Timer" [ref=e929] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Edit" [ref=e930] [cursor=pointer]:
+                          - /url: "#"
+                        - text: "|"
+                        - link "Delete" [ref=e931] [cursor=pointer]:
+                          - /url: https://crm.anhtester.com/admin/tasks/delete_task/1734
+                    - gridcell [ref=e932]:
+                      - generic [ref=e933]:
+                        - text: Not Started
+                        - link "" [ref=e935] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Change Status" [ref=e936]: 
+                    - gridcell "25-05-2026" [ref=e938]
+                    - gridcell [ref=e939]
+                    - gridcell [ref=e940]:
+                      - generic [ref=e941]:
+                        - text: High
+                        - link "" [ref=e943] [cursor=pointer]:
+                          - /url: "#"
+                          - generic "Priority" [ref=e944]: 
+              - generic [ref=e946]:
+                - status [ref=e948]: Showing 1 to 25 of 248 entries
+                - generic [ref=e949]:
+                  - combobox [ref=e950]:
+                    - option "1" [selected]
+                    - option "2"
+                    - option "3"
+                    - option "4"
+                    - option "5"
+                    - option "6"
+                    - option "7"
+                    - option "8"
+                    - option "9"
+                    - option "10"
+                  - list [ref=e952]:
+                    - listitem:
+                      - link "Previous" [ref=e953]:
+                        - /url: "#"
+                    - listitem:
+                      - link "1" [ref=e954]:
+                        - /url: "#"
+                    - listitem:
+                      - link "2" [ref=e955] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem:
+                      - link "3" [ref=e956] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem:
+                      - link "4" [ref=e957] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem:
+                      - link "5" [ref=e958] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem:
+                      - link "…" [ref=e959]:
+                        - /url: "#"
+                    - listitem:
+                      - link "10" [ref=e960] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem:
+                      - link "Next" [ref=e961] [cursor=pointer]:
+                        - /url: "#"
+        - generic [ref=e964]:
+          - generic [ref=e965]: 
+          - text: x200B x200B
+          - generic [ref=e966]:
+            - generic [ref=e967]:
+              - generic [ref=e968]:
+                - generic [ref=e969]:
+                  - button "prev" [ref=e970] [cursor=pointer]:
+                    - generic [ref=e971]: 
+                  - button "next" [ref=e972] [cursor=pointer]:
+                    - generic [ref=e973]: 
+                - generic [ref=e974]:
+                  - button "today" [disabled] [ref=e975]
+                  - button "expand" [ref=e976] [cursor=pointer]
+              - heading "September 2026" [level=2] [ref=e978]
+              - generic [ref=e980]:
+                - button "month" [ref=e981] [cursor=pointer]
+                - button "week" [ref=e982] [cursor=pointer]
+                - button "day" [ref=e983] [cursor=pointer]
+                - button "filter by" [ref=e984] [cursor=pointer]
+            - table [ref=e987]:
+              - rowgroup [ref=e988]:
+                - row [ref=e989]:
+                  - cell [ref=e990]:
+                    - table [ref=e993]:
+                      - rowgroup [ref=e995]:
+                        - row [ref=e996]:
+                          - columnheader "Sun" [ref=e997]
+                          - columnheader "Mon" [ref=e1000]
+                          - columnheader "Tue" [ref=e1003]
+                          - columnheader "Wed" [ref=e1006]
+                          - columnheader "Thu" [ref=e1009]
+                          - columnheader "Fri" [ref=e1012]
+                          - columnheader "Sat" [ref=e1015]
+              - rowgroup [ref=e1018]:
+                - row [ref=e1019]:
+                  - cell [ref=e1020]:
+                    - table [ref=e1024]:
+                      - rowgroup [ref=e1026]:
+                        - row [ref=e1027]:
+                          - cell "30" [ref=e1028]
+                          - cell "31 AUTO_POM_ADD_PROJECT_1787064837550 AUTO_POM_ADD_PROJECT_1787065114991 AUTO_POM_ADD_PROJECT_1787065135358 AUTO_POM_ADD_PROJECT_1787065710914 +30 more" [ref=e1033]:
+                            - generic [ref=e1034]:
+                              - generic [ref=e1035]: "31"
+                              - generic [ref=e1037]:
+                                - link "AUTO_POM_ADD_PROJECT_1787064837550" [ref=e1039] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2696
+                                - link "AUTO_POM_ADD_PROJECT_1787065114991" [ref=e1045] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2697
+                                - link "AUTO_POM_ADD_PROJECT_1787065135358" [ref=e1051] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2698
+                                - link "AUTO_POM_ADD_PROJECT_1787065710914" [ref=e1057] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2699
+                                - generic [ref=e1062]: +30 more
+                          - cell "1 AUTO_POM_ADD_PROJECT_1785661551151 AUTO_POM_ADD_PROJECT_1785661789456 Test company" [ref=e1063]:
+                            - generic [ref=e1064]:
+                              - generic [ref=e1065]: "1"
+                              - generic [ref=e1067]:
+                                - link "AUTO_POM_ADD_PROJECT_1785661551151" [ref=e1069] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2647
+                                - link "AUTO_POM_ADD_PROJECT_1785661789456" [ref=e1075] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2649
+                                - link "Test company" [ref=e1081] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2733
+                          - cell "2" [ref=e1086]
+                          - cell "3" [ref=e1091]
+                          - cell "4" [ref=e1096]
+                          - cell "5" [ref=e1101]
+                        - row [ref=e1106]:
+                          - cell "6" [ref=e1107]
+                          - cell "7" [ref=e1112]
+                          - cell "8 AUTO_POM_ADD_PROJECT_1786262640439 AUTO_POM_ADD_PROJECT_1786262915509 AUTO_POM_ADD_PROJECT_1786262990104 AUTO_POM_ADD_PROJECT_1786263051600 +19 more" [ref=e1117]:
+                            - generic [ref=e1118]:
+                              - generic [ref=e1119]: "8"
+                              - generic [ref=e1121]:
+                                - link "AUTO_POM_ADD_PROJECT_1786262640439" [ref=e1123] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2655
+                                - link "AUTO_POM_ADD_PROJECT_1786262915509" [ref=e1129] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2656
+                                - link "AUTO_POM_ADD_PROJECT_1786262990104" [ref=e1135] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2657
+                                - link "AUTO_POM_ADD_PROJECT_1786263051600" [ref=e1141] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2658
+                                - generic [ref=e1146]: +19 more
+                          - cell "9" [ref=e1147]
+                          - cell "10 New Project 3008 New Project 3008 New Project 3008 New Project 3008 +7 more" [ref=e1152]:
+                            - generic [ref=e1153]:
+                              - generic [ref=e1154]: "10"
+                              - generic [ref=e1156]:
+                                - link "New Project 3008" [ref=e1158] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2734
+                                - link "New Project 3008" [ref=e1164] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2735
+                                - link "New Project 3008" [ref=e1170] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2736
+                                - link "New Project 3008" [ref=e1176] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/projects/view/2737
+                                - generic [ref=e1181]: +7 more
+                          - cell "11" [ref=e1182]
+                          - cell "12" [ref=e1187]
+                        - row [ref=e1192]:
+                          - cell "13" [ref=e1193]
+                          - cell "14 1231322323" [ref=e1198]:
+                            - generic [ref=e1199]:
+                              - generic [ref=e1200]: "14"
+                              - link "1231322323" [ref=e1204] [cursor=pointer]:
+                                - /url: https://crm.anhtester.com/admin/projects/view/2785
+                          - cell "15 Edited Contract 20260906114741 Edited Contract 20260906115433 Edited Contract 20260906120731 Edited Contract 20260906121425 +13 more" [ref=e1209]:
+                            - generic [ref=e1210]:
+                              - generic [ref=e1211]: "15"
+                              - generic [ref=e1213]:
+                                - link "Edited Contract 20260906114741" [ref=e1215] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/contracts/contract/734
+                                - link "Edited Contract 20260906115433" [ref=e1221] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/contracts/contract/737
+                                - link "Edited Contract 20260906120731" [ref=e1227] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/contracts/contract/745
+                                - link "Edited Contract 20260906121425" [ref=e1233] [cursor=pointer]:
+                                  - /url: https://crm.anhtester.com/admin/contracts/contract/749
+                                - generic [ref=e1238]: +13 more
+                          - cell "16" [ref=e1239]
+                          - cell "17" [ref=e1244]
+                          - cell "18" [ref=e1249]
+                          - cell "19" [ref=e1254]
+                        - row [ref=e1259]:
+                          - cell "20 AUTO_POM_ADD_TASK_1789292326684..." [ref=e1260]:
+                            - generic [ref=e1261]:
+                              - generic [ref=e1262]: "20"
+                              - link "AUTO_POM_ADD_TASK_1789292326684..." [ref=e1266] [cursor=pointer]:
+                                - /url: "#"
+                          - cell "21" [ref=e1271]
+                          - cell "22" [ref=e1276]
+                          - cell "23" [ref=e1281]
+                          - cell "24" [ref=e1286]
+                          - cell "25" [ref=e1291]
+                          - cell "26" [ref=e1296]
+                        - row [ref=e1301]:
+                          - cell "27" [ref=e1302]
+                          - cell "28" [ref=e1307]
+                          - cell "29" [ref=e1312]
+                          - cell "30" [ref=e1317]
+                          - cell "1" [ref=e1322]
+                          - cell "2" [ref=e1327]
+                          - cell "3" [ref=e1332]
+                        - row [ref=e1337]:
+                          - cell "4" [ref=e1338]
+                          - cell "5" [ref=e1343]
+                          - cell "6" [ref=e1348]
+                          - cell "7" [ref=e1353]
+                          - cell "8" [ref=e1358]
+                          - cell "9 Test Due Date Logic... Test Due Date..." [ref=e1363]:
+                            - generic [ref=e1364]:
+                              - generic [ref=e1365]: "9"
+                              - generic [ref=e1367]:
+                                - link "Test Due Date Logic..." [ref=e1369] [cursor=pointer]:
+                                  - /url: "#"
+                                - link "Test Due Date..." [ref=e1375] [cursor=pointer]:
+                                  - /url: "#"
+                          - cell "10" [ref=e1380]
+        - generic [ref=e1389]:
+          - iframe [ref=e1390]
+          - generic [ref=e1391]: 
+          - generic [ref=e1392]:
+            - paragraph [ref=e1393]:
+              - generic [ref=e1396]: Payment Records
+            - generic [ref=e1397]:
+              - link "Full Report" [ref=e1398] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/reports/sales
+              - link "Weekly" [ref=e1400] [cursor=pointer]:
+                - /url: "#"
+                - text: Weekly
+                - generic [aria-hidden] [ref=e1401]: 
+          - separator [ref=e1402]
+        - generic [ref=e1406]:
+          - generic [ref=e1407]: 
+          - generic [ref=e1408]:
+            - paragraph [ref=e1409]:
+              - generic [ref=e1412]: Contracts Expiring Soon
+            - link "View All" [ref=e1413] [cursor=pointer]:
+              - /url: https://crm.anhtester.com/admin/contracts
+          - separator [ref=e1414]
+          - generic [ref=e1415]:
+            - generic [aria-hidden] [ref=e1416]: 
+            - paragraph [ref=e1417]: There are no contracts that are going to expire in the next 7 days.
+      - generic [ref=e1418]:
+        - generic [ref=e1421]:
+          - generic [ref=e1422]: 
+          - generic [ref=e1423]:
+            - paragraph [ref=e1424]:
+              - generic [ref=e1427]: My To Do Items
+            - generic [ref=e1428]:
+              - link "View All" [ref=e1429] [cursor=pointer]:
+                - /url: https://crm.anhtester.com/admin/todo
+              - link "New To Do" [ref=e1430] [cursor=pointer]:
+                - /url: "#__todo"
+          - separator [ref=e1431]
+          - heading " Latest to do's" [level=4] [ref=e1432]:
+            - generic [ref=e1433]: 
+            - text: Latest to do's
+          - list [ref=e1434]:
+            - listitem [ref=e1435]:
+              - generic [ref=e1436]:
+                - generic [ref=e1439]:
+                  - checkbox [ref=e1440]
+                  - generic [ref=e1441] [cursor=pointer]
+                - generic [ref=e1442]:
+                  - generic [ref=e1443]: Auto_Todo_1785308162297
+                  - link "" [ref=e1444] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1446] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1448]: 29-07-2026 13:55:59
+            - listitem [ref=e1449]:
+              - generic [ref=e1450]:
+                - generic [ref=e1453]:
+                  - checkbox [ref=e1454]
+                  - generic [ref=e1455] [cursor=pointer]
+                - generic [ref=e1456]:
+                  - generic [ref=e1457]: discovery sample query
+                  - link "" [ref=e1458] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1460] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1462]: 29-07-2026 16:00:12
+          - heading " Latest finished to do's" [level=4] [ref=e1463]:
+            - generic [ref=e1464]: 
+            - text: Latest finished to do's
+          - list [ref=e1465]:
+            - listitem [ref=e1466]:
+              - generic [ref=e1467]:
+                - generic [ref=e1470]:
+                  - checkbox [checked] [ref=e1471]
+                  - generic [ref=e1472] [cursor=pointer]: 
+                - generic [ref=e1473]:
+                  - generic [ref=e1474]: Auto_Todo_1785308757872
+                  - link "" [ref=e1475] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1477] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1479]: 11-08-2026 14:55:14
+            - listitem [ref=e1480]:
+              - generic [ref=e1481]:
+                - generic [ref=e1484]:
+                  - checkbox [checked] [ref=e1485]
+                  - generic [ref=e1486] [cursor=pointer]: 
+                - generic [ref=e1487]:
+                  - generic [ref=e1488]: Auto_Todo_1785326692915
+                  - link "" [ref=e1489] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1491] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1493]: 11-08-2026 14:55:16
+            - listitem [ref=e1494]:
+              - generic [ref=e1495]:
+                - generic [ref=e1498]:
+                  - checkbox [checked] [ref=e1499]
+                  - generic [ref=e1500] [cursor=pointer]: 
+                - generic [ref=e1501]:
+                  - generic [ref=e1502]: Auto_Todo_1785391509623
+                  - link "" [ref=e1503] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1505] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1507]: 11-08-2026 14:55:18
+            - listitem [ref=e1508]:
+              - generic [ref=e1509]:
+                - generic [ref=e1512]:
+                  - checkbox [checked] [ref=e1513]
+                  - generic [ref=e1514] [cursor=pointer]: 
+                - generic [ref=e1515]:
+                  - generic [ref=e1516]: Auto test description 071e5134-6a9b-4d7d-8d16-75e5025e69a3
+                  - link "" [ref=e1517] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1519] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1521]: 10-06-2026 11:10:42
+            - listitem [ref=e1522]:
+              - generic [ref=e1523]:
+                - generic [ref=e1526]:
+                  - checkbox [checked] [ref=e1527]
+                  - generic [ref=e1528] [cursor=pointer]: 
+                - generic [ref=e1529]:
+                  - generic [ref=e1530]: Auto test description ada27a27-dc8d-4a6d-bdcd-735c76521ed2
+                  - link "" [ref=e1531] [cursor=pointer]:
+                    - /url: "#"
+                  - link "" [ref=e1533] [cursor=pointer]:
+                    - /url: "#"
+                  - generic [ref=e1535]: 10-06-2026 11:10:42
+        - generic [ref=e1540]:
+          - generic [ref=e1541]: 
+          - paragraph [ref=e1542]:
+            - generic [ref=e1545]: Leads Overview
+          - separator [ref=e1546]
+          - iframe [ref=e1548]
+        - generic [ref=e1554]:
+          - generic [ref=e1555]: 
+          - paragraph [ref=e1556]:
+            - generic [ref=e1559]: Statistics by Project Status
+          - separator [ref=e1560]
+          - iframe [ref=e1562]
+        - generic [ref=e1566]:
+          - generic [ref=e1567]: 
+          - paragraph [ref=e1568]:
+            - generic [ref=e1571]: Latest Project Activity
+          - separator [ref=e1572]
+          - generic [ref=e1573]:
+            - generic [ref=e1574]:
+              - generic [ref=e1575]: 6 hrs ago
+              - generic [ref=e1577]:
+                - paragraph [ref=e1578]:
+                  - link "Admin Example" [ref=e1579] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "1231322323" [ref=e1580] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2785
+              - paragraph [ref=e1581]: Admin Example
+            - generic [ref=e1582]:
+              - generic [ref=e1583]: 6 hrs ago
+              - generic [ref=e1585]:
+                - paragraph [ref=e1586]:
+                  - link "Admin Example" [ref=e1587] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "1231322323" [ref=e1588] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2785
+            - generic [ref=e1589]:
+              - generic [ref=e1590]: yesterday
+              - generic [ref=e1592]:
+                - paragraph [ref=e1593]:
+                  - link "Admin Example" [ref=e1594] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new task assignee"
+                - text: "Project Name:"
+                - link "AUTO_POM_ADD_PROJECT_1789296855328" [ref=e1595] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2783
+              - paragraph [ref=e1596]: AUTO_POM_ADD_TASK_1789296907304 - Admin Example
+            - generic [ref=e1597]:
+              - generic [ref=e1598]: yesterday
+              - generic [ref=e1600]:
+                - paragraph [ref=e1601]:
+                  - link "Admin Example" [ref=e1602] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "AUTO_POM_ADD_PROJECT_1789296855328" [ref=e1603] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2783
+              - paragraph [ref=e1604]: Admin Example
+            - generic [ref=e1605]:
+              - generic [ref=e1606]: yesterday
+              - generic [ref=e1608]:
+                - paragraph [ref=e1609]:
+                  - link "Admin Example" [ref=e1610] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "AUTO_POM_ADD_PROJECT_1789296855328" [ref=e1611] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2783
+            - generic [ref=e1612]:
+              - generic [ref=e1613]: yesterday
+              - generic [ref=e1615]:
+                - paragraph [ref=e1616]:
+                  - link "Admin Example" [ref=e1617] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new task assignee"
+                - text: "Project Name:"
+                - link "AUTO_POM_ADD_PROJECT_1789292314550" [ref=e1618] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2782
+              - paragraph [ref=e1619]: AUTO_POM_ADD_TASK_1789292326684 - Admin Example
+            - generic [ref=e1620]:
+              - generic [ref=e1621]: yesterday
+              - generic [ref=e1623]:
+                - paragraph [ref=e1624]:
+                  - link "Admin Example" [ref=e1625] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "AUTO_POM_ADD_PROJECT_1789292314550" [ref=e1626] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2782
+              - paragraph [ref=e1627]: Admin Example
+            - generic [ref=e1628]:
+              - generic [ref=e1629]: yesterday
+              - generic [ref=e1631]:
+                - paragraph [ref=e1632]:
+                  - link "Admin Example" [ref=e1633] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "AUTO_POM_ADD_PROJECT_1789292314550" [ref=e1634] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2782
+            - generic [ref=e1635]:
+              - generic [ref=e1636]: 2 days ago
+              - generic [ref=e1638]:
+                - paragraph [ref=e1639]:
+                  - link "Admin Example" [ref=e1640] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "Project - 2026-09-13T01:06:15.664327" [ref=e1641] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2780
+              - paragraph [ref=e1642]: Project Manager
+            - generic [ref=e1643]:
+              - generic [ref=e1644]: 2 days ago
+              - generic [ref=e1646]:
+                - paragraph [ref=e1647]:
+                  - link "Admin Example" [ref=e1648] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "Project - 2026-09-13T01:06:15.664327" [ref=e1649] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2780
+              - paragraph [ref=e1650]: Admin Example
+            - generic [ref=e1651]:
+              - generic [ref=e1652]: 2 days ago
+              - generic [ref=e1654]:
+                - paragraph [ref=e1655]:
+                  - link "Admin Example" [ref=e1656] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "Project - 2026-09-13T01:06:15.664327" [ref=e1657] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2780
+            - generic [ref=e1658]:
+              - generic [ref=e1659]: 2 days ago
+              - generic [ref=e1661]:
+                - paragraph [ref=e1662]:
+                  - link "Admin Example" [ref=e1663] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "Project - 2026-09-13T00:36:51.956096" [ref=e1664] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2779
+              - paragraph [ref=e1665]: Project Manager
+            - generic [ref=e1666]:
+              - generic [ref=e1667]: 2 days ago
+              - generic [ref=e1669]:
+                - paragraph [ref=e1670]:
+                  - link "Admin Example" [ref=e1671] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "Project - 2026-09-13T00:36:51.956096" [ref=e1672] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2779
+              - paragraph [ref=e1673]: Admin Example
+            - generic [ref=e1674]:
+              - generic [ref=e1675]: 2 days ago
+              - generic [ref=e1677]:
+                - paragraph [ref=e1678]:
+                  - link "Admin Example" [ref=e1679] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "Project - 2026-09-13T00:36:51.956096" [ref=e1680] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2779
+            - generic [ref=e1681]:
+              - generic [ref=e1682]: 2 days ago
+              - generic [ref=e1684]:
+                - paragraph [ref=e1685]:
+                  - link "Admin Example" [ref=e1686] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "Project - 2026-09-12T22:54:22.925462" [ref=e1687] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2778
+              - paragraph [ref=e1688]: Project Manager
+            - generic [ref=e1689]:
+              - generic [ref=e1690]: 2 days ago
+              - generic [ref=e1692]:
+                - paragraph [ref=e1693]:
+                  - link "Admin Example" [ref=e1694] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "Project - 2026-09-12T22:54:22.925462" [ref=e1695] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2778
+              - paragraph [ref=e1696]: Admin Example
+            - generic [ref=e1697]:
+              - generic [ref=e1698]: 2 days ago
+              - generic [ref=e1700]:
+                - paragraph [ref=e1701]:
+                  - link "Admin Example" [ref=e1702] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "Project - 2026-09-12T22:54:22.925462" [ref=e1703] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2778
+            - generic [ref=e1704]:
+              - generic [ref=e1705]: 2 weeks ago
+              - generic [ref=e1707]:
+                - paragraph [ref=e1708]:
+                  - link "Admin Example" [ref=e1709] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "New Project 3008" [ref=e1710] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2746
+              - paragraph [ref=e1711]: Admin Anh Tester
+            - generic [ref=e1712]:
+              - generic [ref=e1713]: 2 weeks ago
+              - generic [ref=e1715]:
+                - paragraph [ref=e1716]:
+                  - link "Admin Example" [ref=e1717] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Created the project"
+                - text: "Project Name:"
+                - link "New Project 3008" [ref=e1718] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2746
+            - generic [ref=e1719]:
+              - generic [ref=e1720]: 2 weeks ago
+              - generic [ref=e1722]:
+                - paragraph [ref=e1723]:
+                  - link "Admin Example" [ref=e1724] [cursor=pointer]:
+                    - /url: https://crm.anhtester.com/admin/profile/2
+                  - text: "- Added new team member"
+                - text: "Project Name:"
+                - link "New Project 3008" [ref=e1725] [cursor=pointer]:
+                  - /url: https://crm.anhtester.com/admin/projects/view/2745
+              - paragraph [ref=e1726]: Admin Anh Tester
+  - text:   
+  - generic [ref=e1745]:
+    - heading "Started tasks timers found! Are you sure you want to logout without stopping the timers?" [level=3] [ref=e1746]: Started tasks timers found!Are you sure you want to logout without stopping the timers?
+    - separator [ref=e1747]
+    - link "Logout" [ref=e1748] [cursor=pointer]:
+      - /url: https://crm.anhtester.com/admin/authentication/logout
+    - button [ref=e1749] [cursor=pointer]

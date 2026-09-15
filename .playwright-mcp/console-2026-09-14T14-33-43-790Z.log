@@ -1,0 +1,3 @@
+[     201ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://crm.anhtester.com/admin/authentication:0
+[   15557ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://crm.anhtester.com/admin/authentication:0
+[   74310ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://crm.anhtester.com/admin/authentication:0

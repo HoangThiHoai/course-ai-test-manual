@@ -1,0 +1,1656 @@
+﻿PIFA - BUYER
+TÀI LIỆU NEW REQUEST ĐẶC TẢ NGHIỆP VỤ CHỨC NĂNG QUẢN LÝ ĐƠN HÀNG PHÂN HỆ BUYER (NGƯỜI MUA)
+
+
+Phiên bản
+	Ngày
+	Thay đổi
+	A/M/D (Add/Modify/ Deleted)
+	Chuẩn bị bởi
+	Xác nhận bởi
+	Note
+	Ver1.0.0
+	23/01/2026
+	
+
+	A
+	AIT
+	VTP
+	
+
+	Ver2.0.0
+	02/06/2026
+	- Thêm cơ chế chống Spam
+* Không cho phép tạo đơn/ huỷ đơn trong 10p sau khi buyer huỷ 5 đơn trong vòng 10 phút
+* Xem mục 1.3.1 STT 9
+* Xem mục 1.3.2 STT 12
+- Update luồng ekyc khi Hoàn/Huỷ (mục 1.3.1 STT 9)
+
+
+	A
+	AIT
+	VTP
+	
+
+	Ver 2.1.0
+	09/07/2026
+	Cập nhật chức năng Tra cứu giao dịch (1.3.5)
+	A
+	AIT
+	VTP
+	
+
+	Ver 3.0.0
+	20/08/2026
+	- Cập nhật luồng mới Trả hàng/Hoàn tiền (1.3.1, 1.3.3, 1.3.4)
+- Bổ sung trạng thái đơn hàng: Đã hoàn thành (1.3.2.5)
+- Bổ sung mô tả trạng thái yêu cầu Trả hàng/Hoàn tiền (STT 9 mục 1.3.2.4)
+	A
+	AIT
+	VTP
+	
+
+	
+
+________________
+I. Tổng quan
+1. Mục đích tính năng
+Tài liệu này được xây dựng nhằm mô tả các luồng chức năng và quy tắc hoạt động của chức năng Quản lý đơn hàng trong phân hệ Buyer
+2. Phạm vi ảnh hưởng
+In Scope
+* Phạm vi của tài liệu này chỉ áp dụng cho hệ thống PIFA phân hệ Buyer.
+* Các chức năng được triển khai chỉ giới hạn trong phạm vi các feature và luồng nghiệp vụ đã được thể hiện trong thiết kế giao diện trên Figma được đính kèm trong tài liệu tham khảo.
+* Hệ thống được phát triển đúng theo thiết kế và nội dung đã được phê duyệt tại thời điểm ban hành tài liệu này.
+ 
+Out of Scope
+* Mọi tính năng, thay đổi, hoặc mở rộng không được thể hiện trong thiết kế Figma hiện tại sẽ không thuộc phạm vi triển khai của tài liệu này.
+* Bất kỳ yêu cầu bổ sung, thay đổi hành vi, hoặc cập nhật giao diện nào ngoài phạm vi thiết kế đã phê duyệt sẽ được xem là không hợp lệ, trừ khi:
+   * Có tài liệu yêu cầu thay đổi chính thức (Change Request)
+   * Được các bên liên quan phê duyệt.
+3. Danh sách UC trong tài liệu
+
+
+
+
+Ký hiệu
+	Tên Usecase
+	Mô tả usecase
+	UC1
+	Xem đơn hàng
+	Tại màn hình navigation bottom, người dùng click icon Đơn hàng ⇒ hệ thống hiển thị màn hình Danh sách đơn hàng của tôi, cho phép người dùng xem, tìm kiếm và thao tác với các đơn hàng theo từng trạng thái. 
+	4. Tài liệu tham khảo
+STT
+	Loại tài liệu
+	Thông tin tham khảo
+	1
+	Thiết kế giao diện
+	https://www.figma.com/design/wYFuVvh4Jfi2zVGsoXuJ07/GOM---Vipomall-F2C?node-id=35782-196555&t=AxkYaENZaxZN4eHS-1 
+	2
+	Function List
+	https://docs.google.com/spreadsheets/d/1Pt5sf-Ds4NyijBAD4SS9f8fyjl3zx-efMNvmR5RUn9E/edit?gid=782333214#gid=782333214      
+	
+
+________________
+II. Mô tả luồng tổng quan
+  
+
+
+
+Tên bước
+	Tác nhân
+	Mô tả bước
+	Đăng nhập hệ thống
+	Buyer
+	Buyer đăng nhập App PIFA bằng tài khoản đang hoạt động.
+	Xác thực đăng nhập
+	Hệ thống
+	Hệ thống kiểm tra tính hợp lệ của thông tin đăng nhập.
+	Thông báo lỗi (nếu có)
+	App PIFA
+	Nếu đăng nhập không hợp lệ, App hiển thị thông báo lỗi và kết thúc luồng.
+	Trả dữ liệu Trang chủ
+	Hệ thống
+	Tổng hợp dữ liệu các section và trả kết quả về cho App.
+	Hiển thị màn hình Trang chủ
+	App PIFA
+	App hiển thị MH Trang chủ
+	Chọn Đơn hàng từ Navigation Bar
+	Buyer
+	Buyer chọn Đơn hàng từ Navigation Bar
+	Điều hướng sang màn hình danh sách đơn hàng
+	Hệ thống
+	App lấy dữ liệu và điều hướng sang màn hình danh sách đơn hàng
+	Hiển thị màn hình Danh sách Đơn hàng
+	App PIFA
+	App hiển thị Màn hình Danh sách đơn hàng
+	Chọn section Đơn hàng
+	Buyer
+	Buyer chọn section Đơn hàng từ màn hình Danh sách đơn hàng
+	Điều hướng sang màn hình Chi tiết đơn hàng
+	Hệ thống
+	App lấy dữ liệu và điều hướng sang màn hình Chi tiết đơn hàng
+	Hiển thị màn hình Chi tiết đơn hàng
+	App PIFA
+	App hiển thị màn hình Chi tiết đơn hàng
+	
+
+III. Nội dung chi tiết
+ 1. UC1: Xem đơn hàng
+Use case này cho phép người dùng truy cập sàn PIFA để xem thông tin các đơn hàng
+1.1 Mô tả Use case:
+
+
+Actor chính
+	Buyer
+	Mô tả
+	Tại Navigation bottom, người dùng click icon Đơn hàng ⇒ hệ thống hiển thị màn hình Danh sách đơn hàng, cho phép người dùng xem, tìm kiếm và thao tác với các đơn hàng theo từng trạng thái. 
+	Điều kiện đầu vào
+	* Người dùng đăng nhập thành công vào hệ thống PIFA
+* Người dùng có ít nhất 1 đơn hàng (hoặc hiển thị màn hình trống nếu chưa có đơn hàng)
+	Luồng chính
+	* Người dùng click icon Đơn hàng trên thanh Navigation bottom
+* Hệ thống call API danh sách đơn hàng 
+* Hệ thống hiển thị danh sách đơn hàng của tôi theo thứ tự từ mới nhất → cũ nhất 
+* User chọn tab trạng thái để lọc đơn hàng 
+* User click vào card đơn hàng tương ứng để xem chi tiết đơn hàng
+	Luồng thay thế
+	N/A
+	Luồng ngoại lệ
+	N/A
+	Output
+	- Danh sách đơn hàng được hiển thị theo đúng trạng thái và thứ tự 
+- Mỗi đơn hàng chỉ thuộc 1 trạng thái tab cha 
+- Các tab trạng thái bao gồm : 
+* Tất cả
+* Chờ thanh toán
+* Chờ xử lý
+* Chờ giao hàng 
+* Đang giao hàng
+* Đã giao
+* Trả hàng 
+* Đã hủy 
+	1.2. Mô tả giao diện
+
+
+  
+
+1.3 Mô tả trường thông tin
+1.3.1. Màn hình Danh sách đơn hàng
+Luồng: Tại thanh Navigation Bar → onclick chọn icon Đơn hàng → hệ thống hiển thị màn hình danh sách đơn hàng
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Menu Trạng thái cha
+	Tab
+	Yes
+	- Khi User click vào icon Đơn hàng trên Navigation Bar, hệ thống mặc định hiển thị danh sách đơn hàng tại trạng thái Tất cả
+- Mỗi tab tương ứng với một trạng thái đơn hàng khác nhau, hiển thị số lượng đơn hàng tương ứng với trạng thái
+- Khi User click vào 1 tab trạng thái, hệ thống hiển thị các đơn hàng có trạng thái tương ứng
+- Các trạng thái cha bao gồm:
+* Tất cả
+* Chờ thanh toán
+* Chờ giao hàng 
+* Đang giao hàng
+* Đã giao
+* Đã hoàn thành: là những đơn hàng đã giao thành công, không phát sinh yêu cầu Trả hàng/Hoàn tiền sau 5 ngày kể từ khi đơn hàng giao thành công hoặc các đơn hàng có phát sinh yêu cầu Trả hàng/Hoàn tiền nhưng đã bị huỷ/từ chối.
+* Trả hàng: hiển thị những đơn hàng phát sinh yêu cầu Trả hàng/Hoàn tiền đang chờ xử lý hoặc đã được phê duyệt và đang xử lý hoàn tiền.
+* Đã hủy 
+	2
+	Tìm kiếm
+	Searchbox
+	Yes
+	- Khi User chưa click vào Search box,  placeholder: Tìm kiếm tên sản phẩm hoặc mã đơn
+- Khi User click vào Search box, hệ thống cho phép tìm kiếm đơn hàng qua tên sản phẩm, mã đơn. 
+- Hệ thống hiển thị kết quả theo từng tab trạng thái cha 
+- Validate: 
+* Min length: 1 ký tự
+* Max length: 128 ký tự
+* Trim space: Xóa khoảng trắng đầu/cuối
+- User nhấn Enter trên keyboard  để gọi thao tác tìm kiếm
+* Nếu có kết quả => Hiển thị số lượng kết quả tìm thấy và đơn hàng tương ứng với từ khóa tìm kiếm. Thanh search box hiển thị từ khóa đang tìm kiếm. User click 1 item đơn hàng, hệ thống điều hướng đến màn hình Chi tiết đơn hàng
+* Nếu không có kết quả => Hiển thị màn hình với nội dung báo lỗi "Không có kết quả phù hợp. Vui lòng nhập tên sản phẩm và mã đơn khác để tìm kiếm”
+- User click icon X để xóa từ khóa tìm kiếm, hệ thống cho phép User nhập từ khoá khác để tìm kiếm đơn hàng
+	3
+	Thông tin Publisher
+	Image + Text
+	Yes
+	- Hiển thị avatar và tên của Publisher
+- Khi User click, hệ thống chuyển sang màn Chi tiết đơn hàng
+	4
+	Mã đơn hàng
+	Text
+	Yes
+	- Mã đơn hàng (dữ liệu từ DB)
+- User nhấn copy icon để sao chép mã đơn hàng, sau khi click, hệ thống hiển thị message Sao chép thành công
+	5
+	Trạng thái của đơn hàng
+	Label
+	Yes
+	Hiển thị trạng thái hiện tại của đơn hàng tương ứng với các tab trạng thái cha, cụ thể:
+- Tab Tất cả: tất cả các trạng thái của đơn hàng
+- Tab Chờ thanh toán: Chờ thanh toán
+- Tab Chờ giao hàng: Chờ giao hàng
+- Tab Đang giao hàng: Đang giao hàng
+- Tab Đã giao: Đã giao
+- Tab Đã hoàn thành: Đã hoàn thành
+- Tab Trả hàng: Trả hàng
+- Tab Đã huỷ: Chờ hoàn tiền, Đã hoàn tiền, Hoàn tiền thất bại, Đã huỷ
+	6
+	Thông tin Sản phẩm
+	Image + Text
+	Yes
+	- Hiển thị thông tin sản phẩm của đơn hàng, mặc định hiển thị 1 sản phẩm
+- Các thông tin sản phẩm bao gồm: 
+* Ảnh sản phẩm: Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+* Tên sản phẩm (Nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng đầu tiên. ) 
+* Thuộc tính sản phẩm (hiển thị thông tin thuộc tính của sản phẩm. Nếu sản phẩm có nhiều thuộc tính được phân cách các thuộc tính với nhau bằng dấu | ) 
+* Giá sản phẩm (hiển thị giá sản phẩm trên 1 đơn vị sản phẩm bao gồm giá gốc và giá ưu đãi) 
+* Số lượng sản phẩm mua (hiển thị số lượng sản phẩm được mua)
+	7
+	Rút gọn
+	Text
+	No
+	- Cho phép User xem thêm sản phẩm của đơn hàng
+- Hiển thị khi đơn hàng có nhiều hơn 1 sản phẩm 
+- Onclick Rút gọn để trở về màn hình mặc định hiển thị 1 sản phẩm. Onclick Xem thêm để hiển thị thông tin tất cả các sản phẩm của đơn hàng. 
+	8
+	 Tổng tiền
+	Text
+	Yes
+	- Hiển thị tổng giá trị đơn hàng
+- Hiển thị khi đơn hàng bắt đầu ở trạng thái chờ thanh toán
+	9
+	Thời gian thanh toán đơn hàng trong [time]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Chờ thanh toán
+- Hệ thống hiển thị thời gian đếm ngược thanh toán. Nếu quá hạn, đơn hàng tự động chuyển từ trạng thái từ Chờ thanh toán sang Đã hủy 
+- Thời gian tính theo rule sau: 
+* Trường hợp 1: Nếu chiến dịch còn kéo dài hơn 24h, đơn hàng sẽ hết hạn sau 24h kể từ thời gian User đặt đơn (đơn hàng được khởi tạo)
+* Trường hợp 2: Nếu chiến dịch kết thúc trong vòng chưa đầy 24h, đơn hàng sẽ hết hạn vào đúng thời điểm kết thúc chiến dịch.
+	10
+	CTA
+	Button
+	Yes
+	- CTA hiển thị tương ứng với trạng thái cha, cụ thể:
+* Trạng thái Chờ thanh toán: Thanh toán, Huỷ đơn. 
+* Trạng thái Chờ giao hàng: Huỷ đơn (khi đơn hàng chưa bàn giao cho đơn vị vận chuyển), Theo dõi đơn hàng
+* Trạng thái Đang giao hàng: Theo dõi đơn hàng, Đã nhận được hàng (hiển thị khi đơn hàng đã giao)
+* Trạng thái Đã giao: Mua lại, Đánh giá (hiển thị với những đơn hàng chưa đánh giá), Xem đánh giá (với những đơn hàng đã đánh giá).
+* Trạng thái Trả hàng: Huỷ yêu cầu hoàn tiền (hiển thị với User đang có yêu cầu Trả hàng/Hoàn tiền).
+* Đã hoàn thành: Đánh giá (hiển thị với những đơn hàng chưa đánh giá), Xem đánh giá (với những đơn hàng đã đánh giá).
+* Trạng thái Đã huỷ: Chi tiết đơn huỷ (hiển thị với đơn hàng Buyer chưa thanh toán), Chi tiết hoàn tiền (hiển thị với đơn hàng Buyer đã thanh toán), Mua lại
+- User click button Thanh toán, hệ thống điều hướng sang màn Thanh toán đơn hàng
+- User click button Theo dõi đơn hàng, hệ thống chuyển sang màn hình Thông tin vận chuyển
+- User click button Huỷ đơn, hệ thống hiển thị bottom sheet cho phép User chọn lý do huỷ đơn.
+  
+
+* User có thể chọn các lý do có sẵn hoặc click Lý do khác và nhập lý do 
+* User click button Xác nhận để xác nhận Huỷ đơn:
+   * Trường hợp User chưa thực hiện định danh CCCD, hệ thống hiển thị màn hình TKNH, User click button Định danh ngay để tiến hành định danh tài khoản (mô tả chi tiết luồng tại mục 1.3.1 Tài liệu)  
+   * Trường hợp User đã thực hiện định danh CCCD, chưa khai báo tài khoản ngân hàng, hệ thống hiển thị màn hình TKNH, User click button Liên kết  ngay để tiến hành Khai báo tài khoản ngân hàng (mô tả chi tiết luồng tại mục 1.3.1 Tài liệu)  
+   * Trường hợp User đã hoàn tất định danh và khai báo tài khoản ngân hàng, hệ thống chuyển đơn hàng từ trạng thái Chờ thanh toán sang Đã huỷ, đồng thời hiển thị toast msg: “Huỷ đơn hàng thành công”
+   * User click button Huỷ để huỷ thao tác huỷ đơn, hệ thống hiển thị màn hình chi tiết đơn hàng 
+   * User click Trả hàng/Hoàn tiền, hệ thống chuyển sang luồng Yêu cầu Trả hàng/Hoàn tiền (mô tả chi tiết tại phần 1.3.2)
+- User click button Chi tiết đơn huỷ, hệ thống chuyển sang màn Chi tiết đơn hàng  
+- User click button Đã nhận hàng, hệ thống chuyển trạng thái đơn hàng từ Đang giao hàng sang Đã giao, đồng thời màn hình điều hướng sang tab Đã giao. Sau 7 ngày kể từ ngày ĐVVC giao hàng thành công, nếu User không click button, hệ thống chuyển trạng thái đơn hàng từ Đang giao hàng thành Đã giao, đồng thời màn hình điều hướng sang tab Đã giao.
+- User click button Mua lại, hệ thống chuyển sang màn Chi tiết sản phẩm 
+- User click button Đánh giá, hệ thống chuyển sang màn Đánh giá sản phẩm (mô tả chỉ tiết 1.3.3). Button bị ẩn nếu Buyer không đánh giá sau 30 ngày kể từ ngày đơn hàng ở trạng thái đã giao
+- User click button Xem đánh giá, hệ thống chuyển sang màn Đánh giá đơn hàng
+- User click button Yêu cầu hoàn tiền:
+   * Trường hợp User chưa thực hiện định danh CCCD, hệ thống hiển thị màn hình TKNH, User click button Định danh ngay để tiến hành định danh tài khoản (mô tả chi tiết luồng tại mục 1.3.1 Tài liệu)  
+   * Trường hợp User đã thực hiện định danh CCCD, chưa khai báo tài khoản ngân hàng, hệ thống hiển thị màn hình TKNH, User click button Liên kết  ngay để tiến hành Khai báo tài khoản ngân hàng (mô tả chi tiết luồng tại mục 1.3.1 Tài liệu)  
+Lưu ý cơ chế chống Spam: 
+Hệ thống giới hạn số lần Buyer chủ động hủy đơn hàng trong một khoảng thời gian nhất định.
+Mặc định:
+      * Số lần hủy đơn tối đa: 05 đơn hàng
+      * Khoảng thời gian kiểm tra: 10 phút
+      * Số phút bị khoá: 10 phút
+Lưu ý: Các giá trị trên phải hỗ trợ cấu hình động từ CMS/Admin, không hard-code. (Chưa làm phase này vì chưa có yêu cầu trong function list)
+Trigger:
+      * Người dùng đã huỷ 5 đơn hàng thành công trong 10 phút > Trong thời gian 10 phút tiếp theo tính từ thời điểm Đơn hàng thứ 5 huỷ thành công > Buyer tiếp tục click button huỷ đơn của đơn khác> hiển thị popup cảnh báo
+  
+
+      * Vui lòng thử lại sau [mm:ss] phút: Đơn hàng đếm ngược 10 phút kể từ thời điểm Buyer huỷ thành công đơn hàng thứ 5. 
+      * Button đóng: đóng popup, ở lại màn hình hiện tại
+      * Trong thời gian bị khóa:
+      * Buyer không được phép:
+      * Mua ngay
+      * Đặt hàng
+      * Hủy đơn hàng
+      * Sau khi hết thời gian khóa:
+      * Hệ thống tự động mở lại các tính năng.
+      * Buyer được phép thực hiện các thao tác bình thường.
+	11
+	Ngày giao dự kiến: [date] - [date]
+	Button
+	No
+	- Hiển thị với đơn hàng ở trạng thái Chờ giao hàng, Đang giao hàng
+- Hiển thị thời gian giao hàng dự kiến: lấy theo API của đơn vị vận chuyển
+- Onclick chuyển sang màn Chi tiết đơn hàng
+	12
+	Giao hàng thành công vào lúc [time] - [date]
+	Button
+	No
+	- Hiển thị với đơn hàng ở trạng thái Đã giao
+- Hiển thị thời gian giao hàng thành công
+- Onclick chuyển sang màn Chi tiết đơn hàng
+	13
+	Thanh điều hướng
+	Navigation Bar
+	Yes
+	- Navigation Bar bao gồm các thông tin: Trang chủ, Giỏ hàng, Voucher, Đơn hàng, Tài khoản
+- Navigation Bar luôn luôn được ghim ở dưới cùng của màn hình, không bị mất đi khi User cuộn nội dung
+- User click vào icon, hệ thống chuyển sang màn hình tương ứng
+- Khi User đang ở màn hình nào, Icon và Text tương ứng của màn hình đó sẽ đổi màu sang Xanh lá cây và có một thanh ngang nhỏ phía trên Icon để nhận diện. Các Tab còn lại sẽ hiển thị ở trạng thái Inactive (màu Xám).
+- Nhấn vào tab đang Active: hệ thống cuộn lên đầu trang
+- Đối với các Tab "Giỏ hàng", hệ thống hiển thị một Badge số lượng sản phẩm trong giỏ hàng (chấm đỏ kèm số) ở góc trên bên phải Icon
+	14
+	Bạn đã huỷ yêu cầu. Còn 1 lần trả hàng/hoàn tiền
+	Text
+	No
+	- Hiển thị với đơn hàng ở trạng thái Đã giao, có yêu cầu trả hàng/hoàn tiền 1 lần và Người dùng đã huỷ yêu cầu. Trường hợp đơn hàng bị huỷ 2 lần. Hiển thị text: Bạn đã huỷ yêu cầu. 
+	15
+	Sàn/Nhà bán đã từ chối yêu cầu. Còn 1 lần trả hàng/hoàn tiền
+	Text
+	No
+	- Hiển thị với đơn hàng ở trạng thái Đã giao, có yêu cầu trả hàng/hoàn tiền 1 lần và Sàn/Nhà bán từ chối phê duyệt yêu cầu. Trường hợp đơn hàng bị từ chối 2 lần. Hiển thị text: Sàn/Nhà bán đã từ chối yêu cầu.
+	16
+	Yêu cầu trả hàng/hoàn tiền đang chờ xử lý! [date]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Trả hàng.
+- Hiển thị thời gian xử lý yêu cầu dự kiến: 24h kể từ khi User gửi yêu cầu.
+- Format [date]: DD/MM/YYYY
+- Onclick chuyển sang màn Chi tiết hoàn tiền.
+	17
+	Bạn cần chọn phương thức trả hàng trễ nhất vào [date]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Trả hàng.
+- Hiển thị thời gian User cần chọn phương thức trả hàng: 24h kể từ khi Nhà bán/Admin phê duyệt yêu cầu. Sau thời gian này, nếu User không chọn, [a]phương thức trả hàng tự động là Đơn vị vận chuyển đến lấy hàng với địa chỉ là địa chỉ khi ĐVVC giao hàng cho Người mua.
+- Format [date]: DD/MM
+- Onclick chuyển sang màn Chi tiết hoàn tiền.
+	18
+	Chờ hoàn tiền [date]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Trả hàng.
+- Hiển thị thời gian hoàn tiền dự kiến: tối đa 10 ngày từ khi ĐVVC lấy hàng thành công.
+- Format [date]: DD/MM/YYYY
+- Onclick chuyển sang màn Chi tiết hoàn tiền.
+	19
+	Hoàn tiền thành công [date] - [time]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Trả hàng.
+- Hiển thị thời gian hoàn tiền thành công.
+- Format [date]: DD/MM/YYYY - HH:MM
+- Onclick chuyển sang màn Chi tiết hoàn tiền.
+	20
+	Hoàn tiền thất bại [date] - [time]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Trả hàng.
+- Hiển thị thời gian hoàn tiền thất bại.
+- Format [date]: DD/MM/YYYY - HH:MM
+- Onclick chuyển sang màn Chi tiết hoàn tiền.
+	Luồng màn hình: User chọn tab Chờ thanh toán tại giao diện Đơn hàng
+  
+
+	21
+	Thanh toán nhiều
+	Button
+	Yes
+	- Hiển thị sau khi User click tab Chờ thanh toán, hệ thống hiển thị danh sách đơn hàng đang ở trạng thái Chờ thanh toán
+- User click button Thanh toán nhiều, hệ thống hiển thị danh sách đơn hàng và checkbox bên cạnh, cho phép User có thể chọn thanh toán nhiều đơn hàng cùng lúc
+	22
+	Checkbox
+	Checkbox
+	No
+	- Hiển thị với đơn hàng ở trạng thái cha Chờ thanh toán
+- Mặc định untick, User click vào checkbox để chọn đơn hàng muốn thanh toán
+- Sau khi User click vào checkbox, hệ thống hiển thị tổng số tiền và số sản phẩm (mục 16), đồng thời checkbox Tất cả (17) chuyển sang màu xanh và button Thanh toán ngay (18) enable
+	23
+	Tổng tiền thanh toán
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái cha Chờ thanh toán
+- Mặc định: Tổng số tiền (0 sản phẩm) 0đ
+- Sau khi User click vào checkbox bên cạnh đơn hàng, hệ thống cập nhật tổng số tiền và số sản phẩm tương ứng
+	24
+	Tất cả
+	Checkbox
+	No
+	- Hiển thị với đơn hàng ở trạng thái cha Chờ thanh toán
+- Mặc định untick, User click checkbox để thanh toán tất cả đơn hàng
+- Sau khi User click vào checkbox, hệ thống hiển thị tổng số tiền và số sản phẩm (mục 16), đồng thời checkbox Tất cả (17) chuyển sang màu xanh và button Thanh toán ngay (18) enable
+- Checkbox Tất cả hiển thị màu xanh và dấu gạch ngang cho biết User đang chọn một phần đơn hàng trong danh sách hoặc dấu tick cho biết đang chọn tất cả đơn hàng trong danh sách (như design) 
+	25
+	Thanh toán ngay
+	Button
+	No
+	- Hiển thị với đơn hàng ở trạng thái cha Chờ thanh toán
+- Mặc định disable, khi User click checkbox bên cạnh đơn hàng hoặc checkbox Tất cả, button Thanh toán ngay enable
+- User click button, hệ thống chuyển sang màn hình thanh toán (xem chi tiết luồng thanh toán tại https://docs.google.com/document/d/1pmS1NO2DWHxKumpZBb6HI5MUroPURlTu/edit?usp=drive_link&ouid=107329871301407226712&rtpof=true&sd=true) 
+	- Trường hợp không có đơn hàng nào:
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Mua sắm ngay
+	Button
+	Yes
+	Onclick để chuyển sang màn Trang chủ
+	2
+	Đề xuất dành cho bạn
+	N/A
+	No
+	Label: Đề xuất dành cho bạn - hiển thị mặc định theo UI
+- Hiển thị danh sách sản phẩm đề xuất theo Publisher: Scroll lên xuống để xem danh sách
+- Rule hiển thị: 
+      * Thứ tự hiển thị mô tả chi tiết tại mục 1.6 tài liệu Xem chi tiết sản phẩm.
+- Thông tin hiển thị Publisher:
+      * Ảnh đại diện: Người dùng nhấn vào ảnh đại diện, hệ thống chuyển sang màn Xem chi tiết Publisher.
+      * Tên Publisher: Người dùng nhấn vào tên Publisher, hệ thống chuyển sang màn Xem chi tiết Publisher
+      * Tổng số người theo dõi Publisher:
+      * Từ 1 đến < 1.000: hiển thị nguyên số.
+      * Từ 1.000 đến 999.999: rút gọn theo nghìn, hiển thị dạng xK (x = phần nghìn). Nếu còn phần dư > 0 thì hiển thị thêm +.
+      * Từ 1.000.000 đến 999.999.999: rút gọn theo triệu, hiển thị dạng xM (x = phần triệu). Nếu còn phần dư > 0 thì hiển thị thêm +.
+      * Từ ≥ 1.000.000.000: rút gọn theo tỷ, hiển thị dạng xM (x = phần tỷ). Nếu còn phần dư > 0 thì hiển thị thêm +.
+      * Nhãn Publisher: hiển thị nhãn đánh giá Publisher tương ứng
+      * Trạng thái theo dõi: ưu tiên hiển thị các Publisher đang theo dõi. 
+      * Nếu Người dùng chưa theo dõi Publisher nào, hệ thống hiển thị text button “Theo dõi”
+      * Khi Người dùng nhấn vào text button Theo dõi, trạng thái theo dõi chuyển thành “Đang theo dõi”
+- Thông tin sản phẩm:
+      * Tên sản phầm: 
+      * Tên sản phẩm hiển thị tối đa 1 dòng, phần dư được rút gọn bằng ký tự “...”
+      * Click vào tên để hiển thị đầy đủ tên sản phẩm
+      * Số sao đánh giá trung bình
+      * Tổng lượt bán sản phẩm 
+      * Ảnh sản phẩm: tối đa 3 ảnh (hoặc 2 ảnh, 1 video)
+      * Thời gian mua chung của sản phẩm
+      * Giá gốc sản phẩm, giá sau giảm, % giảm giá của sản phẩm
+      * Số người mua sản phẩm từ nhóm: 
+  
+
+      * Click để điều hướng sang màn chi tiết sản phẩm được chia sẻ bởi publisher. (hoặc click vào khoảng trống trong nhóm mua chung)
+      * Số người đã mua sản phẩm từ nhóm của publisher
+      * Tag “Ưu đãi lên đến x%. Lấy theo tỷ lệ voucher cao nhất của publisher có thể áp dụng cho sản phẩm này.
+      * Số người đang xem sản phẩm được chia sẻ bởi publisher này
+      * CTA: 
+      * Giỏ hàng: Click hiển thị màn chọn SKU sản phẩm 
+      * Share: hiển thị popup chia sẻ sản phẩm: link điều hướng tới màn chi tiết sản phẩm nhóm mua chung (có nhiều nhóm publisher)
+      * Mua chung ngay:  Click hiển thị màn chọn SKU theo publisher 
+	1.3.2. Màn hình Chi tiết đơn hàng
+Luồng: MH danh sách đơn hàng -> onclick item sản phẩm -> MH Chi tiết đơn hàng
+1.3.2.1. Trạng thái Chờ thanh toán 
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	User click button để trở về màn hình danh sách đơn hàng
+	2
+	Vui lòng thanh toán trước [time] - [date]
+	Label
+	Yes
+	- Hệ thống hiển thị thời gian muộn nhất User được thanh toán:
+      * Trường hợp 1: Nếu chiến dịch còn kéo dài hơn 24h, hiển thị thời gian thanh toán = thời gian khởi tạo đơn hàng + 24h
+      * Ví dụ: thời gian khởi tạo đơn hàng là 01:00:00 ngày 15/01/2026, thời gian kết thúc campaign là 70:00:00 => User cần thanh toán đơn hàng trước 01:00:00 ngày 16/01/2026
+      * Trường hợp 2: Nếu chiến dịch kết thúc trong vòng chưa đầy 24h, hiển thị thời gian thanh toán = thời gian khởi tạo đơn hàng + thời gian còn lại của campaign
+      * Ví dụ: thời gian khởi tạo đơn hàng là 01:00:00 ngày 15/01/2026, thời gian kết thúc campaign là 10:00:00 => User cần thanh toán đơn hàng trước 11:00:00 ngày 15/01/2026
+- Format: Vui lòng thanh toán trước HH:MM - DD/MM/YYYY
+- Sau thời gian này, đơn hàng tự động chuyển từ trạng thái từ Chờ thanh toán sang Đã hủy
+      * Lý do huỷ đơn: Chưa được thanh toán
+      * Huỷ bởi: Sàn
+	3
+	Thông tin nhận hàng
+	Label
+	Yes
+	- Hiển thị thông tin người nhận hàng bao gồm:
+      * Tên người nhận
+      * Số điện thoại người nhận
+      * Địa chỉ người nhận
+- Mỗi đơn hàng chỉ có 1 thông tin nhận hàng
+	4
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	- Hiển thị thông tin Publisher và sản phẩm
+- Hiển thị đầy đủ các sản phẩm của đơn hàng
+- Thông tin Publisher:
+      * Avatar và tên publisher
+      * Click avatar, tên publisher, hệ thống chuyển sang màn hình Chi tiết Publisher
+- Thông tin sản phẩm:
+      * Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+      * Tên sản phẩm (Nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng đầu tiên) 
+      * Thuộc tính sản phẩm (hiển thị thông tin thuộc tính của sản phẩm. Nếu sản phẩm có nhiều thuộc tính được phân cách các thuộc tính với nhau bằng dấu | ) 
+      * Giá sản phẩm (hiển thị giá sản phẩm trên 1 đơn vị sản phẩm bao gồm giá gốc và giá ưu đãi) 
+      * Số lượng sản phẩm mua (hiển thị số lượng sản phẩm được mua) 
+
+
+	5
+	Tổng thanh toán
+	Label
+	Yes
+	- Hiển thị số tiền Buyer cần thanh toán cho đơn hàng
+- Onclick để hiển thị thông tin chi tiết thanh toán bao gồm tổng tiền hàng, voucher
+	6
+	Hỗ trợ
+	Label
+	Yes
+	Onclick để chuyển sang Zalo OA hỗ trợ khách hàng
+	7
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Onclick để chuyển sang màn hình thông tin về chính sách hỗ trợ khách hàng (chưa thực hiện ở Phase 1)
+	8
+	Phương thức thanh toán
+	Label
+	Yes
+	- User click chọn radio button để chọn phương thức thanh toán
+- Hiển thị phương thức thanh toán bao gồm:
+      * Tài khoản ngân hàng (chưa làm phase 1):
+      * User click Thêm ngân hàng để thêm thông tin ngân hàng liên kết. User có thể thêm nhiều ngân hàng liên kết. 
+      * Sau khi hoàn tất, hệ thống hiển thị thông tin ngân hàng, User click vào 1 ngân hàng để chọn làm ngân hàng thanh toán mặc định (hiển thị icon check bên cạnh)
+      * User chọn phương thức thanh toán bằng tài khoản ngân hàng, khi click button Thanh toán, hệ thống điều hướng liên kết với ngân hàng để thực hiện thanh toán
+      * QR chuyển khoản:
+      * User chọn phương thức thanh toán bằng QR chuyển khoản, khi click button Thanh toán, hệ thống điều hướng luồng thanh toán đơn hàng bằng QR
+	9
+	Thông tin đặt hàng
+	Label
+	Yes
+	- Hiển thị thông tin đặt hàng bao gồm:
+      * Mã đơn hàng (mô tả chi tiết tại 1.3.1 item 4)
+      * Phương thức thanh toán
+      * Thời gian đặt hàng: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái)
+      * Thời gian thanh toán: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái trừ trạng thái Chờ thanh toán, Đã huỷ (chưa thanh toán)
+      * Thời gian đơn vị vận chuyển lấy hàng: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái trừ trạng thái Chờ thanh toán, Đã huỷ)
+      * Thời gian nhận hàng: DD/MM/YYYY - HH:MM (hiển thị ở trạng thái Đã giao)
+	10
+	Kiểm tra kết quả thanh toán
+	Text
+	No
+	- Chỉ hiển thị ở trạng thái Chờ thanh toán trong trường hợp User đã thanh toán nhưng chưa được ghi nhận
+- User click Kiểm tra lại kết quả để tra cứu thông tin thanh toán (Xem chi tiết tại mục 1.3.5)
+	11
+	 An tâm mua sắm
+	Label
+	Yes
+	Hiển thị nội dung như design
+	12
+	Button Huỷ đơn
+	Button
+	Yes
+	- User click button Huỷ đơn, hệ thống hiển thị bottom sheet cho phép User chọn lý do huỷ đơn 
+      * User có thể chọn các lý do có sẵn hoặc click Lý do khác và nhập lý do. 
+      * User click button Xác nhận để xác nhận Huỷ đơn, hệ thống chuyển đơn hàng từ trạng thái Chờ thanh toán sang Đã huỷ.
+      * User click button Huỷ để huỷ thao tác huỷ đơn, hệ thống hiển thị màn hình chi tiết đơn hàng. 
+	13
+	Button Thanh toán
+	Button
+	Yes
+	User click button Thanh toán, hệ thống chuyển sang màn hình thanh toán (xem chi tiết ở tài tiệu)
+	1.3.2.2. Trạng thái Chờ giao hàng
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Ngày giao dự kiến: [date] - [date]
+	Label
+	Yes
+	- Hiển thị các thông tin: 
+      * Ngày giao dự kiến (lấy theo API của đơn vị vận chuyển): DD/MM/YYYY - DD/MM/YYYY (nếu thông tin về năm trùng nhau thì hiển thị DD/MM - DD/MM/YYYY)
+      * Ngày đặt hàng (ngày khởi tạo đơn hàng)
+	3
+	Thông tin vận chuyển
+	Label
+	Yes
+	- Hiển thị thông tin vận chuyển đơn hàng (realtime)
+- Onclick chuyển sang màn hình Thông tin vận chuyển (1.3.6)
+	4
+	Thông tin nhận hàng
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.1
+	5
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	Tương tự STT 4 mục 1.3.2.1
+	6
+	Tổng thanh toán
+	Label
+	Yes
+	Tương tự STT 5 mục 1.3.2.1
+	7
+	Hỗ trợ
+	Label
+	Yes
+	Tương tự STT 6 mục 1.3.2.1
+	8
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Tương tự STT 7 mục 1.3.2.1
+	9
+	Thông tin đặt hàng
+	Label
+	Yes
+	Tương tự STT 8 mục 1.3.2.1
+	10
+	 An tâm mua sắm
+	Label
+	Yes
+	Tương tự STT 9 mục 1.3.2.1
+	11
+	Button Huỷ đơn
+	Button
+	No
+	- Hiển thị khi ĐVVC chưa lấy hàng
+- User click button Huỷ đơn, hệ thống hiển thị bottom sheet cho phép User chọn lý do huỷ đơn 
+(Rule tương tự STT 10 mục 1.3.1).
+	12
+	Button Theo dõi đơn
+	Button
+	Yes
+	- User click button Theo dõi đơn hàng, hệ thống chuyển sang màn hình Thông tin vận chuyển
+	1.3.2.3. Trạng thái Đang giao
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Ngày giao dự kiến: [date] - [date]
+	Label
+	Yes
+	Tương tự STT 2 mục 1.3.2.2
+	3
+	Thông tin vận chuyển
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.2
+	4
+	Giao hàng đúng hẹn
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.1
+	5
+	Thông tin nhận hàng
+	Label
+	Yes
+	Tương tự STT 4 mục 1.3.2.1
+	6
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	Tương tự STT 5 mục 1.3.2.1
+	7
+	Tổng thanh toán
+	Label
+	Yes
+	Tương tự STT 6 mục 1.3.2.1
+	8
+	Hỗ trợ
+	Label
+	Yes
+	Tương tự STT 7 mục 1.3.2.1
+	9
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Tương tự STT 8 mục 1.3.2.1
+	10
+	Thông tin đặt hàng
+	Label
+	Yes
+	      * Tương tự STT 9 mục 1.3.2.1
+	11
+	 An tâm mua sắm
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.1
+	12
+	Button Theo dõi đơn
+	Button
+	No
+	- User click button Theo dõi đơn hàng, hệ thống chuyển sang màn hình Thông tin vận chuyển
+	13
+	Button Đã nhận hàng
+	Button
+	No
+	- Trường hợp đơn vị vận chuyển đang giao hàng, hệ thống disable button.
+- Trường hợp đơn vị vận chuyển giao hàng thành công, hệ thống enable button. Người dùng click button, đơn hàng chuyển trạng thái từ Đang giao thành Đã giao.
+	1.3.2.4. Trạng thái Đã giao
+  
+
+- Người dùng còn 1 yêu cầu Trả hàng/Hoàn tiền:
+  
+
+- Người dùng hết lượt yêu cầu Trả hàng/Hoàn tiền:
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Đơn hàng đã giao hàng thành công vào [time] - [date]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Đang giao hàng (khi User chưa click button Đã nhận hàng), Đã giao
+- Các thông tin: 
+      * Ngày giao dự kiến (lấy theo API của đơn vị vận chuyển): DD/MM/YYYY - DD/MM/YYYY (nếu thông tin về năm trùng nhau thì hiển thị DD/MM - DD/MM/YYYY)
+      * Ngày đặt hàng (ngày khởi tạo đơn hàng)
+	3
+	Thông tin vận chuyển
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.2
+	4
+	Thông tin nhận hàng
+	Label
+	Yes
+	Tương tự STT 4 mục 1.3.2.1
+	5
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	Tương tự STT 5 mục 1.3.2.1
+	6
+	Tổng thanh toán
+	Label
+	Yes
+	Tương tự STT 6 mục 1.3.2.1
+	7
+	Hỗ trợ
+	Label
+	Yes
+	Tương tự STT 7 mục 1.3.2.1
+	8
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Tương tự STT 8 mục 1.3.2.1
+	9
+	Mô tả trạng thái yêu cầu trả hàng/hoàn tiền
+	Label
+	Yes
+	- Trường hợp Người dùng chưa yêu cầu Trả hàng/Hoàn tiền: Ngày trễ nhất Người dùng được gửi yêu cầu Trả hàng/Hoàn tiền: 5 ngày kể từ ngày ĐVVC giao hàng thành công. Format DD/MM/YYYY
+  
+
+- Trường hợp Người dùng đã yêu cầu Trả hàng/Hoàn tiền 1 lần: Ngày trễ nhất Người dùng được gửi yêu cầu Trả hàng/Hoàn tiền: 5 ngày kể từ ngày ĐVVC giao hàng thành công. Format DD/MM  
+- Trường hợp Người dùng hết yêu cầu Trả hàng/Hoàn tiền:
+  
+
+- Onclick chuyển sang màn Yêu cầu Trả hàng/Hoàn tiền mục 1.3.3.
+- Ngày trễ nhất Người dùng được gửi yêu cầu Trả hàng/Hoàn tiền: 5 ngày kể từ ngày ĐVVC giao hàng thành công.
+	10
+	Thông tin đặt hàng
+	Label
+	Yes
+	      * Tương tự STT 9 mục 1.3.2.1
+	11
+	 An tâm mua sắm
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.1
+	12
+	Button Theo dõi đơn
+	Button
+	No
+	- User click button Theo dõi đơn hàng, hệ thống chuyển sang màn hình Thông tin vận chuyển
+	13
+	Button Đã nhận hàng
+	Button
+	No
+	- Trường hợp đơn vị vận chuyển đang giao hàng, hệ thống disable button.
+- Trường hợp đơn vị vận chuyển giao hàng thành công, hệ thống enable button. Người dùng click button, đơn hàng chuyển trạng thái từ Đang giao thành Đã giao.
+	1.3.2.5. Trạng thái Đã hoàn thành
+- Trường hợp Người dùng không yêu cầu Trả hàng/Hoàn tiền:
+  
+
+- Trường hợp yêu cầu Trả hàng/Hoàn tiền bị huỷ:
+  
+
+
+
+- Trường hợp yêu cầu Trả hàng/Hoàn tiền bị từ chối:
+  
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Đơn hàng đã giao hàng thành công vào [time] - [date]
+	Label
+	No
+	- Hiển thị với đơn hàng ở trạng thái Đang giao hàng (khi User chưa click button Đã nhận hàng), Đã giao
+- Các thông tin: 
+      * Ngày giao dự kiến (lấy theo API của đơn vị vận chuyển): DD/MM/YYYY - DD/MM/YYYY (nếu thông tin về năm trùng nhau thì hiển thị DD/MM - DD/MM/YYYY)
+      * Ngày đặt hàng (ngày khởi tạo đơn hàng)
+	3
+	Thông tin vận chuyển
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.2
+	4
+	Thông tin nhận hàng
+	Label
+	Yes
+	Tương tự STT 4 mục 1.3.2.1
+	5
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	Tương tự STT 5 mục 1.3.2.1
+	6
+	Tổng thanh toán
+	Label
+	Yes
+	Tương tự STT 6 mục 1.3.2.1
+	7
+	Hỗ trợ
+	Label
+	Yes
+	Tương tự STT 7 mục 1.3.2.1
+	8
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Tương tự STT 8 mục 1.3.2.1
+	9
+	Mô tả trạng thái yêu cầu trả hàng/hoàn tiền
+	Label
+	Yes
+	- Yêu cầu Trả hàng/Hoàn tiền bị huỷ:
+  
+
+- Yêu cầu Trả hàng/Hoàn tiền bị từ chối kèm lý do từ chối: 
+  
+
+- Onclick chuyển sang màn Yêu cầu Trả hàng/Hoàn tiền mục 1.3.3
+	10
+	Thông tin đặt hàng
+	Label
+	Yes
+	- Hiển thị thông tin đặt hàng bao gồm:
+      * Mã đơn hàng (mô tả chi tiết tại 1.3.1 item 4)
+      * Phương thức thanh toán
+      * Thời gian đặt hàng: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái)
+      * Thời gian thanh toán: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái trừ trạng thái Chờ thanh toán, Đã huỷ (chưa thanh toán)
+      * Thời gian đơn vị vận chuyển lấy hàng: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái trừ trạng thái Chờ thanh toán, Đã huỷ)
+      * Thời gian nhận hàng: DD/MM/YYYY - HH:MM (hiển thị ở trạng thái Đã giao, Đã hoàn thành, Trả hàng)
+      * Thời gian hoàn thành đơn: DD/MM/YYYY - HH:MM (hiển thị ở trạng thái Đã hoàn thành)
+	11
+	 An tâm mua sắm
+	Label
+	Yes
+	      * Tương tự STT 3 mục 1.3.2.1
+	12
+	Button Mua lại
+	Button
+	Yes
+	- User click button Mua lại, hệ thống chuyển sang màn Chi tiết sản phẩm .
+	13
+	Button Đánh giá
+	Button
+	Yes
+	- User click button Đánh giá, hệ thống chuyển sang màn Đánh giá sản phẩm (mô tả chỉ tiết 1.3.3). 
+	1.3.2.6. Trạng thái Trả hàng
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Trạng thái xử lý yêu cầu Trả hàng/Hoàn tiền
+	Label
+	Yes
+	- Các trạng thái bao gồm:
+      * Yêu cầu trả hàng/hoàn tiền đang chờ xử lý. Đặt ngày: Ngày đặt hàng (ngày khởi tạo đơn hàng) - DD/MM/YYYY
+  
+
+      * Chờ hoàn tiền: bao gồm các đơn hàng có yêu cầu Trả hàng/Hoàn tiền đã được Nhà bán/Admin phê duyệt. Đặt ngày: Ngày đặt hàng (ngày khởi tạo đơn hàng) - DD/MM/YYYY
+  
+
+      * Hoàn tiền thành công. Đơn hàng cập nhật trạng thái Hoàn tiền thành công sau khi Admin import trạng thái hoàn tiền trên CMS (tính năng này chưa làm ở giai đoạn hiện tại). Đặt ngày: Ngày đặt hàng (ngày khởi tạo đơn hàng) - DD/MM/YYYY
+  
+
+      * Hoàn tiền thất bại. Đơn hàng cập nhật trạng thái Hoàn tiền thất bại sau khi Admin import trạng thái hoàn tiền trên CMS (tính năng này chưa làm ở giai đoạn hiện tại). Đặt ngày: Ngày đặt hàng (ngày khởi tạo đơn hàng) - DD/MM/YYYY
+  
+
+	3
+	Thông tin vận chuyển
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.2
+	4
+	Thông tin nhận hàng
+	Label
+	Yes
+	Tương tự STT 4 mục 1.3.2.1
+	5
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	Tương tự STT 5 mục 1.3.2.1
+	6
+	Tổng thanh toán
+	Label
+	Yes
+	Tương tự STT 6 mục 1.3.2.1
+	7
+	Hỗ trợ
+	Label
+	Yes
+	Tương tự STT 7 mục 1.3.2.1
+	8
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Tương tự STT 8 mục 1.3.2.1
+	9
+	Mô tả trạng thái yêu cầu trả hàng/hoàn tiền
+	Label
+	Yes
+	Hiển thị tương ứng với trạng thái yêu cầu trả hàng/hoàn tiền:
+- Với trạng thái Yêu cầu trả hàng/hoàn tiền đang chờ xử lý:
+      * Yêu cầu đang chờ phê duyệt: thời gian xử lý yêu cầu dự kiến 24h kể từ ngày Người dùng gửi yêu cầu Trả hàng/Hoàn tiền. Format: DD/YY/MMMM.
+  
+
+      * Yêu cầu đã phê duyệt, đợi Người dùng chọn phương thức trả hàng: thời gian chọn phương thức trả hàng là 24h kể từ khi Nhà bán/Admin phê duyệt yêu cầu. Format: DD tháng MM.
+  
+
+      * Chờ hoàn tiền
+  
+
+      * Hoàn tiền thành công: kèm số tiền hoàn. Đơn hàng cập nhật trạng thái Hoàn tiền thành công sau khi Admin import trạng thái hoàn tiền trên CMS (tính năng này chưa làm ở giai đoạn hiện tại)
+  
+
+      * Hoàn tiền thất bại: kèm lý do thất bại. Đơn hàng cập nhật trạng thái Hoàn tiền thất bại sau khi Admin import trạng thái hoàn tiền trên CMS (tính năng này chưa làm ở giai đoạn hiện tại)
+  
+
+- Onclick chuyển sang màn Yêu cầu Trả hàng/Hoàn tiền mục 1.3.3
+	10
+	Thông tin đặt hàng
+	Label
+	Yes
+	      * Tương tự STT 9 mục 1.3.2.1
+	11
+	 An tâm mua sắm
+	Label
+	Yes
+	Tương tự STT 3 mục 1.3.2.1
+	1.3.2.7. Trạng thái Đã huỷ 
+
+
+  STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	User click button để trở về màn hình danh sách đơn hàng
+	2
+	Đơn hàng bị huỷ vào [date]-[time]
+	Label
+	Yes
+	- Hiển thị với đơn hàng ở trạng thái Đã huỷ 
+- Các thông tin: 
+      * Thời gian huỷ: DD/MM/YYYY - HH:MM
+      * Ngày đặt hàng (ngày khởi tạo đơn hàng)
+	3
+	Thông tin nhận hàng
+	Label
+	Yes
+	- Hiển thị thông tin người nhận hàng bao gồm:
+      * Tên người nhận
+      * Số điện thoại người nhận
+      * Địa chỉ người nhận
+- Mỗi đơn hàng chỉ có 1 thông tin nhận hàng
+	4
+	Thông tin publisher và sản phẩm
+	Label
+	Yes
+	- Hiển thị thông tin Publisher và sản phẩm
+- Hiển thị đầy đủ các sản phẩm của đơn hàng
+- Thông tin Publisher:
+      * Avatar và tên publisher
+      * Click avatar, tên publisher, hệ thống chuyển sang màn hình Chi tiết Publisher
+- Thông tin sản phẩm:
+      * Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+      * Tên sản phẩm (Nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng đầu tiên) 
+      * Thuộc tính sản phẩm (hiển thị thông tin thuộc tính của sản phẩm. Nếu sản phẩm có nhiều thuộc tính được phân cách các thuộc tính với nhau bằng dấu | ) 
+      * Giá sản phẩm (hiển thị giá sản phẩm trên 1 đơn vị sản phẩm bao gồm giá gốc và giá ưu đãi) 
+      * Số lượng sản phẩm mua (hiển thị số lượng sản phẩm được mua) 
+
+
+	5
+	Tổng thanh toán
+	Label
+	Yes
+	- Hiển thị số tiền Buyer cần thanh toán cho đơn hàng
+- Onclick để hiển thị thông tin chi tiết thanh toán bao gồm tổng tiền hàng, voucher
+	6
+	Hỗ trợ
+	Label
+	Yes
+	Onclick để chuyển sang Zalo OA hỗ trợ khách hàng
+	7
+	Chính sách hỗ trợ
+	Label
+	Yes
+	Onclick để chuyển sang màn hình thông tin về chính sách hỗ trợ khách hàng (chưa thực hiện ở Phase 1)
+	8
+	Phương thức thanh toán
+	Label
+	Yes
+	- User click chọn radio button để chọn phương thức thanh toán
+- Hiển thị phương thức thanh toán bao gồm:
+      * Tài khoản ngân hàng (chưa làm phase 1):
+      * User click Thêm ngân hàng để thêm thông tin ngân hàng liên kết. User có thể thêm nhiều ngân hàng liên kết. 
+      * Sau khi hoàn tất, hệ thống hiển thị thông tin ngân hàng, User click vào 1 ngân hàng để chọn làm ngân hàng thanh toán mặc định (hiển thị icon check bên cạnh)
+      * User chọn phương thức thanh toán bằng tài khoản ngân hàng, khi click button Thanh toán, hệ thống điều hướng liên kết với ngân hàng để thực hiện thanh toán
+      * QR chuyển khoản:
+      * User chọn phương thức thanh toán bằng QR chuyển khoản, khi click button Thanh toán, hệ thống điều hướng luồng thanh toán đơn hàng bằng QR
+	9
+	Thông tin đặt hàng
+	Label
+	Yes
+	- Hiển thị thông tin đặt hàng bao gồm:
+      * Mã đơn hàng (mô tả chi tiết tại 1.3.1 item 4)
+      * Phương thức thanh toán
+      * Thời gian đặt hàng: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái)
+      * Thời gian thanh toán: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái trừ trạng thái Chờ thanh toán, Đã huỷ (chưa thanh toán)
+      * Thời gian đơn vị vận chuyển lấy hàng: DD/MM/YYYY - HH:MM (hiển thị ở tất cả trạng thái trừ trạng thái Chờ thanh toán, Đã huỷ)
+      * Thời gian hoàn thành đơn: DD/MM/YYYY - HH:MM (hiển thị ở trạng thái Đã giao)
+	10
+	Kiểm tra kết quả thanh toán
+	Text
+	No
+	- Chỉ hiển thị ở trạng thái Chờ thanh toán trong trường hợp User đã thanh toán nhưng chưa được ghi nhận
+- User click Kiểm tra lại kết quả để tra cứu thông tin thanh toán (Xem chi tiết tại mục 1.3.5)
+	11
+	 An tâm mua sắm
+	Label
+	Yes
+	Hiển thị nội dung như design
+	1.3.3. Màn hình Yêu cầu Trả hàng/Hoàn tiền
+Luồng màn hình: Người dùng click button Yêu cầu Trả hàng/Hoàn tiền từ màn hình Danh sách đơn hàng hoặc Chi tiết đơn hàng.
+  
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Thông tin sản phẩm
+	Label
+	Yes
+	- Hiển thị thông tin sản phẩm, bao gồm:
+      * Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+      * Tên sản phẩm: hiển thị tối đa 1 dòng, nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng thứ 1) 
+      * Số lượng sản phẩm
+      * Tổng tiền đơn hàng
+	3
+	Hoàn tiền vào
+	Label
+	Yes
+	- Trường hợp Người mua thanh toán qua Zalopay: TKNH thanh toán qua Zalopay (phát triển sau khi tích hợp xong với Zalopay)
+- Trường hợp Người mua thanh toán qua mã QR: TKNH liên kết (tài khoản ngân hàng Người mua chọn khi ekyc)
+      * Onclick hiển thị bottom sheet Chọn tài khoản nhận tiền hoàn (tài khoản ngân hàng đã khai báo). Click Xác nhận để hoàn tất chọn tài khoản nhận tiền hoàn.
+  
+
+	4
+	Tổng tiền hoàn
+	Label
+	Yes
+	Tổng tiền hoàn của đơn hàng = tổng tiền Người mua đã thanh toán
+	5
+	Lý do
+	Label
+	Yes
+	- Onclick hiển thị bottom sheet Chọn Lý do Trả hàng/Hoàn tiền
+- Người dùng chỉ được chọn 1 lý do. Click button Xác nhận để lưu lý do và tắt bottom sheet.
+	6
+	Mô tả
+	Textbox
+	No
+	- Mô tả yêu cầu Trả hàng/Hoàn tiền.
+- Placeholder: Ghi chú thêm
+- Validate:
+      * Tối đa 2.000 ký tự (bao gồm khoảng trắng và ký tự xuống dòng). Chặn nhập quá số lượng.
+      * Cho phép nhập ký tự đặc biệt.
+      * Tự động trim khoảng trắng đầu/cuối.
+	7
+	Hình ảnh & video
+	Button
+	No
+	- Cho phép người dùng tải lên hình ảnh và video thực tế của sản phẩm.
+- Người dùng thêm tối đa 6 hình ảnh (định dạng tối đa 20MB), 2 video (định dạng tối đa 200MB)
+- Nội dung hướng dẫn: Thêm 1 hình ảnh và 1 video để nhận 1 voucher giảm giá 10%
+- Onclick button Thêm hình ảnh, hệ thống mở thư viện ảnh hoặc camera trên thiết bị.
+- Onclick button Thêm video, hệ thống mở thư viện ảnh mục video hoặc camera trên thiết bị cho phép quay video.
+	8
+	Email cập nhật tình hình
+	Label
+	Yes
+	- Email của người dùng, dữ liệu lấy từ gmail người dùng đăng ký tài khoản. Trường hợp người dùng đăng ký tài khoản bằng SĐT, trường này trống. 
+	9
+	Gửi yêu cầu
+	Button
+	Yes
+	- Enable khi Người dùng điền đầy đủ các trường bắt buộc.
+-Người dùng click button, hệ thống gửi yêu cầu Trả hàng/Hoàn tiền đến Seller/Admin, đồng thời hiển thị toast message: “Yêu cầu Trả hàng/Hoàn tiền được gửi thành công. Thời gian xử lý từ 1- 3 ngày. Sau thời gian này, nếu yêu cầu của bạn chưa được xử lý, liên hệ CSKH để được hỗ trợ.”. Hệ thống điều hướng màn hình Chi tiết hoàn tiền (mục 1.3.4).
+	1.3.4. Màn hình Chi tiết hoàn tiền
+Luồng màn hình: Người dùng click Yêu cầu Trả hàng/Hoàn tiền từ màn hình Chi tiết đơn hàng -> hiển thị màn hình Chi tiết hoàn tiền.
+  
+ 
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	Tương tự STT 1 mục 1.3.2.1
+	2
+	Thông tin tiền hoàn
+	Label
+	Yes
+	Hiển thị thông tin tiền hoàn bao gồm:
+- Thông tin chi tiết trạng thái hoàn tiền
+- Trạng thái hoàn tiền
+- Số tiền hoàn
+- Trường hợp Người mua thanh toán qua Zalopay: TKNH thanh toán qua Zalopay (phát triển sau khi tích hợp xong với Zalopay)
+- Trường hợp Người mua thanh toán qua mã QR: TKNH liên kết (tài khoản ngân hàng Người mua chọn khi ekyc)
+- Onclick Xem chi tiết tiền hoàn, hiển thị bottom sheet Chi tiết hoàn tiền. Click Đã hiểu để tắt bottom sheet. 
+  
+
+	3
+	Tiến trình hoàn tiền
+	Progress Bar
+	Yes
+	- Hiển thị tiến trình và thời gian hoàn tiền đơn hàng, bao gồm:
+      * Chấp nhận hoàn tiền: Seller/Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền  
+      * Từ chối hoàn tiền: Seller/Admin từ chối yêu cầu Trả hàng/Hoàn tiền
+  
+
+         * Trả hàng cho người bán: ĐVVC lấy hàng hoàn thành công
+  
+
+         * Đã hoàn tiền: Hệ thống hoàn tiền cho Buyer thành công
+  
+
+         * Hoàn tiền thất bại: Hệ thống hoàn tiền cho Buyer thất bại
+  
+
+- Format thời gian: DD/MM
+	4
+	Huỷ yêu cầu
+	Button
+	No
+	- Hiển thị khi Người dùng chưa bàn giao đơn hàng cho ĐVVC.
+- Onclick để huỷ yêu cầu, hệ thống hiển thị popup Bạn có chắc muốn huỷ yêu cầu Trả hàng/Hoàn tiền?
+
+
+  
+
+
+
+- Người dùng click Huỷ để tắt popup, huỷ thao tác Huỷ yêu cầu, click Đồng ý để huỷ yêu cầu, hệ thống điều hướng màn hình Chi tiết đơn hàng và hiển thị bottom sheet “Yêu cầu trả hàng/hoàn tiền đã được huỷ thành công”. Click Đã hiểu để đóng.
+  
+
+         * Hiển thị ngày gửi yêu cầu lần đầu: format DD/MM/YYYY
+         * Hiển thị ngày trễ nhất có thể gửi yêu cầu: 5 ngày kể từ khi ĐVVC giao hàng thành công, format DD/MM/YYYY
+	5
+	Chọn phương thức trả hàng
+	Tab
+	No
+	- Hiển thị với yêu cầu được Nhà bán/Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền[b][c][d][e].
+- Người dùng chọn phương thức Trả hàng: đơn vị vận chuyển đến lấy hàng và Trả hàng tại bưu cục.
+- Mặc định chọn Đơn vị vận chuyển đến lấy hàng (phase 1 chưa làm tính năng Trả hàng tại bưu cục).
+- Onclick button Xác nhận, hệ thống ghi nhận phương thức trả hàng và hiển thị các thông tin:
+         * Tên người gửi
+         * Số điện thoại 
+         * Địa chỉ: onclick để thay đổi địa chỉ (luồng thay đổi địa chỉ tương tự UC2 Tài liệu)
+         * Thời gian dự kiến đơn vị vận chuyển đến lấy hàng: 1-3 ngày kể từ ngày yêu cầu Trả hàng/Hoàn tiền được phê duyệt
+- Trường hợp ĐVVC đã lấy hàng hoàn, hiển thị địa chỉ của Người dùng và thời gian lấy hàng hoàn. Format thời gian: HH:MM DD/MM/YYYY:
+  
+
+	6
+	Bạn cần hỗ trợ
+	Label
+	Yes
+	Onclick để chuyển sang Zalo OA hỗ trợ khách hàng
+	7
+	Thông tin sản phẩm
+	Label
+	Yes
+	- Hiển thị thông tin sản phẩm, bao gồm:
+         * Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+         * Tên sản phẩm: hiển thị tối đa 1 dòng, nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng thứ 1) 
+         * Số lượng sản phẩm
+         * Tổng tiền đơn hàng
+- Click Xem chi tiết để hiển thị thông tin yêu cầu Trả hàng/Hoàn tiền bao gồm:
+         * Mã yêu cầu. Click icon copy để sao chép mã yêu cầu
+         * Hoàn tiền vào: 
+         * Trường hợp Người mua thanh toán qua Zalopay: TKNH thanh toán qua Zalopay (phát triển sau khi tích hợp xong với Zalopay)
+         * Trường hợp Người mua thanh toán qua mã QR: TKNH liên kết (tài khoản ngân hàng Người mua chọn khi ekyc)
+         * Thời gian yêu cầu
+         * Lý do trả hàng/hoàn tiền. Onclick hiển thị bottom sheet Lý do trả hàng/hoàn tiền, Người dùng có thể xem lý do, mô tả và hình ảnh/video. Click Đã hiểu để tắt bottom sheet.
+  
+
+	8
+	Thay đổi
+	Button
+	No
+	- Hiển thị sau khi Người dùng chọn 1 phương thức trả hàng. 
+- Onclick hiển thị bottom sheet cho phép Người dùng thay đổi phương thức trả hàng.
+  
+
+- Click button Xác nhận để xác nhận phương thức trả hàng và đóng bottom sheet.
+	9
+	Hướng dẫn trả hàng
+	Label
+	No
+	- Hiển thị sau khi Người dùng chọn 1 phương thức trả hàng. 
+- Click icon copy để sao chép mã vận đơn.
+- Click button Tải về file PDF phiếu vận đơn, hệ thống hiển thị file PDF phiếu vận đơn (E2 cung cấp).
+	1.3.5. Màn hình Đánh giá đơn hàng
+Luồng màn hình: 
+- Với đơn hàng chưa đánh giá: MH Chi tiết đơn hàng -> onclick button Đánh giá -> hệ thống chuyển sang màn đánh giá đơn hàng
+  
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Back
+	Button
+	Yes
+	- Khi User chưa đánh giá sản phẩm và publisher, User click button, hệ thống chuyển về màn hình Đánh giá
+- Khi User thao tác đánh giá sản phẩm và publisher, User click button, hệ thống hiển thị Popup “Bạn muốn rời trang?”
+         * User click button Rời trang, hệ thống chuyển về màn hình Chi tiết đơn hàng
+         * User click button Ở lại trang, hệ thống tắt popup và cho phép người dùng tiếp tục đánh giá
+	2
+	Sản phẩm
+	Image + Text
+	Yes
+	- Hiển thị hình ảnh, tên và SKU của sản phẩm
+- User onclick, hệ thống chuyển sang màn Chi tiết sản phẩm
+	3
+	Chất lượng sản phẩm
+	Button
+	Yes
+	- Cho phép User phản hồi mức độ hài lòng đối với chất lượng sản phẩm thông qua thang đo 5 sao.
+- Khi User click chọn ngôi sao thứ n, tất cả các ngôi sao từ 1 đến n sẽ chuyển sang trạng thái Active kèm nội dung text tương ứng:
+         * 1 sao: Rất không hài lòng
+         * 2 sao: Không hài lòng
+         * 3 sao: Bình thường
+         * 4 sao: Hài lòng
+         * 5 sao: Rất hài lòng
+	4
+	Đánh giá sản phẩm bằng hình ảnh và video
+	Button
+	No
+	- Cho phép người dùng tải lên hình ảnh và video thực tế của sản phẩm để nhận ưu đãi.
+- Nội dung hướng dẫn: Thêm 1 hình ảnh và 1 video để nhận 1 voucher giảm giá 10%
+- User thêm tối đa 5 hình ảnh và video
+- Onclick button Thêm hình ảnh, hệ thống mở thư viện ảnh hoặc camera trên thiết bị.
+- Onclick button Thêm video, hệ thống mở thư viện ảnh mục video hoặc camera trên thiết bị cho phép quay video
+- Ràng buộc : Hệ thống chỉ ghi nhận tặng voucher khi User hoàn thành đủ số lượng tối thiểu các mục (ảnh, video) - Chưa làm giai đoạn SP8
+	5
+	Viết đánh giá
+	Textbox
+	No
+	- User nhập nội dung đánh giá sản phẩm
+- Placeholder: Hãy chia sẻ nhận xét của bạn về sản phẩm này
+- Số lượng ký tự tối đa: 250 ký tự
+- Hiển thị số lượng ký tự hiện tại, User không được phép nhập quá giới hạn ký tự cho phép (250 ký tự).
+
+
+	6
+	Đánh giá dịch vụ Publisher
+	Button
+	Yes
+	- Cho phép User phản hồi mức độ hài lòng đối với dịch vụ Publisher thông qua thang đo 5 sao.
+- Mặc định hiển thị 5 sao và text Rất hài lòng
+- Khi User click chọn ngôi sao thứ n, tất cả các ngôi sao từ 1 đến n sẽ chuyển sang trạng thái Active kèm nội dung text tương ứng:
+         * 1 sao: Rất không hài lòng
+         * 2 sao: Không hài lòng
+         * 3 sao: Bình thường
+         * 4 sao: Hài lòng
+         * 5 sao: Rất hài lòng
+- User chọn các nhãn đặc điểm tương ứng với số sao, User có thể chọn nhiều nhãn (không bắt buộc chọn)
+(Tài liệu nhãn đánh giá tương ứng với số sao: https://docs.google.com/spreadsheets/d/1CVS7dVZL7Jpeu2_0XwU9ALC2XUGlQA8b/edit?usp=sharing&ouid=107329871301407226712&rtpof=true&sd=true)  
+- Với trường hợp 1-2 sao, User có thể chọn đánh giá Khác. Khi User click Khác, hệ thống hiển thị textbox cho phép nhập đánh giá:
+         * Là trường bắt buộc nhập. Nếu chưa nhập dữ liệu, User click button Gửi đánh giá, hệ thống hiển thị inline message: “Vui lòng không bỏ trống”
+         * Placeholder: Chia sẻ thêm nguyên nhân để chúng tôi khắc phục
+         * Số lượng ký tự tối đa: 250 ký tự
+         * Hiển thị số lượng ký tự hiện tại, User không được phép nhập quá giới hạn ký tự cho phép (250 ký tự).
+	7
+	Gửi đánh giá
+	Button
+	Yes
+	- User click button để gửi đánh giá, hệ thống chuyển sang màn hình Đánh giá của tôi tại tab Đã đánh giá
+- Nếu User đánh giá đủ 1 hình ảnh và 1 video, hệ thống hiển thị popup Voucher giảm 10%
+	8
+	Rời trang
+	Button
+	Yes
+	User click button, hệ thống chuyển về màn trước đó
+	9
+	Ở lại trang
+	Button
+	Yes
+	User click button Ở lại trang, hệ thống tắt popup và cho phép người dùng tiếp tục đánh giá
+	Màn hình đánh giá của tôi  
+	10
+	Back
+	Button
+	Yes
+	User click button, hệ thống trở về trang trước đó 
+	11
+	Chờ đánh giá (số lượng đơn hàng chờ đánh giá)
+	Tab button
+	Yes
+	User click button, hệ thống hiển thị danh sách đơn hàng đang chờ đánh giá
+	12
+	Đã đánh giá (số lượng đơn hàng đã đánh giá)
+	Tab button
+	Yes
+	User click button, hệ thống hiển thị danh sách đơn hàng đã đánh giá 
+	13
+	Thông tin publisher và đơn hàng
+	Label
+	Yes
+	- Hiển thị thông tin Publisher và đơn hàng. User click vào vùng này, hệ thống chuyển sang màn hình Đánh giá đơn hàng (sau khi Buyer đánh giá)
+- Thông tin Publisher:
+         * Avatar và tên publisher
+         * Click avatar, tên publisher, hệ thống chuyển sang màn hình Chi tiết Publisher
+- Thông tin đơn hàng:
+         * Sản phẩm: mặc định hiển thị 1 sản phẩm, nếu đơn hàng có nhiều hơn 1 sản phẩm.
+         * Ảnh sản phẩm: Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+         * Tên sản phẩm (Nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng đầu tiên) 
+         * Thuộc tính sản phẩm (hiển thị thông tin thuộc tính của sản phẩm. Nếu sản phẩm có nhiều thuộc tính được phân cách các thuộc tính với nhau bằng dấu | ) 
+         * Giá sản phẩm (hiển thị giá sản phẩm trên 1 đơn vị sản phẩm bao gồm giá gốc và giá ưu đãi) 
+         * Số lượng sản phẩm mua (hiển thị số lượng sản phẩm được mua) 
+         * Đơn hàng:
+         * Mã đơn (mô tả chi tiết tại 1.3.1 item 4)
+         * Thời gian đánh giá: thời gian User hoàn thành đánh giá đơn hàng, forrmat DD/MM/YYYY HH:MM
+         * Số sao đánh giá đơn hàng
+	14
+	Xem thêm
+	Button
+	Yes
+	- User click button, hệ thống hiển thị danh sách tất cả sản phẩm trong đơn hàng, thông tin đánh giá chất lượng sản phẩm, thông tin đánh giá dịch vụ Publisher
+	15
+	Chất lượng sản phẩm
+	Text, image, video
+	No
+	- Hiển thị thông tin đánh giá sản phẩm bảo gồm nội dung, hình ảnh và  video
+- User click ảnh sản phẩm, hệ thống  hiển thị ảnh ở chế độ toàn màn hình  
+- User click video, hệ thống hiển thị màn hình để phát video 
+	16
+	Đánh giá dịch vụ Publisher
+	Tag
+	Yes
+	Hiển thị số sao và thông tin đánh giá Publisher tương ứng
+	17
+	Thu gọn
+	Button
+	Yes
+	User click button, hệ thống trở về màn hình hiển thị 1 sản phẩm của đơn hàng
+	18
+	Button Đánh giá
+	Button
+	Yes
+	Tại tab Chờ đánh giá, User click button, hệ thống chuyển sang màn Đánh giá đơn hàng
+	Màn hình Đánh giá đơn hàng (sau khi Buyer đánh giá): MH Chi tiết đơn hàng -> onclick button Xem đánh giá -> hệ thống chuyển sang màn đánh giá đơn hàng
+
+
+    
+	19
+	Thông tin publisher và đơn hàng
+	Label
+	Yes
+	- Hiển thị thông tin Publisher và đơn hàng
+- Thông tin Publisher:
+         * Avatar và tên publisher
+         * Click avatar, tên publisher, hệ thống chuyển sang màn hình Chi tiết Publisher
+- Thông tin đơn hàng:
+         * Sản phẩm: hiển thị tất cả sản phẩm trong đơn hàng
+         * Ảnh sản phẩm: Ảnh sản phẩm: lấy ảnh theo SKU. Nếu sản phẩm chỉ có 1 SKU, lấy ảnh của SKU đó. Nếu sản phẩm không có ảnh SKU, lấy ảnh sản phẩm
+         * Tên sản phẩm (Nếu tên sản phẩm dài hơn 1 dòng, tự động cắt ngắn và hiển thị dấu … ở cuối dòng đầu tiên) 
+         * Thuộc tính sản phẩm (hiển thị thông tin thuộc tính của sản phẩm. Nếu sản phẩm có nhiều thuộc tính được phân cách các thuộc tính với nhau bằng dấu | ) 
+         * Giá sản phẩm (hiển thị giá sản phẩm trên 1 đơn vị sản phẩm bao gồm giá gốc và giá ưu đãi) 
+         * Số lượng sản phẩm mua (hiển thị số lượng sản phẩm được mua) 
+         * Đơn hàng:
+         * Mã đơn (mô tả chi tiết tại 1.3.1 item 4)
+         * Thời gian đánh giá: thời gian User hoàn thành đánh giá đơn hàng, format DD/MM/YYYY HH:MM
+         * Số sao đánh giá đơn hàng
+	20
+	Chất lượng sản phẩm
+	Text, image, video
+	No
+	- Hiển thị thông tin đánh giá sản phẩm bảo gồm nội dung, hình ảnh và  video
+- User click ảnh sản phẩm, hệ thống  hiển thị ảnh ở chế độ toàn màn hình  
+- User click video, hệ thống hiển thị màn hình để phát video 
+	21
+	Đánh giá dịch vụ Publisher
+	Tag
+	Yes
+	Hiển thị số sao và thông tin đánh giá Publisher tương ứng
+	 1.3.6. Màn hình Thông tin vận chuyển 
+  
+
+
+
+
+
+STT
+	Label
+	Kiểu
+	Bắt buộc
+	Mô tả
+	1
+	Bản đồ giao hàng
+	Map
+	No
+	- Hiển thị khi đơn hàng ở trạng thái cha Đang giao hàng
+- Hiển thị vị trí kho, vị trí người mua và icon xe giao hàng
+(chưa làm do dự kiến tích hợp Viettel AI)
+	2
+	Thông tin sản phẩm
+	Image + Text
+	Yes
+	Hiển thị hình ảnh, tên sản phẩm và mã đơn hàng.
+- User click vào hình ảnh và tên sản phẩm, hệ thống chuyển sang màn Chi tiết sản phẩm
+- User click icon copy để copy mã đơn hàng, sau khi click, hệ thống hiển thị message Sao chép thành công
+	3
+	Hành trình đơn hàng
+	Label
+	Yes
+	- Hiển thị mốc thời gian và trạng thái đơn hàng tương ứng
+- Hệ thống lấy dữ liệu hành trình đơn hàng theo đơn vị vận chuyển (tích hợp EVTP)
+- Khi giao hàng thành công, hiển thị hình ảnh giao hàng, User onclick để xem hình ảnh giao hàng
+	1.3.7. Màn hình Tra cứu kết quả giao dịch
+https://www.figma.com/design/wYFuVvh4Jfi2zVGsoXuJ07/GOM---Vipomall-F2C?node-id=29235-224581&t=0bfo4bQV48aZTap2-4 
+  
+
+Luồng màn hình: Tại thanh Navigation Bar → onclick chọn icon Đơn hàng → hệ thống hiển thị màn hình danh sách đơn hàng -> chọn Xem chi tiết đơn hàng ở trạng thái Chờ thanh toán -> Click button Kiểm tra lại => Hiển thị kết quả
+         * Người dùng thanh toán thành công => hệ thống hiển thị màn hình Đặt hàng thành công.
+         * Chưa ghi nhận giao dịch  => hệ thống hiển thị bottom sheet Giao dịch chưa xác định
+
+
+STT
+	Label
+	Type
+	Bắt buộc
+	Mô tả
+	1
+	Icon X
+	Icon button
+	Yes
+	Click để đóng màn hình, hệ thống hiển thị màn hình Chi tiết đơn hàng
+	2
+	Textview tên thông báo
+	Text
+	Yes
+	Mặc định hiển thị như design.
+	3
+	Thông tin đơn hàng đã thanh toán
+	N/A
+	Yes
+	- Hiển thị thông tin đơn hàng đã được thanh toán. 
+- Thông tin đơn hàng gồm:
+         * Mã đơn hàng: Hiển thị mã của đơn hàng được đặt cho phép click vào icon sao chép để sao chép nhanh mã.
+         * Mã giao dịch: Hiển thị mã của đơn hàng được đặt cho phép click vào icon sao chép để sao chép nhanh mã. Trường hợp có nhiều đơn hàng được đặt sẽ hiển thị chung mã giao dịch
+         * Thông tin đơn hàng: Ảnh sản phẩm, Tên sản phẩm, SKU, Số lượng theo SKU, Giá tiền 1 SKU, Số sản phẩm còn lại của đơn hàng (nếu đơn hàng có từ 2 sản phẩm trở lên), Tổng tiền đơn hàng.
+	4
+	Icon Home
+	Icon button
+	Yes
+	Click để điều hướng tới màn hình Trang chủ
+	5
+	CTA Quản lý đơn hàng
+	button
+	Yes
+	Click để điều hướng tới màn Chi tiết đơn hàng đang tra cứu
+	6
+	Đề xuất dành cho bạn
+	N/A
+	No
+	Label: Đề xuất dành cho bạn - hiển thị mặc định theo UI
+- Hiển thị danh sách sản phẩm đề xuất theo Publisher: Scroll lên xuống để xem danh sách
+- Rule hiển thị: 
+         * Thứ tự hiển thị mô tả chi tiết tại mục 1.6 tài liệu Xem chi tiết sản phẩm.
+- Thông tin hiển thị Publisher:
+         * Ảnh đại diện: Người dùng nhấn vào ảnh đại diện, hệ thống chuyển sang màn Xem chi tiết Publisher.
+         * Tên Publisher: Người dùng nhấn vào tên Publisher, hệ thống chuyển sang màn Xem chi tiết Publisher
+         * Tổng số người theo dõi Publisher:
+         * Từ 1 đến < 1.000: hiển thị nguyên số.
+         * Từ 1.000 đến 999.999: rút gọn theo nghìn, hiển thị dạng xK (x = phần nghìn). Nếu còn phần dư > 0 thì hiển thị thêm +.
+         * Từ 1.000.000 đến 999.999.999: rút gọn theo triệu, hiển thị dạng xM (x = phần triệu). Nếu còn phần dư > 0 thì hiển thị thêm +.
+         * Từ ≥ 1.000.000.000: rút gọn theo tỷ, hiển thị dạng xM (x = phần tỷ). Nếu còn phần dư > 0 thì hiển thị thêm +.
+         * Nhãn Publisher: hiển thị nhãn đánh giá Publisher tương ứng
+         * Trạng thái theo dõi: ưu tiên hiển thị các Publisher đang theo dõi. 
+         * Nếu Người dùng chưa theo dõi Publisher nào, hệ thống hiển thị text button “Theo dõi”
+         * Khi Người dùng nhấn vào text button Theo dõi, trạng thái theo dõi chuyển thành “Đang theo dõi”
+- Thông tin sản phẩm:
+         * Tên sản phầm: 
+         * Tên sản phẩm hiển thị tối đa 1 dòng, phần dư được rút gọn bằng ký tự “...”
+         * Click vào tên để hiển thị đầy đủ tên sản phẩm
+         * Số sao đánh giá trung bình
+         * Tổng lượt bán sản phẩm 
+         * Ảnh sản phẩm: tối đa 3 ảnh (hoặc 2 ảnh, 1 video)
+         * Thời gian mua chung của sản phẩm
+         * Giá gốc sản phẩm, giá sau giảm, % giảm giá của sản phẩm
+         * Số người mua sản phẩm từ nhóm: 
+  
+
+         * Click để điều hướng sang màn chi tiết sản phẩm được chia sẻ bởi publisher. (hoặc click vào khoảng trống trong nhóm mua chung)
+         * Số người đã mua sản phẩm từ nhóm của publisher
+         * Tag “Ưu đãi lên đến x%. Lấy theo tỷ lệ voucher cao nhất của publisher có thể áp dụng cho sản phẩm này.
+         * Số người đang xem sản phẩm được chia sẻ bởi publisher này
+         * CTA: 
+         * Giỏ hàng: Click hiển thị màn chọn SKU sản phẩm 
+         * Share: hiển thị popup chia sẻ sản phẩm: link điều hướng tới màn chi tiết sản phẩm nhóm mua chung (có nhiều nhóm publisher)
+         * Mua chung ngay:  Click hiển thị màn chọn SKU theo publisher 
+	7
+	Giao dịch chưa xác định
+	Bottom sheet
+	Yes
+	- Hiển thị với trường hợp chưa có thông tin thanh toán thành công
+- Nội dung hiển thị như UI
+- User click button Đã hiểu hoặc click vùng bên ngoài popup để tắt bottom sheet
+	[a]phần này đang đợi team KD confirm
+[b]thêm cho c ảnh minh họa của tab này nhé
+[c]chưa có mô tả PTTH Gửi tại BC à em?
+[d]Gửi tại bưu cục chưa làm UI chị ạ, phần này team UI đang để giai đoạn có nghiệp vụ ạ
+[e]Note scope

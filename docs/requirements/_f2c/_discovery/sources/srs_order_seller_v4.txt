@@ -1,0 +1,4179 @@
+﻿TÀI LIỆU ĐẶC TẢ NGHIỆP VỤ QUẢN LÝ ĐƠN HÀNG SELLER
+DỰ ÁN: F2C
+(Dùng cho hệ thống Seller)
+Lịch sử thay đổi
+Ver
+	Date Revised
+	Change Description
+	A/M/D (Add/Modify/ Deleted)
+	Prepared by
+	Reviewed by
+	Note
+	ver 1.0
+	04/02/2026
+	
+
+	A
+	AIT
+	VTP
+	
+
+	ver 2.0
+	01/08/2026
+	Sửa đổi đầu mục tài liệu
+	M
+	AIT
+	VTP
+	
+
+	ver 3.0
+	10/08/2026
+	Nâng cấp phần hoá đơn điện tử (3.8)
+	M
+	AIT
+	VTP
+	
+
+	ver 4.0
+	26/08/2026
+	Bổ sung luồng Hoàn/Huỷ
+- Danh sách đơn hàng (3.1)
+- Chi tiết đơn hàng (3.2.2.9 -> 3.2.2.12)
+	A
+	AIT
+	VTP
+	
+
+	I. Tổng quan
+1.1. Mục đích tính năng
+- Tài liệu được xây dựng nhằm mục đích mô tả chức năng quản lý đơn hàng trên hệ thống Seller F2C
+1.2. Tài liệu liên quan
+
+
+STT
+	Loại tài liệu
+	Thông tin tham khảo
+	1
+	Giao diện quản lý đơn hàng
+	https://www.figma.com/design/CvEbg4QXhNDHtjkGGvLRI3/Figma_Ng%E1%BB%8Dc_Seller_F2C?node-id=569-96644&t=XRc7dIBHGQSCe66k-1
+	2
+	Update luồng Hoàn/Huỷ
+	https://www.figma.com/design/qUEAPxxRd2hC561l6GIDTr/F2C?node-id=5198-47927&t=7D4djUARmdLx2em1-4 
+	
+
+1.3. Thuật ngữ và chữ viết tắt
+STT
+	Thuật ngữ viết tắt
+
+
+	Nội dung
+	1
+	
+
+	
+
+	2
+	
+
+	
+
+	1.4. Các ký hiệu sử dụng trong tài liệu
+
+
+Biểu tượng
+	Ý nghĩa
+	  
+
+	Bắt đầu/Kết thúc luồng xử lý
+	  
+
+	Thao tác của NSD bên ngoài hệ thống
+	  
+
+	Thao tác của NSD trên hệ thống
+	  
+
+	Công việc xử lý của hệ thống
+	  
+
+	Điều kiện để xử lý rẽ nhánh
+	  
+
+	Luồng xử lý cần tham chiếu
+	
+
+1.5. Các chức năng chính
+STT
+	Tên chức năng
+	Mô tả
+	Đầu mục
+	Tác nhân
+	1
+	Danh sách đơn hàng
+	Xem danh sách đơn hàng luồng happy case theo các tab: Chờ thanh toán, chờ duyệt, chờ giao hàng, đang giao hàng, đã giao hàng, trả hàng, hủy 
+	3.1
+	Nhà bán
+	2
+	Xem chi tiết đơn hàng
+	Xem chi tiết đơn hàng trong trường hợp có 
+	3.2
+	Nhà bán
+	3
+	Hủy đơn hàng
+	Cho phép người dùng thực hiện hủy đơn hàng khi trạng thái đơn hàng ở các trạng thái: 
+* Chờ chuẩn bị hàng 
+* Đang chờ tạo đơn vận chuyển 
+* Đã chuẩn bị hàng
+	3.3
+	Nhà bán
+	4
+	Xuất báo cáo 
+	Xuất báo cáo đơn hàng
+	3.4
+	Nhà bán
+	5
+	Chuẩn bị hàng
+	Chuẩn bị đơn hàng
+	3.5
+	Nhà bán
+	6
+	In nhãn 
+	In nhãn đơn vị vận chuyển
+	3.6
+	Nhà bán
+	
+
+II. Quy trình nghiệp vụ
+  
+  
+2.1. Mô tả quy trình
+
+
+
+
+STT
+	Bước quy trình
+	Hệ thống 
+	Đối tượng thực hiện
+	Mô tả
+	1
+	Luồng cấu hình chi phí
+	CMS
+	Nhân viên điều hành
+	Nhân viên điều hành tiến hành cấu hình chi phí cho đơn.
+Khi nhà bán có đơn thì doanh thu trên từng đơn của nhà bán sẽ phải chịu phí này 
+	2
+	Luồng tạo đơn F2C
+	Buyer
+	Người mua
+	Người mua tiến hành đặt đơn hàng như luồng hiện tại.
+
+	3.1
+	Hủy đơn
+	Seller
+	Nhà bán
+	Nhà bán hủy đơn hàng (do chưa bàn giao đơn vị vận chuyển)
+	3.2
+	Chuẩn bị đơn hàng
+	Seller
+	Nhà bán
+	Nhà bán tiến hành chuẩn bị đơn hàng bằng cách nhập kho lấy hàng 
+-> Bước 8
+	4
+	Tạo đơn vận của đơn vị vận chuyển
+	Seller
+	Hệ thống
+	Hệ thống tiến hành gửi yêu cầu tạo đơn sang F2C -> F2C gửi yêu cầu tạo đơn sang đơn vị vận chuyển (Viettel Post) -> đơn vị vận chuyển trả về mã vận đơn tương ứng 
+
+
+Nhà bán sau đó muốn:
+- Muốn hủy đơn -> bước 9.2
+- Muốn in nhãn -> Bước 9.1
+	5
+	In nhãn
+	Seller
+	Nhà bán
+	Hệ thống gửi yêu cầu in nhãn sang F2C -> F2C gửi yêu cầu in nhãn sang đơn vị vận chuyển -> đơn vị vận chuyển tiến hành in và trả về link nhãn đơn
+	6.1
+	 Hủy đơn do Nhà bán 
+	Seller
+	Hệ thống
+	Hệ thống cập nhật trạng thái “đơn hàng bị hủy bởi nhà bán”
+	6.2
+	Bàn giao cho đơn vị vận chuyển
+	Seller
+	Nhà bán
+	Nhà bán bàn giao đơn hàng vật lý cho đơn vị vận chuyển
+	7
+	Cập nhật trạng thái đơn theo tiến trình vận chuyển
+	Seller
+	hệ thống
+	* Trước thời điểm đơn vận của đơn vị vận chuyển được sinh ra thì trạng thái đơn người mua và trạng thái đơn người bán trigger lẫn nhau 
+* Từ thời điểm đơn vận của đơn vị vận chuyển được sinh ra ->
+*  đơn người mua cập nhật trạng thái đơn theo trạng thái vận chuyển (lưu ý trạng thái nào đã cập nhật không cập nhật lại)
+* mapping trạng thái đơn nhà bán với trạng thái đơn người mua 
+Chi tiết mô tả trong UC10
+	
+
+2.2. Danh sách trạng thái đơn hàng của Seller 
+
+
+STT
+	Trạng thái cha
+	Trạng thái con 
+	Thao tác 
+	1
+	Chờ thanh toán 
+	Chờ thanh toán 
+	Người dùng có thể thực hiện “Xem chi tiết” đơn hàng
+	2
+	Chờ giao hàng 
+	Chờ chuẩn bị hàng 
+	Hiển thị thao tác tương ứng với mỗi trạng thái
+1, Đối với trạng thái “Chờ chuẩn bị hàng”
+- Xem chi tiết
+- Chuẩn bị hàng 
+- Hủy đơn 
+2, Đối với trạng thái “Đang chờ tạo đơn vận chuyển”
+- Xem chi tiết 
+- Hủy đơn 
+3, Đối với trạng thái “Đã chuẩn bị hàng” 
+- Xem chi tiết 
+- In phiếu giao 
+- Hủy đơn 
+	Đang chờ tạo đơn vận chuyển 
+	Đã chuẩn bị hàng
+	3
+	Đang giao hàng 
+	Đang giao hàng 
+	Hiển thị thao tác tương 
+1, Đối với trạng thái “Đang giao hàng”
+- Xem chi tiết
+2, Đối với trạng thái “Đơn hàng thất lạc”
+- Xem chi tiết 
+	Đơn hàng thất lạc
+	4
+	Đã giao hàng 
+	Đã giao hàng 
+	Người dùng có thể thực hiện “Xem chi tiết” đơn hàng
+	5
+	Trả hàng 
+	Chờ xét duyệt
+	Hiển thị thao tác tương 
+1.  Đối với trạng thái Chờ xét duyệt
+- Xem chi tiết
+- Phê duyệt
+2. Đối với trạng thái Chờ giao hàng/Đang giao hàng/Đã giao hàng
+- Xem chi tiết 
+	Chờ giao hàng
+	Đang giao hàng
+	Đã giao hàng
+	6
+	Đã hoàn thành
+	Đã hoàn thành
+	Người dùng có thể thực hiện “Xem chi tiết” đơn hàng
+	7
+	Đã hủy 
+	Đã hủy
+	Người dùng có thể thực hiện “Xem chi tiết” đơn hàng
+	
+
+
+
+III. Thiết kế chi tiết chức năng
+3.1. Chức năng xem danh sách đơn hàng 
+3.1.1. Thông tin chung 
+
+
+Tên chức năng
+	Xem danh sách đơn hàng
+	Mô tả
+	Cho phép người bán xem danh sách đơn hàng
+	Tác nhân
+	Người bán 
+	Trigger
+	Seller F2C → Quản lý đơn hàng  → Chọn các tab gồm: tất cả, chờ thanh toán, chờ duyệt, chờ giao hàng, đang giao hàng, đã giao hàng, trả hàng/ hoàn tiền/ hủy để xem danh sách đơn hàng theo từng tab
+	Điều kiện đầu vào
+	- Người dùng đăng nhập thành công vào hệ thống Seller
+- Có đơn ở trạng thái tương ứng:
+* Tab tất cả 
+. Trạng thái: Tất cả trạng thái đơn hàng
+* Tab chờ thanh toán: 
+. Trạng thái:  Chờ thanh toán
+* Tab chờ giao hàng
+. Trạng thái: Chờ chuẩn bị hàng
+. Trạng thái: Đã chuẩn bị hàng
+* Tab Đang giao hàng
+. Trạng thái: Đơn hàng thất lạc (trong khi giao hàng cho buyer)
+. Trạng thái: Đang giao hàng
+* Tab Đã giao hàng
+. Trạng thái: Giao hàng thành công
+* Tab Trả hàng 
+. Trạng thái: Chờ xét duyệt, Chờ giao hàng, Đang giao hàng, Đã giao hàng, Giao thất bại - Lưu kho (506), Giao thất bại - Tiêu huỷ (503)
+* Tab Đã hoàn thành
+. Trạng thái: Đã hoàn thành
+* Tab Đã hủy 
+. Trạng thái: Đã hủy 
+	Điều kiện đầu ra
+	Người dùng xem được danh sách đơn hàng, thực hiện action theo trạng thái của đơn
+* Tab chờ thanh toán: Chỉ đơn có trạng thái chờ thanh toán được hiển thị trên danh sách 
+* Tab chờ giao hàng: Chỉ đơn có trạng thái chờ chuẩn bị hàng và đã chuẩn bị hàng được hiển thị trên danh sách 
+. Chuẩn bị hàng: chờ chuẩn bị hàng → đã chuẩn bị hàng
+. Hủy đơn: chờ chuẩn bị hàng → đơn được hủy bởi nhà bán Tab Đang giao hàng
+. In phiếu giao: thực hiện in phiếu giao đơn ở trạng thái đã chuẩn bị hàng 
+* Tab Đang giao hàng: Đơn có trạng thái đang giao hàng và đơn hàng thất lạc được hiển thị trên danh sách 
+* Tab Đã giao hàng: Chỉ đơn có trạng thái đã giao thành công (không phát sinh yêu cầu trả hàng/hoàn tiền) được hiển thị trên danh sách 
+* Tab Trả hàng: Hiển thị những đơn phát sinh yêu cầu Trả hàng/Hoàn tiền, những đơn hàng ở trạng thái Chờ xét duyệt, Chờ giao hàng, Đang giao hàng, Đã giao hàng, Giao thất bại - Lưu kho, Giao thất bại - Tiêu huỷ
+* Tab Đã hoàn thành: Hiển thị những đơn hàng ở trạng thái Đã hoàn thành: là những đơn hàng đã giao thành công, không phát sinh yêu cầu Trả hàng/Hoàn tiền sau 5 ngày kể từ khi đơn hàng giao thành công hoặc các đơn hàng có phát sinh yêu cầu Trả hàng/Hoàn tiền nhưng đã bị huỷ/từ chối.
+* Tab Đã hủy: Chỉ hiển thị những trạng thái đơn hàng đã hủy
+	Ngoại lệ
+	- Trường hợp không có dữ liệu thì hiển thị danh sách trống
+	Business rule
+	- Danh sách hiển thị  mặc định danh sách theo thời gian giảm dần, nếu tích chọn gì trong tab hoặc lọc-> chuyển tab -> quay lại về default
+- Nếu tick chọn xem chi tiết đơn hàng → điều hướng sang màn hình chi tiết
+
+
+	3.1.2. Luồng nghiệp vụ
+Bước 
+	Mô tả
+	1
+	Người dùng truy cập module Quản lý đơn hàng
+	2
+	Hệ thống hiển thị màn hình Danh sách đơn hàng mặc định ở tab tất cả
+Người dùng chọn tab chờ thanh toán, chờ duyệt, chờ giao hàng, đang giao, đã giao để xem danh sách đơn hàng
+* Trường hợp có bản ghi >> Hiển thị danh sách đơn hàng trên grid 
+* Trường hợp không có bản ghi nào >> Hiển thị grid trống 
+	3
+	Người dùng nhập chọn/nhập tiêu chí tìm kiếm 
+	4
+	Hệ thống thực hiện tìm kiếm bản ghi thỏa mãn tất cả các tiêu chí nhập vào 
+* Trường hợp có bản ghi thỏa mãn tất cả các tiêu chí  >> Hiển thị danh sách đơn hàng trên grid 
+* Trường hợp không có bản ghi thỏa mãn tất cả các tiêu chí >> Hiển thị grid trống 
+Trường hợp người dùng đã tìm kiếm, sau đó truy cập sang menu/tab khác. Sau đó quay mở lại màn Danh sách đơn hàng >> Hệ thống tự động load lại về màn danh sách mặc định 
+	________________
+3.1.3. Thiết kế giao diện và mô tả giao diện 
+
+
+  
+
+Màn hình danh sách đơn hàng_Tất cả
+  
+
+Màn hình danh sách đơn hàng_Tab chờ giao hàng
+
+
+  
+
+Màn hình danh sách đơn hàng_Tab Trả hàng
+  
+
+Màn hình danh sách đơn hàng_Tab Hoàn thành
+
+
+  
+
+Màn hình danh sách đơn hàng_Tab Đã huỷ
+
+
+
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1
+	Tab trạng thái
+	Button
+	X
+	I
+	- Người dùng chọn tab sẽ hiển thị danh sách đơn hàng tương ứng
+- Tab trạng thái bao gồm:
+* Tất cả: danh sách đơn hàng thuộc tất cả các trạng thái được mô tả ở phần 2.2 - Danh sách trạng thái đơn hàng của seller
+* Chờ thanh toán: danh sách các đơn hàng vừa tạo thành công, đang chờ thanh toán
+* Chờ giao hàng: danh sách các đơn hàng đang ở các trạng thái con “chờ chuẩn bị hàng”, “Đang chờ tạo đơn vận chuyển” và trạng thái “đã chuẩn bị hàng” 
+* Đang giao hàng: danh sách các đơn hàng đã được đơn vị vận chuyển lấy thành công và những đơn hàng bị thất lạc trong quá trình đang giao hàng ở trạng thái con “Đơn hàng thất lạc” 
+* Đã giao hàng: danh sách các đơn hàng đã được đơn vị vận chuyển giao thành công đến khách hàng
+* Trả hàng: danh sách các đơn có yêu cầu trả hàng
+* Đã hủy: danh sách các đơn bị hủy hoặc từ chối bởi nhà bán
+	2
+	Xuất excel
+	Button
+	
+
+	O
+	- Cho phép chọn button để xuất danh sách đơn hàng theo từng tab trạng thái
+- Người dùng truy cập mục quản lý đơn hàng → chọn danh sách đơn hàng theo từng tab → chọn button “Xuất excel”
+- Chi tiết chức năng xuất excel được mô tả tại mục 3.4_ Chức năng xuất báo cáo
+	3
+	Lịch sử xuất báo cáo
+	Button
+	
+
+	O
+	 - Tại danh sách đơn hàng → Click lịch sử xuất báo cáo  -> Hiển thị màn hình “lịch sử xuất báo cáo”
+	4
+	Lọc theo
+	Combobox
+Single choice 
+	
+
+	I
+	- Cho phép người dùng chọn lọc theo 1 trong các tiêu chí:
+* Mã đơn hàng
+* Tên người mua
+* Tên sản phẩm
+* Mã vận đơn
+- Placeholder: Nhập để lọc
+- Mặc định khi người dùng chưa chọn tiêu chí → bỏ trống
+- Tiêu chí lọc theo từng tab:
+* Tab tất cả; đang giao hàng; chờ giao hàng; đã giao hàng: lọc theo cả 4 tiêu chí
+* Tab chờ thanh toán; chờ duyệt: cho phép lọc theo mã đơn hàng, tên người mua, tên sản phẩm
+	5 
+	Thanh tìm kiếm
+	Searchbox
+	
+
+	I
+	- Cho phép người dùng nhập tìm kiếm tương ứng với tiêu chí đã chọn bên trên
+- Placeholder tương ứng như sau:
+* Mặc định: Nhập để lọc
+* Lọc theo mã đơn hàng → “Nhập mã đơn hàng”
+* Lọc theo tên người mua → “Nhập tên người mua”
+* Lọc theo tên sản phẩm → “Nhập tên sản phẩm”
+* Lọc theo mã vận đơn → “Nhập mã vận đơn”
+- Cho phép nhập freetext, tìm kiếm tương đối với tên người mua, tên sản phẩm, tìm kiếm tuyệt đối với mã đơn hàng và mã vận đơn
+- Giới hạn, chặn nhập quá
+* 20 ký tự với mã đơn hàng, mã vận đơn 
+* 50 ký tự với tên người mua
+* 100 ký tự với tên sản phẩm
+	6
+	Thời gian
+	Datepicker
+	
+
+	I
+	- Cho phép tìm kiếm theo ngày tạo đơn
+- NSD nhấn vào trường thông tin để nhập ngày bắt đầu, ngày kết thúc. Hoặc NSD có thể nhấn vào button    để hiển thị datepicker. Định dạng của trường thông tin sẽ là ngày- tháng - năm
+- Nếu không chọn gì thì mặc định hiển thị dữ liệu trong 30 ngày tính đến thời điểm hiện tại
+- Placeholder: Từ ngày -> đến ngày
+	7
+	Áp dụng
+	Button
+	
+
+	
+
+	- Chọn button → thực hiện tìm kiếm theo các tiêu chí đã chọn
+- Hiển thị danh sách kết quả tương ứng với các tiêu chí của bộ lọc
+- Nếu NSD không nhập/ chọn tiêu chí lọc mà ấn button “Áp dụng” → hiển thị danh sách kết quả mặc định của hệ thống
+- Nếu không có kết quả thỏa mãn hiển thị danh sách trống
+	8
+	Xóa bộ lọc
+	Button
+	
+
+	
+
+	- Chọn button → thực hiện xóa các tiêu chí đã chọn của bộ lọc
+- Danh sách kết quả trả về mặc định của hệ thống
+	9
+	  
+
+	Check box
+	
+
+	I
+	- Cho phép người dùng tick chọn 1, nhiều hoặc tất cả đơn để thực hiện các thao tác 
+* Xuất excel tại các tab tất cả/ chờ thanh toán/ chờ duyệt/ chờ giao hàng/ đang giao hàng/ đã giao hàng/ Trả hàng/đã hủy 
+* Chuẩn bị hàng hoặc in phiếu giao tại tab chờ giao hàng
+	10
+	Sản phẩm
+	Label
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	11
+	Số lượng
+	Label
+	
+
+	O
+	- Hiển thị số lượng sản phẩm theo từng SKU
+	12
+	Tổng tiền đơn hàng
+	Label
+	
+
+	O
+	- Hiển thị tổng số tiền của đơn hàng (tổng số tiền khách hàng cần thanh toán)
+- Tổng tiền đơn hàng = Tổng tiền hàng 
+	13
+	Mã vận chuyển[a][b]
+	Label
+	
+
+	O
+	- Hiển thị mã vận chuyển tương ứng của từng đơn hàng
+- Mã vận chuyển chỉ được sinh ra khi kết nối vận chuyển thành công 
+(- Trường hợp timeout không sinh ra được mã vận đơn thì hiển thị “Chờ cập nhật”. Người dùng hover vào hiển thị tooltip “Vui lòng liên hệ bộ phận chăm sóc sau 30’ nếu không nhận được mã vận chuyển”.
+- Sau 30’ chưa cập cập nhật mã vận chuyển → tại ô mã vận chuyển chuyển từ “Chờ cập nhật” sang “Lỗi cập nhật”, người dùng hover vào hiển thị tooltip “Vui lòng liên hệ bộ phận chăm sóc để xử lý”
+- Ở những trạng thái: chờ thanh toán, chờ duyệt, chờ chuẩn bị hàng (tab chờ giao hàng) thì để trống ô mã vận chuyển
+- Cho phép người dùng sao chép mã đơn hàng bằng cách chọn icon   
+- Sao chép thành công → hiển thị text thông báo “Đã sao chép”
+Note: Với tab Trả hàng, mã vận chuyển là mã của đơn hàng thu hồi nhé
+	14
+	Ngày tạo/ 
+	Label
+	
+
+	O
+	- Hiển thị thời gian tạo đơn hàng
+- Định dạng: hh:mm dd/mm/yyyy
+	15
+	Trạng thái đơn hàng
+	Label
+	
+
+	O
+	- Hiển thị trạng thái tương ứng của từng đơn hàng tại thời điểm đó
+	16
+	Thao tác
+	Icon Button
+	
+
+	I
+	- Cho phép người dùng thao tác với từng đơn hàng
+- Chọn icon    → hiển thị danh sách thao tác cho phép người dùng chọn thao tác thực hiện với đơn hàng
+- Action đơn hàng phụ thuộc vào từng trạng thái của đơn hàng
+*Trạng thái chờ thanh toán gồm các action:
+*  Xem chi tiết: Chọn action → hiển thị chi tiết đơn hàng
+- Đối với trạng thái chờ giao sẽ gồm các trạng thái con: chờ chuẩn bị hàng, đã chuẩn bị hàng
+-  Trạng thái Chờ chuẩn bị hàng gồm các action:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàng
+* Chuẩn bị hàng: chọn action → chuyển đơn sang trạng thái đã chuẩn bị hàng
+* Hủy đơn: thực hiện hủy đơn hàng
+- Trạng thái Đã chuẩn bị hàng gồm các action:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàng
+* In phiếu giao: chọn action → thực hiện chức năng in phiếu giao để dán vào đơn hàng
+* Hủy đơn: thực hiện hủy đơn hàng với các đơn hàng có trạng thái “chờ chuẩn bị hàng”, “đang chờ tạo đơn vận chuyển”, “đã chuẩn bị hàng”
+*Trạng thái đang giao hàng gồm:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàng
+*Trạng thái đã giao hàng gồm:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàng
+*Trạng thái Trả hàng gồm:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàng
+* Phê duyệt: chọn action → hiển thị chi tiết đơn hàng
+*Trạng thái Đã hoàn thành gồm:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàng
+*Trạng thái Đã hủy gồm:
+* Xem chi tiết: chọn action → hiển thị chi tiết đơn hàn
+*Lưu ý: Các action sẽ được mô tả chi tiết tại mục thao tác đơn hàng
+	17
+	Tên khách hàng
+	Textview
+	
+
+	O
+	- Hiển thị avatar (Trong trường hợp Buyer chưa có avatar thì hiển thị ảnh mặc định của hệ thống)+ tên người mua của từng đơn
+	18
+	Yêu cầu xuất hóa đơn 
+	Badge 
+	
+
+	O
+	Hiển thị Badge “yêu cầu xuất hóa đơn” với những đơn hàng có yêu cầu xuất hóa đơn từ Buyer
+	19
+	Mã đơn hàng
+	Label
+	
+
+	O
+	- Hiển thị mã đơn hàng (mã đơn F2C)
+- Cho phép người dùng sao chép mã đơn hàng bằng cách chọn icon   
+- Sao chép thành công → hiển thị text thông báo “Đã sao chép”
+	20
+	Hủy đơn 
+	Button 
+	
+
+	I
+	- Chọn button để thực hiện hủy đơn hàng với các đơn ở trạng thái “Chờ chuẩn bị hàng”, “Đang chờ tạo đơn vận chuyển”, “Đã chuẩn bị hàng” 
+- Hiển thị button ở tab “Chờ giao hàng”
+	21
+	Chuẩn bị hàng
+	Button
+	
+
+	I
+	- Chọn button để thực hiện chuẩn bị hàng với các đơn ở trạng thái chờ chuẩn bị hàng
+- Hiển thị button ở tab “ Chờ giao hàng”
+- Khi tick chọn 1 hoặc nhiều đơn ở trạng thái “Chờ chuẩn bị hàng” => Click => Thực hiện chuẩn bị hàng 
+- Khi tick chọn nhiều đơn không cùng trạng thái với nhau => Hệ thống chỉ thực hiện chuẩn bị hàng cho những đơn có trạng thái “Chờ chuẩn bị hàng” 
+→ Chuẩn bị hàng thành công thì các đơn được tick chọn chuyển trạng thái sang đã chuẩn bị hàng
+	22
+	In phiếu giao
+	Button
+	
+
+	I
+	- Chọn button để thực hiện in phiếu giao với các đơn ở trạng thái đã chuẩn bị hàng (tab Chờ giao hàng)
+- Enable khi chọn những đơn có cùng trạng thái thỏa mãn điều kiện in phiếu giao (Đã chuẩn bị hàng)
+- Khi tick chọn nhiều đơn không cùng trạng thái, hệ thống chỉ thực hiện in đơn với những trạng thái “Đã chuẩn bị hàng”
+	23
+	Trạng thái hoàn tiền
+	Label
+	N
+	
+
+	- Hiển thị với tab Trả hàng
+- Hiển thị trạng thái hoàn tiền của đơn hàng, bao gồm 1 trong các trạng thái: 
+* Chờ hoàn tiền: Hiển thị sau khi yêu cầu Trả hàng/Hoàn tiền được Nhà bán/Admin phê duyệt
+* Đã hoàn tiền: Hiển thị sau khi hoàn tiền thành công cho Người mua (lấy theo trạng thái hoàn tiền trong file import của Admin - tính năng này chưa làm ở giái đoạn hiện tại)
+* Hoàn tiền thất bại: Hiển thị sau khi hoàn tiền thất bại (lấy theo trạng thái hoàn tiền trong file import của Admin - tính năng này chưa làm ở giai đoạn hiện tại)
+- Trường hợp trạng thái đơn hàng là Chờ xét duyệt (yêu cầu Trả hàng/Hoàn tiền chờ xét duyệt), trường trạng thái hoàn tiền trống.
+	24
+	Số lần khiếu nại
+	Label
+	N
+	
+
+	- Hiển thị với tab Trả hàng
+- Hiển thị số lần khiếu nại của Buyer. Buyer có tối đa 2 lần khiếu nại cho mỗi đơn hàng.
+- Trường hợp khiếu nại lần đầu của Buyer bị Nhà bán từ chối, khiếu nại lần 2 của Buyer được chuyển đến Admin phê duyệt.
+	25
+	Phương thức trả hàng
+	Label
+	N
+	
+
+	- Hiển thị với tab Trả hàng
+- Hiển thị phương thức trả hàng: Trả hàng và Hoàn tiền, Hoàn tiền ngay (không trả hàng)
+	26
+	Người duyệt
+	Label
+	N
+	
+
+	- Hiển thị với tab Trả hàng
+- Hiển thị người duyệt yêu cầu Trả hàng/Hoàn tiền: Admin, tên nhà bán
+	27
+	Người huỷ
+	Label
+	Y
+	
+
+	- Hiển thị với tab Đã huỷ
+- Hiển thị người huỷ đơn hàng: Admin, tên nhà bán, tên người mua
+	
+
+3.2. Chức năng xem chi tiết đơn hàng 
+3.2.1. Thông tin chung
+
+
+Tên chức năng
+	Xem chi tiết đơn hàng
+	Mô tả
+	Cho phép người bán xem chi tiết đơn hàng
+	Tác nhân
+	Người bán
+	Trigger
+	Seller F2C → Quản lý đơn hàng → Danh sách đơn hàng → Chọn xem chi tiết đơn hàng
+	Điều kiện đầu vào
+	- Người dùng đăng nhập thành công vào hệ thống Seller >> Quản lý đơn hàng >> Xem chi tiết đơn hàng
+- Có ít nhất 1 đơn hàng
+	Điều kiện đầu ra
+	Người dùng xem được chi tiết đơn hàng và thực hiện action tương ứng với trạng thái:
+* Chuẩn bị hàng: với trạng thái chờ chuẩn bị hàng
+* Hủy đơn: Với trạng thái chờ chuẩn bị hàng, đã chuẩn bị hàng
+* In phiếu giao: với trạng thái đang chuẩn bị hàng
+* Duyệt yêu cầu hoàn: với trạng thái Trả hàng 
+	3.2.2. Thiết kế giao diện
+3.2.2.1. Chi tiết đơn chờ thanh toán
+  
+Màn hình Chi tiết đơn hàng 
+
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1
+	Back 
+	Button
+	
+
+	I
+	click => Quay trở lại màn hình trước 
+	2
+	Mã đơn hàng
+	Text
+	
+
+	O
+	 - Hiển thị mã đơn hàng 
+	3
+	Trạng thái đơn hàng
+	Text
+	
+
+	O
+	- Hiển thị trạng thái của đơn hàng là “Chờ thanh toán”
+	4
+	Thông tin giao hàng
+	Text
+	
+
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	5
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	6
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số SKU sản phẩm có trong đơn hàng
+	7
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	8
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+	9
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	10
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	11
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	12
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	13
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	14
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	15
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	16
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	17
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	18
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng
+	19
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	20
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC.
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	Chi tiết hóa đơn 
+* Điều kiện hiển thị: Chỉ hiển thị với những nhà bán có chức năng xuất hóa đơn và những đơn hàng được buyer yêu cầu xuất hóa đơn 
+	Đối với buyer Cá nhân
+	Họ và tên 
+	Textview
+	
+
+	O
+	Hiển thị thông tin họ và tên của Buyer 
+	Địa chỉ 
+	Textview
+	
+
+	O
+	Hiển thị thông tin địa chỉ của Buyer
+	Email nhận hóa đơn 
+	Textview
+	
+
+	O
+	Hiển thị thông tin email nhận hóa đơn của Buyer
+	Số điện thoại 
+	Textview
+	
+
+	O
+
+
+	Hiển thị thông tin số điện thoại của Buyer
+	Đối với buyer là hộ kinh doanh 
+	Tên hộ kinh doanh 
+	Textview
+	
+
+	O
+	Hiển thị thông tin tên hộ kinh doanh của Buyer
+	Mã số thuế
+	Textview
+	
+
+	O
+	Hiển thị thông tin mã số thuế của Buyer
+	Người đại diện 
+	Textview
+	
+
+	O
+	Hiển thị thông tin người đại diện hộ kinh doanh của buyer
+	Địa chỉ hộ kinh doanh 
+	Textview
+	
+
+	O
+	Hiển thị thông tin địa chỉ hộ kinh doanh 
+	Email nhận hóa đơn 
+	Textview
+	
+
+	O
+	Hiển thị thông tin email nhận hóa đơn của buyer
+	Số điện thoại
+	Textview
+	
+
+	O
+	Hiển thị thông tin số điện thoại của buyer
+	Đối với buyer là doanh nghiệp 
+	Tên công ty 
+	Textview
+	
+
+	O
+	Hiển thị thông tin tên công ty của Buyer
+	Mã số thuế
+	Textview
+	
+
+	O
+	Hiển thị thông tin mã số thuế của Buyer
+	Người đại diện 
+	Textview
+	
+
+	O
+	Hiển thị thông tin người đại diện hộ doanh nghiệp của buyer
+	Địa chỉ 
+	Textview
+	
+
+	O
+	Hiển thị thông tin địa chỉ hộ kinh doanh 
+	Email  nhận hóa đơn 
+	Textview
+	
+
+	O
+	Hiển thị thông tin email nhận hóa đơn của buyer
+	Số điện thoại 
+	Textview
+	
+
+	O
+	Hiển thị thông tin số điện thoại của buyer
+	Team kinh doanh yêu cầu duyệt tự động
+3.2.2.2. Chi tiết đơn chờ duyệt (Team kinh doanh yêu cầu duyệt tự động)
+  Hình 2.2 . Màn hình chi tiết đơn hàng trạng thái chờ duyệt
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái của đơn hàng là “Chờ duyệt”
+	3
+	Từ chối 
+	Button
+	X
+	I
+	- Chọn button để thực hiện từ chối đơn  hàng  
+- Chi tiết chức năng hủy đơn hàng được mô tả tại mô tả chức năng từ chối đơn hàng
+	4
+	Phê duyệt
+	Button
+	X
+	I
+	- Chọn button để thực hiện duyệt đơn  hàng  
+- Chi tiết chức năng duyệt đơn hàng được mô tả tại UC 08- Duyệt đơn hàng
+	5
+	Thông tin giao hàng
+	Text
+	
+
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+- Hiển thị thông tin sđt của khách hàng
+	6. Thông tin đơn hàng
+	6.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	6.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số SKU sản phẩm có trong đơn hàng
+	6.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	6.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+- Trường hợp có điều chỉnh về giá sản phẩm trên CMS thì giá đơn giá của sản phẩm trong đơn hàng không bị ảnh hưởng
+	6.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	6.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	6.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	7. Doanh thu đơn hàng
+	7.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	7.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	7.3
+	Các chi phí khác
+	Number
+	
+
+	O
+	- Hiển thị các loại phí mà đơn hàng có áp dụng 
+- Các loại phí áp dụng cho đơn hàng được cấu hình trên CMS 
+- Các loại phí áp dụng cho đơn hàng được tính từ thời điểm đặt hàng thành công, sau đó nếu có điều chỉnh về các loại phí từ CMS như thay đổi trạng thái, thay đổi giá trị của chi phí thì không ảnh hưởng đến chi phí đơn hàng đã đặt
+	7.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+	8. Thanh toán của người mua
+	8.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	8.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	8.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	
+
+
+
+
+
+
+
+3.2.2.3. Chi tiết đơn chờ giao hàng_chờ chuẩn bị hàng
+  
+
+  
+
+Hình 2.3. Màn hình chi tiết đơn hàng trạng thái chờ chuẩn bị hàng
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái cha của đơn hàng là “Chờ giao hàng”
+- Trong trạng thái chờ giao hàng đơn hàng có tiến trình trạng thái đơn từ chờ chuẩn bị hàng lên đã chuẩn bị hàng
+- Đơn thanh toán thành công chuyển từ trạng thái từ chờ thanh toán → chờ chuẩn bị hàng
+- Khi nhà bán chuẩn bị hàng thành công, xác định địa chỉ kho để bàn giao cho đơn vị vận chuyển thì đơn hàng cập nhật trạng thái đã chuẩn bị hàng
+	3
+	Hủy đơn 
+	Button
+	X
+	I
+	- Chọn button để thực hiện hủy đơn  hàng  
+	4
+	Chuẩn bị hàng
+	Button
+	X
+	I
+	- Chọn button để thực hiện chức năng chuẩn bị hàng  
+	5
+	Thông tin giao hàng
+	Text
+	
+
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	6.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	6.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	6.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	6.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+- Trường hợp có điều chỉnh về giá sản phẩm trên CMS thì giá đơn giá của sản phẩm trong đơn hàng không bị ảnh hưởng
+	6.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	6.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	6.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	7.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	7.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	7.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	7.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	7.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	8.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	8.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	8.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	9
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. 
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	
+
+
+
+3.2.2.4. Chi tiết đơn chờ giao_Đang chờ tạo đơn vận chuyển
+  
+
+Hình 2.4. Màn hình chi tiết đơn hàng trạng thái đã chuẩn bị hàng
+  
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái cha của đơn hàng là “Chờ giao hàng”
+- Trong trạng thái chờ giao hàng đơn hàn có tiến trình trạng thái đơn từ chờ chuẩn bị hàng lên đã chuẩn bị hàng
+- Đơn thanh toán thành công chuyển từ trạng thái từ chờ thanh toán → chờ chuẩn bị hàng
+- Khi nhà bán chuẩn bị hàng thành công, xác định địa chỉ kho để bàn giao cho đơn vị vận chuyển thì đơn hàng cập nhật trạng thái đã chuẩn bị hàng
+	3
+	Hủy đơn 
+	Button
+	X
+	I
+	- Chọn button để thực hiện hủy đơn  hàng  
+- Chi tiết chức năng hủy đơn hàng được mô tả tại Mục 3.3_ Chức năng Hủy đơn hàng
+	4
+	In phiếu giao
+	Button
+	X
+	I
+	Người dùng nhấn button “in phiếu giao” => Hệ thống hiển thị toast “Đơn hàng đang chờ tạo đơn vận chuyển. Không thể thực hiện in phiếu giao” 
+	5
+	Thông tin giao hàng
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	6
+	Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị thông tin vận chuyển gồm:
+* Tên đơn vị vận chuyển: hiện tại đang có 1 đối tác vận chuyển mặc định là Viettel Post
+* Mã vận đơn: được sinh ra khi kết nối thành công đến đơn vị vận chuyển
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+	7.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	7.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	7.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* Thông tin phân loại (ví dụ: Size S 丨Màu xanh)
+	7.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+Đơn giá = Giá campaign của SKU 
+	7.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	7.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	7.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	7.8
+	Dịch vụ
+	Text
+	
+
+	O
+	- Hiển thị dịch vụ được chọn sử dụng trong đơn hàng
+- Gồm: 
+* Tên dịch vụ
+* Phí sử dụng dịch vụ
+	8.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	8.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	8.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	8.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	8.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	8.6
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	9.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	9.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	9.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	10
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. 
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	
+
+3.2.2.5. Chi tiết đơn chờ giao_đã chuẩn bị hàng
+  
+
+Hình 2.4. Màn hình chi tiết đơn hàng trạng thái đã chuẩn bị hàng
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái cha của đơn hàng là “Chờ giao hàng”
+- Trong trạng thái chờ giao hàng đơn hàn có tiến trình trạng thái đơn từ chờ chuẩn bị hàng lên đã chuẩn bị hàng
+- Đơn thanh toán thành công chuyển từ trạng thái từ chờ thanh toán → chờ chuẩn bị hàng
+- Khi nhà bán chuẩn bị hàng thành công, xác định địa chỉ kho để bàn giao cho đơn vị vận chuyển thì đơn hàng cập nhật trạng thái đã chuẩn bị hàng
+	3
+	Hủy đơn 
+	Button
+	X
+	I
+	- Chọn button để thực hiện hủy đơn  hàng  
+- Chi tiết chức năng hủy đơn hàng được mô tả tại Mục 3.3_ Chức năng Hủy đơn hàng
+	4
+	In phiếu giao
+	Button
+	X
+	I
+	- Chọn button để thực hiện chức năng in phiếu giao
+- Chi tiết chức năng duyệt chuẩn bị hàng được mô tả tại Mục 3.6 Chức năng In phiếu giao
+	5
+	Thông tin giao hàng
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	6
+	Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị thông tin vận chuyển gồm:
+* Tên đơn vị vận chuyển: hiện tại đang có 1 đối tác vận chuyển mặc định là Viettel Post
+* Mã vận đơn: được sinh ra khi kết nối thành công đến đơn vị vận chuyển
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+	7.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	7.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	7.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* Thông tin phân loại (ví dụ: Size S 丨Màu xanh)
+	7.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+Đơn giá = Giá campaign của SKU 
+	7.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	7.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	7.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	7.8
+	Dịch vụ
+	Text
+	
+
+	O
+	- Hiển thị dịch vụ được chọn sử dụng trong đơn hàng
+- Gồm: 
+* Tên dịch vụ
+* Phí sử dụng dịch vụ
+	8.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	8.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	8.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	8.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	8.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	8.6
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	9.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	9.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	9.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	10
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. 
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	
+
+
+
+3.2.2.6. Chi tiết đơn đang giao hàng
+  
+
+Hình 2.5. Màn hình chi tiết đơn hàng trạng thái đang giao hàng
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái của đơn hàng “đang giao hàng”
+	3
+	Thông tin giao hàng
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	4
+	Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị thông tin vận chuyển gồm:
+* Tên đơn vị vận chuyển: hiện tại đang có 1 đối tác vận chuyển mặc định là Viettel Post
+* Mã vận đơn: được sinh ra khi kết nối thành công đến đơn vị vận chuyển
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+* Thông tin kiện hàng: do đơn vị vận chuyển trả về
+	5.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	5.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	5.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	5.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+- Trường hợp có điều chỉnh về giá sản phẩm trên CMS thì giá đơn giá của sản phẩm trong đơn hàng không bị ảnh hưởng
+	5.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	5.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	5.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	6.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	6.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	6.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	6.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	6.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	7.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	7.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	7.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	8
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. 
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	
+
+
+
+
+
+
+
+3.2.2.7. Chi tiết đơn đã giao hàng
+  
+
+Hình 2.6. Màn hình chi tiết đơn hàng trạng thái đã giao hàng
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái của đơn hàng “Đã giao hàng”
+	3
+	Thông tin giao hàng
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	4
+	Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị thông tin vận chuyển gồm:
+* Tên đơn vị vận chuyển: hiện tại đang có 1 đối tác vận chuyển mặc định là Viettel Post
+* Mã vận đơn: được sinh ra khi kết nối thành công đến đơn vị vận chuyển
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+	5.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	5.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	5.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	5.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+- Trường hợp có điều chỉnh về giá sản phẩm trên CMS thì giá đơn giá của sản phẩm trong đơn hàng không bị ảnh hưởng
+	5.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	5.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	5.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	6.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	6.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	6.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	6.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	6.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	7.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	7.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	7.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	8
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. 
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	
+
+
+
+3.2.2.8. Chi tiết “đơn hàng thất lạc” khi đang giao hàng
+  
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái của đơn hàng “Đơn hàng thất lạc”
+	3
+	Thông tin giao hàng
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	4
+	Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị thông tin vận chuyển gồm:
+* Tên đơn vị vận chuyển: hiện tại đang có 1 đối tác vận chuyển mặc định là Viettel Post
+* Mã vận đơn: được sinh ra khi kết nối thành công đến đơn vị vận chuyển
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+	4.1
+	Thông báo đơn hàng thất lạc
+	Badge
+	X
+	O
+	Hiển thị badge thông báo với nội dung “Đơn hàng đã được xác nhận thất lạc trong quá trình vận chuyển. Đơn vị vận chuyển sẽ chịu trách nhiệm bồi thường cho các bên liên quan theo chính sách của sàn”
+	5.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	5.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	5.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	5.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+- Trường hợp có điều chỉnh về giá sản phẩm trên CMS thì giá đơn giá của sản phẩm trong đơn hàng không bị ảnh hưởng
+	5.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	5.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	5.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	6.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	6.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	6.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	6.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	6.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	7.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	7.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	7.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	8.1
+	Hoàn tiền cho người mua
+	Text
+	
+
+	O 
+	Hiển thị thông tin hoàn tiền cho người mua
+	8.2
+	Tổng tiền thanh toán
+	Tex
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	8.3
+	Phí vận chuyển hoàn
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+	8.4
+	Số tiền hoàn cho Buyer
+	Text
+	
+
+	O
+	- Hiển thị số tiền cần hoàn về cho người mua = tổng tiền thanh toán của người mua
+	8.5
+	Bồi thường cho người bán
+	Text
+	
+
+	O
+	- Hiển thị thông tin bồi thường cho người bán
+	8.6
+	Doanh thu ước tính
+	Text
+	
+
+	O
+	- Hiển thị theo doanh thu ước tính của đơn hàng
+	8.7
+	Đơn vị vận chuyển bồi thường
+	Text
+	
+
+	O
+	- Hiển thị % giá trị đơn hàng mà đơn vị vận chuyển cần phải bồi thường = 100%
+	8.8
+	Số tiền bồi thường 
+	Text
+	
+
+	O
+	Hiển thị số tiền bồi thường = Doanh thu ước tính 
+	
+
+
+
+
+
+
+
+3.2.2.9. Chi tiết đơn hàng Trả hàng_Chờ xét duyệt/Chờ giao hàng/Đang giao hàng/Đã hoàn tiền/Hoàn tiền thất bại
+  
+
+
+
+Hình 2.7. Màn hình chi tiết đơn hàng trạng thái Chờ xét duyệt
+
+
+  
+
+Hình 2.8. Màn hình chi tiết đơn hàng trạng thái Chờ giao hàng (Nhà bán phê duyệt yêu cầu Trả hàng/Hoàn tiền)
+  
+
+Hình 2.9. Màn hình chi tiết đơn hàng trạng thái Chờ giao hàng (Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+Hình 2.10. Màn hình chi tiết đơn hàng trạng thái Đang giao hàng
+  
+
+Hình 2.11. Màn hình chi tiết đơn hàng trạng thái Đã giao hàng
+  
+
+Hình 2.12. Màn hình chi tiết đơn hàng trạng thái Hoàn tiền thất bại
+  
+
+Hình 2.13. Màn hình chi tiết đơn hàng trạng thái Chờ hoàn tiền
+  
+
+Hình 2.14. Màn hình chi tiết đơn hàng trạng thái Đã hoàn tiền
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Back
+	Button
+	X
+	O
+	 Click để trở về màn hình Danh sách đơn hàng
+	2
+	Mã đơn hàng
+	Text
+	X
+	O
+	 Hiển thị mã đơn hàng 
+	3
+	Trạng thái đơn hàng
+	Text
+	
+
+	O
+	- Hiển thị trạng thái xét duyệt yêu cầu và trả hàng của đơn hàng
+- Chỉ hiển thị với đơn hàng có phương thức trả hàng là Trả hàng và Hoàn tiền
+	4
+	Trạng thái hoàn tiền
+	Text
+	X
+	O
+	- Hiển thị trạng thái hoàn tiền
+- Trường hợp yêu cầu Trả hàng/Hoàn tiền chưa được duyệt hoặc ĐVVC chưa lấy hàng thành công, để trống trường này[c][d][e] (hiển thị như UI)
+	5
+	Thời gian duyệt yêu cầu
+	Text
+	
+
+	O
+	- Hiển thị với đơn hàng ở trạng thái Chờ xét duyệt.
+- Hiển thị thời gian duyệt yêu cầu Trả hàng/Hoàn tiền.
+- Thời gian đếm ngược từ 24:00:00
+- Format: HH:MM:SS
+- Click icon i, hiển thị tooltip “Thời gian Nhà bán phê duyệt yêu cầu Trả hàng/Hoàn tiền.
+Sau thời gian này, yêu cầu sẽ được chuyển sang Admin phê duyệt”
+	6
+	Thanh trạng thái
+	Progress Bar
+	X
+	O
+	- Hiển thị trạng thái Trả hàng hiện tại của đơn hàng.
+- Trường hợp phương án trả hàng/hoàn tiền là Trả hàng và Hoàn tiền, thanh tiến trình gồm các trạng thái: 
+* Chờ duyệt: Hiển thị sau khi Người mua gửi yêu cầu Trả hàng/Hoàn tiền. Sau khi Nhà bán/Admin phê duyệt, đơn hàng chuyển sang trạng thái Chờ giao hàng.
+* Chờ giao hàng: Hiển thị sau khi yêu cầu Trả hàng/Hoàn tiền được phê duyệt. Sau khi người mua điền thông tin trả hàng, ĐVVC lấy hàng thành công, đơn hàng chuyển sang trạng thái Đang giao hàng.
+* Đang giao hàng: Hiển thị khi ĐVVC giao hàng hoàn cho Nhà bán. Sau khi ĐVVC giao hàng thành công, đơn hàng chuyển sang trạng thái Đã giao hàng.
+* Đã giao hàng: Hiển thị khi ĐVVC giao hàng hoàn thành công.
+- Trường hợp phương án trả hàng/hoàn tiền là Hoàn tiền ngay (không trả hàng), thanh tiến trình gồm các trạng thái: Chờ duyệt, Chờ hoàn tiền, Đã hoàn tiền.
+	7
+	Button Từ chối
+	Button
+	
+
+	O
+	- Hiển thị với đơn hàng ở trạng thái Chờ xét duyệt Buyer gửi yêu cầu Trả hàng/Hoàn tiền lần đầu và còn thời hạn Nhà bán xét duyệt. Trường hợp quá 24h kể từ khi Người mua gửi yêu cầu Trả hàng/Hoàn tiền, nếu Nhà bán không phê duyệt, yêu cầu được chuyển cho Admin phê duyệt.
+- Yêu cầu Trả hàng/Hoàn tiền lần 2 do Admin phê duyệt.
+- Người dùng click button Từ chối để từ chối yêu cầu Trả hàng/Hoàn tiền.
+- Onclick button, hệ thống hiển thị popup Chọn lý do từ chối.
+  
+
+* Người dùng click Chọn lý do, hiển thị dropdown các lý do từ chối.
+* Người dùng chọn Lý do khác, hiển thị textbox cho phép mô tả lý do từ chối. Người dùng được phép nhập ký tự chữ, số, ký tự đặc biệt, in hoa, in thường, tối đa 200 ký tự. Hệ thống chặn nhập quá, tự động trim đầu cuối.
+  
+
+* Sau khi Người dùng chọn Lý do, click Xác nhận, hệ thống từ chối yêu cầu Trả hàng/Hoàn tiền của Buyer, điều hướng sang màn Chi tiết đơn hàng ở trạng thái Đã giao hàng. Đồng thời hệ thống gửi thông báo cho Buyer.
+* Người dùng click Huỷ, tắt popup Chọn lý do.
+	8
+	Button Phê duyệt
+	Button
+	
+
+	O
+	- Hiển thị với đơn hàng ở trạng thái Chờ xét duyệt Buyer gửi yêu cầu Trả hàng/Hoàn tiền lần đầu và còn thời hạn Nhà bán xét duyệt. Trường hợp quá 24h kể từ khi Người mua gửi yêu cầu Trả hàng/Hoàn tiền, nếu Nhà bán không phê duyệt, yêu cầu được chuyển cho Admin phê duyệt.
+- Yêu cầu Trả hàng/Hoàn tiền lần 2 do Admin phê duyệt.
+- Người dùng click button Phê duyệt để phê duyệt yêu cầu Trả hàng/Hoàn tiền.
+- Onclick button, hệ thống hiển thị popup Chọn Phương án Trả hàng/Hoàn tiền.
+  
+
+* Mặc định chọn Trả hàng và Hoàn tiền. Người dùng click Xác nhận, hệ thống phê duyệt yêu cầu Trả hàng/Hoàn tiền của Buyer, đồng thời gửi thông báo cho Buyer.
+   * Trường hợp Người dùng chọn Trả hàng và Hoàn tiền, hệ thống  điều hướng sang màn Chi tiết đơn hàng ở trạng thái Chờ giao hàng. Đồng thời hệ thống hiển thị toast message : “Phê duyệt yêu cầu thành công”
+   * Trường hợp Người dùng chọn Hoàn tiền ngay (không trả hàng), hệ thống  điều hướng sang màn Chi tiết đơn hàng ở trạng thái Chờ hoàn tiền.
+* Người dùng click Huỷ, tắt popup Chọn phương án Trả hàng/Hoàn tiền.
+	9
+	Thông tin giao hàng & Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+- Hiển thị các thông tin vận chuyển của đơn giao (chiều đi) bao gồm:
+* Tên đơn vị vận chuyển: hiện tại mặc định là Viettel Post
+* Mã vận đơn: hiển thị mã đơn vận chuyển chiều đi của ĐVVC VTP
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+	10
+	Thông tin Trả hàng
+	Text
+	
+
+	O
+	- Chỉ hiển thị với phương án trả hàng/hoàn tiền là Trả hàng và Hoàn tiền. Hiển thị thông tin Trả hàng bao gồm:
+- Mã yêu cầu: Mã yêu cầu Trả hàng/Hoàn tiền. Click icon copy để sao chép mã yêu cầu.
+- Hoàn tiền vào:  
+* Trường hợp Người mua thanh toán qua Zalopay: TKNH thanh toán qua Zalopay
+* Trường hợp Người mua thanh toán qua mã QR: TKNH liên kết (tài khoản ngân hàng Người mua chọn khi ekyc)
+- Thời gian yêu cầu: dd/yy/mmmm - hh:mm
+- Lý do trả hàng/hoàn tiền: hiển thị lý do kèm hình ảnh/video. Onclick hình ảnh/video để xem hình ảnh, video.
+- Mã vận đơn trả hàng: Là mã vận đơn hoàn (thu hồi) của ĐVVC , hiển thị sau khi tạo đơn hoàn (thu hồi) thành công với VTP. Hiển thị từ khi đơn hàng ở trạng thái chờ giao hàng. Trường hợp chưa có thông tin, trường dữ liệu trống (hiển thị như UI).
+- Địa chỉ nhận hàng hoàn: hiển thị sau khi Người mua chọn phương thức trả hàng. Hiển thị ở tất cả trạng thái đơn hàng trừ Chờ duyệt. Trường hợp chưa có thông tin, trường dữ liệu trống (hiển thị như UI).
+	11
+	Thông tin hoàn tiền
+	Text
+	X
+	O
+	Hiển thị thông tin hoàn tiền bao gồm:
+- Tổng tiền thanh toán: là tiền đơn hàng Người mua thanh toán khi đặt hàng
+- Phí vận chuyển hoàn: phí vận chuyển hàng hoàn (E2 trả data)
+- Số tiền hoàn: số tiền Sàn hoàn cho Người mua (bằng tổng tiền thanh toán đơn hàng)
+	STT 12- 20: Mô tả thông tin đơn hàng giao cho Người mua
+	12
+	Thời gian tạo đơn
+	Text
+	X
+	O
+	Rule tương tự STT 5 mục 3.2.2.1
+	13
+	Số sản phẩm
+	Text
+	X
+	
+
+	Rule tương tự STT 6 mục 3.2.2.1
+	14
+	Sản phẩm
+	Text
+	X
+	O
+	Rule tương tự STT 7 mục 3.2.2.1
+	15
+	Đơn giá
+	Text
+	X
+	O
+	Rule tương tự STT 8 mục 3.2.2.1
+	16
+	Số lượng
+	Text
+	X
+	O
+	Rule tương tự STT 9 mục 3.2.2.1
+	17
+	Thành tiền
+	Text
+	X
+	O
+	Rule tương tự STT 10 mục 3.2.2.1
+	18
+	Lưu ý cho người bán
+	Text
+	X
+	O
+	Rule tương tự STT 11 mục 3.2.2.1
+	19
+	Doanh thu đơn hàng
+	Text
+	X
+	O
+	Rule tương tự STT 12,13,14,15,16 mục 3.2.2.1
+	20
+	Thanh toán của người mua
+	Text
+	X
+	O
+	Rule tương tự STT 17,18,19 mục 3.2.2.1
+	21
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. Các thao tác liên quan đến luồng Trả hàng/Hoàn tiền:
+* Người mua tạo yêu cầu Trả hàng/Hoàn tiền.
+* Nhà bán/Admin từ chối yêu cầu Trả hàng/Hoàn tiền, hiển thị kèm lý do từ chối.
+* Nhà bán/Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền.
+* Người mua huỷ yêu cầu Trả hàng/Hoàn tiền.
+* ĐVVC lấy hàng hoàn thành công/thất bại.
+* ĐVVC giao hàng hoàn thành công/thất bại.
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	22
+	Thời gian chọn phương thức trả hàng  /hoàn tiền
+	Text
+	
+
+	O
+	- Hiển thị với đơn hàng ở trạng thái Chờ giao hàng và được Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền.
+- Hiển thị thời gian chọn phương thức trả hàng  /hoàn tiền.
+- Thời gian đếm ngược từ 24:00:00
+- Format: HH:MM:SS
+- Sau thời gian này, nếu Nhà bán không chọn phương thức, phương thức Trả hàng/Hoàn tiền mặc định là Trả hàng và Hoàn tiền.
+	23
+	Chọn phương thức trả hàng
+	Button
+	
+
+	O
+	- Hiển thị với đơn hàng ở trạng thái Chờ giao hàng và được Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền.
+- Onclick hiển thị popup cho phép Nhà bán chọn phương thức trả hàng/hoàn tiền (rule tương tự STT 8 mục 3.2.2.9).
+	
+
+
+
+3.2.2.10. Chi tiết đơn hàng Trả hàng_Giao hàng thất bại - Lưu kho/Giao hàng thất bại - Tiêu huỷ
+  
+
+Hình 2.15. Màn hình chi tiết đơn hàng trạng thái Giao hàng thất bại - Lưu kho
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Back
+	Button
+	X
+	O
+	 Click để trở về màn hình Danh sách đơn hàng
+	2
+	Mã đơn hàng
+	Text
+	X
+	O
+	 Hiển thị mã đơn hàng 
+	3
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	Hiển thị trạng thái trả hàng của đơn hàng: Giao hàng thất bại - Lưu kho (trường hợp ĐVVC giao hàng hoàn cho Nhà bán thất bại, trạng thái 506 trên E2), Giao thất bại - Tiêu huỷ (trạng thái 503 trên E2)
+	4
+	Trạng thái hoàn tiền
+	Text
+	X
+	O
+	- Hiển thị trạng thái hoàn tiền
+- Trường hợp yêu cầu Trả hàng/Hoàn tiền chưa được duyệt hoặc ĐVVC chưa lấy hàng thành công, để trống trường này (hiển thị như UI)
+	5
+	Thời gian lấy hàng lưu kho
+	Text
+	
+
+	O
+	- Hiển thị với đơn hàng ở trạng thái Giao hàng thất bại - Lưu kho.
+- Hiển thị thời gian lấy hàng lưu kho.
+- Thời gian đếm ngược từ 7 ngày kể từ ngày đơn hàng ở trạng thái 503 phía EVTP
+- Format: HH:MM:SS ngày DD/MM/YYYY
+- Sau thời gian này, nếu Nhà bán không lên bưu cục lấy hàng, hàng sẽ bị tiêu huỷ.
+	6
+	Thanh trạng thái
+	Progress Bar
+	X
+	O
+	- Hiển thị trạng thái Trả hàng hiện tại của đơn hàng.
+- Thanh tiến trình gồm các trạng thái: Chờ duyệt, Chờ giao hàng, Đang giao hàng, Giao hàng thất bại.[f][g]
+Note: với trạng thái đơn hàng là Giao thất bại - Lưu kho, nếu ĐVVC giao lại thành công cho Nhà bán, đơn hàng chuyển sang trạng thái Đã giao (501).
+	7
+	Thông tin giao hàng & Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+- Hiển thị các thông tin vận chuyển của đơn giao (chiều đi) bao gồm:
+* Tên đơn vị vận chuyển: hiện tại mặc định là Viettel Post
+* Mã vận đơn: hiển thị mã đơn vận chuyển chiều đi của ĐVVC VTP
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng.
+	8
+	Thông tin Trả hàng
+	Text
+	X
+	O
+	- Chỉ hiển thị với phương án trả hàng/hoàn tiền là Trả hàng và Hoàn tiền. Hiển thị thông tin Trả hàng bao gồm:
+- Mã yêu cầu: Mã yêu cầu Trả hàng/Hoàn tiền. Click icon copy để sao chép mã yêu cầu.
+- Hoàn tiền vào:  
+* Trường hợp Người mua thanh toán qua Zalopay: TKNH thanh toán qua Zalopay
+* Trường hợp Người mua thanh toán qua mã QR: TKNH liên kết (tài khoản ngân hàng Người mua chọn khi ekyc)
+- Thời gian yêu cầu: dd/yy/mmmm - hh:mm
+- Lý do trả hàng/hoàn tiền: hiển thị lý do kèm hình ảnh/video. Onclick hình ảnh/video để xem hình ảnh, video.
+- Mã vận đơn trả hàng: Là mã vận đơn hoàn (thu hồi) của ĐVVC , hiển thị sau khi tạo đơn hoàn (thu hồi) thành công với VTP. Hiển thị từ khi đơn hàng ở trạng thái chờ giao hàng. Trường hợp chưa có thông tin, trường dữ liệu trống (hiển thị như UI).
+- Địa chỉ nhận hàng hoàn: hiển thị sau khi Người mua chọn phương thức trả hàng. Hiển thị ở tất cả trạng thái đơn hàng trừ Chờ duyệt.
+- Địa chỉ bưu cục lưu hàng: hiển thị sau khi đơn hàng ở trạng thái 503 phía EVTP[h][i], lấy dữ liệu bưu cục lưu hàng là bưu cục giao từ EVTP.
+	9
+	Thông tin hoàn tiền
+	Text
+	X
+	O
+	Hiển thị thông tin hoàn tiền bao gồm:
+- Tổng tiền thanh toán: là tiền đơn hàng Người mua thanh toán khi đặt hàng, tổng tiền thanh toán = giá sản phẩm khi Nhà bán/Admin upload sản phẩm + phí vận chuyển chiều đi (E2 trả data, hiện tại phí vận chuyển = 0 với tất cả đơn hàng) - voucher giảm giá (nếu có)
+- Phí vận chuyển hoàn: phí vận chuyển hàng hoàn (E2 trả data, hiện tại phí vận chuyển = 0 với tất cả đơn hàng)
+- Số tiền hoàn: số tiền Người mua thanh toán cho đơn hàng (bằng tổng tiền thanh toán)
+	STT 10- 18: Mô tả thông tin đơn hàng giao cho Người mua
+	10
+	Thời gian tạo đơn
+	Text
+	X
+	O
+	Rule tương tự STT 5 mục 3.2.2.1
+	11
+	Số sản phẩm
+	Text
+	X
+	
+
+	Rule tương tự STT 6 mục 3.2.2.1
+	12
+	Sản phẩm
+	Text
+	X
+	O
+	Rule tương tự STT 7 mục 3.2.2.1
+	13
+	Đơn giá
+	Text
+	X
+	O
+	Rule tương tự STT 8 mục 3.2.2.1
+	14
+	Số lượng
+	Text
+	X
+	O
+	Rule tương tự STT 9 mục 3.2.2.1
+	15
+	Thành tiền
+	Text
+	X
+	O
+	Rule tương tự STT 10 mục 3.2.2.1
+	16
+	Lưu ý cho người bán
+	Text
+	X
+	O
+	Rule tương tự STT 11 mục 3.2.2.1
+	17
+	Doanh thu đơn hàng
+	Text
+	X
+	O
+	Rule tương tự STT 12,13,14,15,16 mục 3.2.2.1
+	18
+	Thanh toán của người mua
+	Text
+	X
+	O
+	Rule tương tự STT 17,18,19 mục 3.2.2.1
+	19
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	Rule tương tự STT 21 mục 3.2.2.9
+- Trường hợp đơn hàng giao thất bại (mã trạng thái 506), hiển thị lý do giao hàng thất bại (E2 gửi kèm lý do giao hàng thất bại)
+	3.2.2.11. Chi tiết đơn hàng Đã hoàn thành
+  
+
+Hình 2.16. Màn hình chi tiết đơn hàng trạng thái Đã hoàn thành
+
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Back
+	Button
+	X
+	O
+	 Click để trở về màn hình Danh sách đơn hàng tab Đã hoàn thành
+	2
+	Mã đơn hàng
+	Text
+	X
+	O
+	 Hiển thị mã đơn hàng 
+	3
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	Hiển thị trạng thái của đơn hàng
+	4
+	Thanh trạng thái
+	Progress Bar
+	X
+	O
+	- Hiển thị trạng thái hiện tại của đơn hàng.
+- Thanh tiến trình gồm các trạng thái: Chờ thanh toán, Chờ giao hàng, Đang giao hàng, Đã giao hàng, Đã hoàn thành.
+	5
+	Thông tin giao hàng & Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+- Hiển thị các thông tin vận chuyển của đơn giao (chiều đi) bao gồm:
+* Tên đơn vị vận chuyển: hiện tại mặc định là Viettel Post
+* Mã vận đơn: hiển thị mã đơn vận chuyển chiều đi của ĐVVC VTP
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+	STT 6 - 14: Mô tả thông tin đơn hàng giao cho Người mua
+	6
+	Thời gian tạo đơn
+	Text
+	X
+	O
+	Rule tương tự STT 5 mục 3.2.2.1
+	7
+	Số sản phẩm
+	Text
+	X
+	
+
+	Rule tương tự STT 6 mục 3.2.2.1
+	8
+	Sản phẩm
+	Text
+	X
+	O
+	Rule tương tự STT 7 mục 3.2.2.1
+	9
+	Đơn giá
+	Text
+	X
+	O
+	Rule tương tự STT 8 mục 3.2.2.1
+	10
+	Số lượng
+	Text
+	X
+	O
+	Rule tương tự STT 9 mục 3.2.2.1
+	11
+	Thành tiền
+	Text
+	X
+	O
+	Rule tương tự STT 10 mục 3.2.2.1
+	12
+	Lưu ý cho người bán
+	Text
+	X
+	O
+	Rule tương tự STT 11 mục 3.2.2.1
+	13
+	Doanh thu đơn hàng
+	Text
+	X
+	O
+	Rule tương tự STT 12,13,14,15,16 mục 3.2.2.1
+	14
+	Thanh toán của người mua
+	Text
+	X
+	O
+	Rule tương tự STT 17,18,19 mục 3.2.2.1
+	15
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	- Hiển thị hành trình đơn hàng 
+- Thời gian: 
+* Thời điểm mà đơn hàng cập nhật lên trạng thái đó hoặc có thao tác từ một trong các tác nhân: Người mua, Nhà bán, Admin, ĐVVC. Các thao tác liên quan đến luồng Trả hàng/Hoàn tiền:
+* Người mua tạo yêu cầu Trả hàng/Hoàn tiền.
+* Nhà bán/Admin từ chối yêu cầu Trả hàng/Hoàn tiền, hiển thị kèm lý do từ chối.
+* Nhà bán/Admin phê duyệt yêu cầu Trả hàng/Hoàn tiền.
+* Người mua huỷ yêu cầu Trả hàng/Hoàn tiền.
+* ĐVVC lấy hàng hoàn thành công/thất bại.
+* ĐVVC giao hàng hoàn thành công/thất bại.
+* Hiển thị dưới dạng hh:mm:ss dd/mm/yyyy
+- Trạng thái: trạng thái tương ứng với mốc thời gian
+- Trường hợp đơn hàng có yêu cầu Trả hàng/Hoàn tiền bị huỷ hoặc bị từ chối. Người dùng click Xem thêm để xem thông tin Trả hàng/Hoàn tiền:
+  
+
+- Lưu ý: không cho phép cập nhật nhiều lần trên 1 trạng thái, nếu trạng thái đã được cập nhật 1 lần rồi thì không cập nhật lại nữa
+	3.2.2.12. Chi tiết đơn hàng “Đã hủy”
+- Trường hợp Người mua chưa thanh toán đơn hàng:
+  
+
+
+
+
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Text
+	X
+	O
+	 - Hiển thị mã đơn hàng 
+	2
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	- Hiển thị trạng thái của đơn hàng “Đã hủy”
+	3
+	Thông tin giao hàng
+	Text
+	X
+	O
+	- Hiển thị các thông tin của người nhận hàng gồm:
+* Tên người nhận
+* Số điện thoại
+* Địa chỉ
+	4
+	Thông tin vận chuyển
+	Text
+	X
+	O
+	- Hiển thị thông tin vận chuyển gồm:
+* Tên đơn vị vận chuyển: hiện tại đang có 1 đối tác vận chuyển mặc định là Viettel Post
+* Mã vận đơn: được sinh ra khi kết nối thành công đến đơn vị vận chuyển
+* Địa chỉ lấy hàng: địa chỉ mà nhà bán chọn khi thực hiện chức năng chuẩn bị hàng
+* Thông tin kiện hàng: do đơn vị vận chuyển trả về
+	4.1
+	Thông báo đơn hàng thất lạc
+	Badge
+	X
+	O
+	Hiển thị badge thông báo với nội dung “Đơn hàng đã được xác nhận thất lạc trong quá trình vận chuyển. Đơn vị vận chuyển sẽ chịu trách nhiệm bồi thường cho các bên liên quan theo chính sách của sàn”
+	5.1
+	Thời gian tạo đơn
+	Text
+	
+
+	O
+	- Hiển thị thời gian tạo đơn
+- Định dạng: hh:mm, dd/mm/yyyy
+	5.2
+	Số sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tổng số sản phẩm có trong đơn hàng
+	5.3
+	Sản phẩm
+	Text
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU
+	5.4
+	Đơn giá
+	Text
+	
+
+	O
+	- Hiển thị đơn giá tương ứng của từng SKU
+- Trường hợp có điều chỉnh về giá sản phẩm trên CMS thì giá đơn giá của sản phẩm trong đơn hàng không bị ảnh hưởng
+	5.5
+	Số lượng
+	Text
+	
+
+	O
+	- Hiển thị số lượng mua tương ứng của từng SKU
+	5.6
+	Thành tiền
+	Text
+	
+
+	O
+	- Hiển thị thành tiền = Đơn giá * Số lượng
+	5.7
+	Lưu ý cho người bán
+	Textview
+	
+
+	O
+	- Hiển thị ghi chú mà người mua đã nhập khi đặt đơn
+- Hiển thị đầy đủ nội dung
+	6.1
+	Tổng tiền hàng
+	Number
+	
+
+	O
+	- Hiển thị tổng số tiền các sản phẩm trong đơn hàng 
+	6.2
+	Phí chiết khấu sàn
+	Number
+	
+
+	O
+	- Hiển thị phí chiết khấu mà nhà bán cần trả cho sàn = tổng phí chiết khấu sàn tính theo từng sản phẩm có trong đơn hàng
+- Phí chiết khấu sàn được cấu hình trên CMS
+*Ví dụ: đơn hàng có 3 sản phẩm 
+- Phí chiết khấu sàn = [%chiết khấu SP1] + [%chiết khấu SP2] + [%chiết khấu Sp3]
+
+
+- Nếu sau khi đã đặt hàng thành công, có điều chỉnh về phí chiết khấu sàn của sản phẩm trong đơn hàng từ CMS thì không ảnh hưởng đến đơn hàng đã đặt
+	6.3
+	Phí vận chuyển người bán trả
+	Number
+	
+
+	O
+	Hiển thị phí vận chuyển người bán phải trả:
+Phí vận chuyển người bán phải trả được hệ thống EVTP trả về 
+	6.4
+	Phí dịch vụ 
+	Number
+	
+
+	O
+	- Hiển thị phí dịch vụ mà người bán phải trả cho sàn 
+- Phí dịch vụ được cấu hình trên CMS
+	6.5
+	Doanh thu ước tính
+	Number
+	
+
+	O
+	- Hiển thị doanh thu ước tính cho nhà bán
+Doanh thu ước tính = Tổng tiền hàng - Phí chiết khấu sàn - Các loại chi phí khác (nếu đơn hàng có áp dụng)
+
+
+	7.1
+	Tổng tiền hàng
+	Text
+	
+
+	O
+	- Hiển thị tổng tiền hàng: là tổng số tiền các sản phẩm có trong đơn hàng
+	7.2
+	Phí vận chuyển
+	Text
+	
+
+	O
+	- Hiển thị phí vận chuyển của đơn hàng theo phí vận chuyển đối tác trả về
+
+
+	7.5
+	Tổng tiền thanh toán
+	Text
+	
+
+	O
+	- Hiển thị tổng số tiền thanh toán mà người mua phải trả = Tổng tiền hàng + Phí vận chuyển 
+	- Trường hợp Người mua đã thanh toán đơn hàng:
+  
+[j][k][l][m][n]
+- Trường hợp Hoàn tiền thất bại:
+  
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Back
+	Button
+	X
+	O
+	 Click để trở về màn hình Danh sách đơn hàng
+	2
+	Mã đơn hàng
+	Text
+	X
+	O
+	 Hiển thị mã đơn hàng 
+	3
+	Trạng thái đơn hàng
+	Text
+	X
+	O
+	Hiển thị trạng thái của đơn hàng: Đã huỷ
+	4
+	Trạng thái hoàn tiền
+	Text
+	X
+	O
+	- Hiển thị trạng thái hoàn tiền, một trong 2 trạng thái: Chờ hoàn tiền, Đã hoàn tiền, Hoàn tiền thất bại.
+	5
+	Thanh trạng thái
+	Progress Bar
+	X
+	O
+	- Hiển thị trạng thái hiện tại của đơn hàng.
+- Thanh tiến trình gồm các trạng thái: Đã huỷ, Chờ hoàn tiền, Đã hoàn tiền, Hoàn tiền thất bại.
+	6
+	Thông tin giao hàng & Thông tin vận chuyển
+	Text
+	X
+	O
+	Rule tương tự STT 9 mục 3.2.2.9
+	7
+	Thông tin hoàn tiền
+	Text
+	X
+	O
+	Rule tương tự STT 11 mục 3.2.2.9
+	8
+	Thời gian tạo đơn
+	Text
+	X
+	O
+	Rule tương tự STT 5 mục 3.2.2.1
+	9
+	Số sản phẩm
+	Text
+	X
+	
+
+	Rule tương tự STT 6 mục 3.2.2.1
+	10
+	Sản phẩm
+	Text
+	X
+	O
+	Rule tương tự STT 7 mục 3.2.2.1
+	11
+	Đơn giá
+	Text
+	X
+	O
+	Rule tương tự STT 8 mục 3.2.2.1
+	12
+	Số lượng
+	Text
+	X
+	O
+	Rule tương tự STT 9 mục 3.2.2.1
+	13
+	Thành tiền
+	Text
+	X
+	O
+	Rule tương tự STT 10 mục 3.2.2.1
+	14
+	Lưu ý cho người bán
+	Text
+	X
+	O
+	Rule tương tự STT 11 mục 3.2.2.1
+	15
+	Doanh thu đơn hàng
+	Text
+	X
+	O
+	Rule tương tự STT 12,13,14,15,16 mục 3.2.2.1
+	16
+	Thanh toán của người mua
+	Text
+	X
+	O
+	Rule tương tự STT 17,18,19 mục 3.2.2.1
+	17
+	Hành trình đơn hàng
+	Text
+	X
+	O
+	Rule tương tự STT 21 mục 3.2.2.9
+	3.2.3. Luồng nghiệp vụ
+
+
+Bước 
+	Mô tả
+	1
+	Người dùng truy cập module Quản lý đơn hàng 
+	2
+	Hệ thống hiển thị màn hình Danh sách đơn hàng mặc định ở tab tất cả
+	3
+	Người dùng ấn icon [Xem chi tiết] ở từng đơn hàng >> Hệ thống hiển thị màn hình Chi tiết đơn hàng
+	
+
+
+
+3.3. Chức năng hủy đơn hàng
+3.3.1. Thông tin chung
+
+
+Tên chức năng
+	Hủy đơn hàng
+	Mô tả
+	Cho phép người dùng thực hiện hủy đơn hàng khi trạng thái đơn hàng là: Chở chuẩn bị hàng, đang chờ tạo đơn vận chuyển, đã chuẩn bị hàng 
+	Tác nhân
+	Người bán
+	Trigger
+	Seller F2C → Quản lý đơn hàng → Chọn tab tất cả với đơn có trạng thái chờ duyệt, chờ giao hàng hoặc chọn tab chờ duyệt/ tab chờ giao hàng → Chọn thao tác hủy đơn
+	Điều kiện đầu vào
+	- Người dùng đăng nhập thành công vào hệ thống Seller >> Quản lý đơn hàng >> Chọn đơn hàng cần hủy ở các trạng thái chờ duyệt hoặc chờ giao hàng  >> chọn thao tác “Hủy đơn”
+- Có ít nhất 1 đơn hàng
+	Luồng thông thường
+	1. Nhà bán đăng nhập vào hệ thống seller
+2. Truy cập vào quản lý đơn hàng
+3. Hệ thống hiển thị danh sách đơn hàng 
+4. Nhà bán tìm kiếm đơn hàng có trạng thái chờ duyệt
+5. Chọn thao tác “Hủy đơn”
+6. Hệ thống yêu cầu chọn lý do hủy đơn 
+7. Nhà bán chọn lý do hủy
+8. Hệ thống kiểm tra → cập nhật lý do hủy → cập nhật trạng thái hủy đơn cho đơn hàng 
+	Điều kiện đầu ra
+	- Nhà bán hủy đơn hàng thành công → chuyển trạng thái đơn sang đã hủy 
+	Ngoại lệ
+	N/A
+	Business rule
+	- Cho phép nhà bán hủy đơn khi trạng thái đơn hàng là các trạng thái: Chờ chuẩn bị hàng, đang chờ tạo đơn vận chuyển, đã chuẩn bị hàng 
+	
+
+3.3.2. Thiết kế giao diện
+  
+
+Hình : Màn hình hủy đơn hàng
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Tên popup
+	Text
+	
+
+	O
+	- Hiển thị tên popup “Hủy đơn hàng” + [mã đơn hàng]
+- Mã đơn hàng: là mã của đơn hàng đang thao tác
+	2
+	Mã đơn hàng 
+	Label
+	
+
+	O
+	Hiển thị mã đơn hàng
+	3
+	Lý do hủy đơn
+	Combobox
+Single choice
+	X
+	I
+	- Cho phép người dùng chọn lý do hủy đơn gồm:
+* Hết hàng
+* Lý do khác
+- Chọn lý do → hiển thị các trường thông tin tương ứng với lý do đã chọn
+- Mặc định ban đầu lý do là hết hàng
+Hết hàng: 
+- Người dùng chọn lý do là “Hết hàng” → hiển thị danh sách cho phép chọn sản phẩm hết hàng
+- Thực hiện phân trang danh sách sản phẩm
+Lý do khác: chọn lý do khác hiển thị ô input cho phép nhập vào lý do hủy hàng
+ 
+  
+
+	5
+	Thông tin sản phẩm
+	Label
+	
+
+	O
+	- Hiển thị tên sản phẩm
+- Gồm các thông tin:
+* Hình ảnh: ảnh avatar
+* Tên sản phẩm: Hiển thị đầy đủ tên sản phẩm, cho phép xuống dòng nếu tên sản phẩm dài
+* SKU 
+
+
+	5
+	Nhập lý do hủy đơn
+	Textbox
+	X
+	I
+	- Cho phép nhập vào lý do hủy đơn hàng
+- Cho phép nhập freetext, tối đa 200 ký tự, chặn nhập quá
+- Trường bắt buộc nhập, nếu bỏ trống → hiển thị text thông báo ngay dưới ô input “Vui lòng không bỏ trống”
+	6
+	Hủy
+	Button
+	
+
+	I
+	- Chọn button “Hủy” → để hủy bỏ thao tác hủy đơn hàng
+- Đóng popup hủy đơn, trở về màn hình danh sách đơn nếu hủy từ màn hình danh sách đơn hàng và trở về màn hình chi tiết đơn nếu thao tác từ màn hình chi tiết đơn
+	7
+	Hủy đơn 
+	Button
+	
+
+	I
+	- Chọn button “Hủy đơn hàng ngay” để thực hiện hủy đơn hàng
+- Hệ thống check lý do mà người dùng đã chọn, nếu hợp lệ thì xác nhận hủy đơn hàng thành công, cập nhật trạng thái đơn hàng
+* Từ trạng thái chờ duyệt (tương ứng trạng thái trong DB là đơn chờ nhà bán xác nhận) → nhà bán từ chối đơn hàng. Đơn hàng được chuyển từ tab “Chờ duyệt” → tab đơn hủy
+* Từ trạng thái chờ chuẩn bị hàng → trạng thái đơn hàng được hủy bởi nhà bán. Tức đơn chuyển từ tab chờ giao hàng → tab đơn hủy
+* Từ trạng thái đã chuẩn bị hàng → trạng thái đơn được hủy bởi nhà bá. Tức đơn chuyển từ tab chờ giao hàng → tab đơn hủy
+- Nếu người dùng chưa chọn lý do hủy đơn → hệ thống hiển thị thông báo “Vui lòng chọn lý do hủy đơn”
+- Nếu người dùng chưa nhập lý do hủy với lý do khác → hiển thị thông báo “Vui lòng nhập lý do”
+	
+
+3.3.3. Luồng nghiệp vụ
+
+
+Bước 
+	Mô tả
+	1
+	Người dùng truy cập 
+- Seller F2C → Quản lý đơn hàng → Chọn tab tất cả/ chờ giao hàng với đơn có trạng thái chờ chuẩn bị hàng/ đã chuẩn bị hàng/ kết nối vận chuyển thành công → Hủy
+- Seller F2C → Quản lý đơn hàng → Chọn tab tất cả/chờ giao hàng—> Xem chi tiết với đơn có trạng thái  → chờ chuẩn bị hàng/ đã chuẩn bị hàng/ kết nối vận chuyển thành công → Hủy
+	2
+	* Hệ thống lấy thông tin sku tương ứng với đơn hàng và hiển thị như màn hình. Nếu quá 5 SKU thì hệ thống hiển thị thanh cuộn
+Trong đó lý do hủy đơn mặc định là hết hàng
+	4.
+	
+Nếu người dùng chọn lý do khác thì hệ thống hiển thị
+
+   * Nếu người dùng chưa nhập lý do hủy với lý do khác → hiển thị thông báo “Vui lòng nhập lý do”
+   * Khi ấn hủy hoặc “x”-> Hủy thao tác điều hướng về màn trước đó
+   * Khi ấn hủy đơn => Hệ thống thực hiện hủy đơn => Hiển thị toast “Hủy đơn hàng thành công”
+	
+
+3.4. Chức năng xuất báo cáo
+3.4.1. Thông tin chung
+
+
+Tên chức năng
+	Xuất báo cáo từ danh sách đơn hàng
+	Mô tả
+	Cho phép người bán xuất báo cáo từ danh sách đơn hàng theo bộ lọc
+	Tác nhân
+	Người bán
+	Trigger
+	Seller F2C → Quản lý đơn hàng → Xuất excel
+	Điều kiện đầu vào
+	- Người dùng đăng nhập thành công vào hệ thống Seller >> Quản lý đơn hàng >> Chọn xuất excel
+- Có ít nhất 1 đơn hàng
+	Luồng thông thường
+	1. Nhà bán đăng nhập vào hệ thống seller
+2. Truy cập vào quản lý đơn hàng
+3. Hệ thống hiển thị danh sách đơn hàng 
+4. Nhà bán chọn button xuất excel để lấy dữ liệu báo cáo
+5. Hệ thống thực hiện xuất dữ liệu ra file excel và tải xuống theo form sau: https://docs.google.com/spreadsheets/d/1yh6S2pwFz8JIrWxGUwjLEGCRCmtu_NdefQ6SWDt2cVs/edit?usp=sharing
+	Điều kiện đầu ra
+	- Nhà bán xuất báo cáo đơn hàng thành công. 
+- Lịch sử xuất dữ liệu báo cáo được lưu lại và hiển thị tại trang Lịch sử xuất báo cáo.
+	Ngoại lệ
+	Nếu không có đơn hàng, chọn xuất excel => Hệ thống hiển thị message “Không có dữ liệu”
+	Business rule
+	- Nhà bán chọn các tab trạng thái đơn hàng khác nhau, xuất báo cáo sẽ theo trạng thái đơn hàng.
+- Nhà bán có thể chọn 1 hoặc nhiều đơn để xuất báo cáo, nếu không chọn đơn hàng thì hệ thống không thực hiện xuất báo cáo.
+- Các tab có thể xuất excel: Tất cả, Chờ thanh toán, chờ duyệt, Chờ giao hàng, Đang giao hàng, Đã giao hàng, trả hàng, đã hủy 
+- Trong trường hợp tích chọn thì chỉ cho phép tích chọn trên 1 trang theo bộ lọc. Trong trường hợp không tích chọn không thực hiện xuất dữ liệu
+- Cấu trúc tên file: Tên tab.ngày bắt đầu_ ngày kết thúc (ngày bắt đầu và ngày kết thúc lấy theo bộ lọc, định dạng yyyymmdd).
+	3.4.2. Thiết kế giao diện/Thông tin các trường
+
+
+
+
+STT 
+	Tên 
+	trạng thái đơn xuất hiện
+	Bắt buộc 
+	Mô tả 
+	1 
+	Mã đơn hàng
+	Tất cả trạng thái
+	x
+	Mã đơn hàng F2C
+
+
+	2
+	Mã vận đơn
+	Kết nối vận chuyển thành công, 
+Đã bàn giao đơn vị vận chuyển, 
+Đang giao hàng, 
+Giao hàng thành công
+	x
+	Mã vận đơn đơn vị vận chuyển trả về
+	3
+	Tạo đơn lúc
+	Hiển thị với tất cả trạng thái trừ trạng thái chờ thanh toán
+	x
+	Ngày đặt hàng là ngày đơn hàng lên trạng thái đơn seller = Chờ chuẩn bị hàng
+	4
+	Trạng thái đơn hàng
+	Tất cả trạng thái
+	x
+	Hiển thị trạng thái hiện tại của đơn hàng tại thời điểm xuất báo cáo
+	5
+	Đơn vị vận chuyển
+	Kết nối vận chuyển thành công, 
+Đã bàn giao đơn vị vận chuyển, 
+Đang giao hàng, 
+Giao hàng thành công
+	x
+	Tên đơn vị vận chuyển
+Hiện tại là Viettel Post
+	6
+	Tên sản phẩm
+	Tất cả trạng thái
+	x
+	Tên sản phẩm, nếu đơn có 3 sản phẩm thì có 3 dòng
+	7
+	Phân loại 1
+	Tất cả trạng thái
+	x
+	Tên phân loại hàng SKU
+	8
+	Phân loại 2
+	Tất cả trạng thái
+	x
+	Tên phân loại hàng SKU
+	9
+	SKU phân loại hàng
+	Tất cả trạng thái
+	x
+	Mã SKU cho phân loại hàng
+	10
+	Đơn giá
+	Tất cả trạng thái
+	x
+	Giá bán của SKU
+	11
+	Số lượng
+	Tất cả trạng thái
+	x
+	Tổng số SKU trên đơn
+	12
+	Thành tiền
+	Tất cả trạng thái
+	x
+	Thành tiền = tổng đơn giá của tất cả SKU của tất cả sản phẩm trên đơn hàng đó
+	13
+	Tổng tiền hàng
+	Tất cả trạng thái
+	x
+	Tổng giá trị đơn hàng
+	14
+	Phí chiết khấu sàn 
+	Tất cả trạng thái
+	
+
+	Nếu đơn hàng có phí chiết khấu được cấu hình
+	15
+	Phí vận chuyển người bán trả
+	Kết nối vận chuyển thành công, 
+Đã bàn giao đơn vị vận chuyển, 
+Đang giao hàng, 
+Giao hàng thành công
+	x
+	Phí vận chuyển  phát sinh khi:
+-  đơn hàng có trạng thái seller = kết nối vận chuyển thành công 
+- cập nhật thông tin đơn hàng tại đơn vị vận chuyển dẫn đến phí vận chuyển bị cập nhật
+Xuất phí vận chuyển đúng phí vận chuyển tại thời điểm xuất
+	16
+	Phí Dịch Vụ
+	Tất cả trạng thái
+	x
+	Phí dịch vụ được CMS cấu hình
+	17
+	Doanh thu ước tính
+	Tất cả trạng thái
+	x
+	Doanh thu dự kiến trên đơn = tổng tiền hàng - chi phí chết khấu sàn - phí vận chuyển người bán trả - phí dịch vụ. Trường hợp chi phí số lẻ thì làm tròn sau dấu phẩy 3 chữ số
+	18
+	Lưu ý từ người mua 
+	text 
+	
+
+	Hiển thị lưu ý từ người mua
+	19
+	Phí vận chuyển mà người mua trả
+	Tất cả trạng thái
+	x
+	Phí vận chuyển mà người mua trả
+	20
+	Tổng tiền người mua thanh toán
+	Tất cả trạng thái
+	x
+	Tổng tiền mà người mua thanh toán
+	21
+	Tên người nhận
+	Tất cả trạng thái
+	x
+	Tên tài khoản người mua theo đơn hàng
+	22
+	Tỉnh/Thành phố
+	Tất cả trạng thái
+	x
+	Tỉnh/Thành phố của người mua theo đơn hàng
+	23
+	Phường 
+	Tất cả trạng thái
+	x
+	Phường của người mua theo đơn hàng
+	24
+	Địa chỉ nhận hàng
+	Tất cả trạng thái
+	x
+	Địa chỉ chi tiết của người mua theo đơn hàng
+	3.4.3. Luồng nghiệp vụ
+Bước 
+	Mô tả
+	1
+	Xuất báo cáo  -> Quản lý đơn hàng → Chọn tab tất cả  →  Xuất excel
+Xuất báo cáo → Quản lý đơn hàng → Chọn tab theo trạng thái (chờ thanh toán, chờ giao hàng, đang giao hàng, đã giao hàng, trả hàng, hủy)→ Xuất excel
+	2
+	
+
+Hệ thống thực hiện xuất báo cáo theo các đơn hàng đã tick chọn 
+ 
+	3.5. Chức năng xem lịch sử xuất báo cáo 
+3.5.1. Thông tin chung
+
+
+Tên chức năng
+	Xem lịch sử xuất báo cáo
+	Mô tả
+	Cho phép người bán xem lịch sử xuất báo cáo 
+	Tác nhân
+	Người bán
+	Trigger
+	Seller F2C → Quản lý đơn hàng → Lịch sử xuất báo cáo
+	Điều kiện đầu vào
+	- Người dùng đăng nhập thành công vào hệ thống Seller >> Quản lý đơn hàng >> Chọn lịch sử xuất báo cáo 
+	Luồng thông thường
+	1. Nhà bán đăng nhập vào hệ thống seller
+2. Truy cập vào quản lý đơn hàng
+3. Hệ thống hiển thị danh sách đơn hàng 
+4. Nhà bán chọn button xem lịch sử xuất báo cáo
+5. Hệ thống hiển thị màn hình “Lịch sử xuất báo cáo” 
+	Điều kiện đầu ra
+	- Nhà bán xem danh sách lịch sử xuất báo cáo thành công 
+- Nhà bán có thể thực hiện tìm kiếm, tải về các báo cáo đã xuất trong quá khứ thành công 
+	Business rule
+	   * Hệ thống chỉ hiển thị những báo cáo xuất thành công 
+   * Danh sách lịch sử xuất báo cáo được hiển thị theo thời gian xuất giảm dần (mới nhất ở trên)
+	3.5.2. Thiết kế giao diện 
+  
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1
+	Tên báo cáo 
+	Textbox
+	
+
+	I
+	   * Tìm kiếm theo tên báo cáo 
+   * Nhập Freetext, cho phép nhập tất cả các ký tự chữ và số, ký tự đặc biệt 
+   * Giới hạn: 100 ký tự, chặn nhập quá 
+   * Placeholder: Nhập để lọc 
+	2
+	Thời gian 
+	Datepicker
+	
+
+	I
+	   * Chọn bộ lọc từ ngày đến ngày 
+   * Từ ngày phải nhỏ hơn đến ngày, chặn không cho phép chọn đến ngày nhỏ hơn từ ngày 
+   * Hiển thị mặc định: Ngày hôm nay với định dạng dd/mm/yyyy - dd/mm/yyyy
+	3
+	Tìm kiếm 
+	Button
+	 
+	I
+	   * Nhấn tìm kiếm => Thực hiện tìm kiếm theo bộ lọc tương ứng 
+   * Trường hợp người dùng không nhập giá trị bộ lọc => Nhấn tìm kiếm => Danh sách hiển thị mặc định theo thứ tự thời gian xuất từ mới đến cũ (Mới nhất lên trên) 
+   * Trường hợp không có bản ghi => Click tìm kiếm => Danh sách hiển thị empty state “Không tồn tại lịch sử xuất báo cáo”
+	4
+	Loại báo cáo
+	Label
+	
+
+	O
+	- Hiển thị loại báo cáo xuất ra theo từng tab trạng thái
+	5
+	Thời gian xuất
+	Label
+	
+
+	O
+	- Hiển thị thời gian xuất báo cáo
+- Định dạng: dd/mm/yyyy hh:mm:ss
+	6
+	Tên báo cáo
+	Label
+	
+
+	O
+	- Hiển thị tên tương ứng của từng báo cáo đã xuất ra
+	7
+	Tải về
+	Label
+	
+
+	O
+	- Người dùng chọn “Tải về” để tải xuống file excel đã yêu cầu xuất trước đó
+- Tên file tải về giữ nguyên tên hiển thị ở cột “tên báo cáo”, ví dụ: order.all.2024.01102024
+Validate: 
+- Xảy ra lỗi khi tải xuống => hiển thị thông báo: “Tải về thất bại, vui lòng thử lại”
+- Tải xuống thành công => hiển thị toast “Tải về thành công” 
+	
+
+
+
+3.5.3. Luồng nghiệp vụ
+Bước 
+	Mô tả
+	1
+	Xem lịch sử xuất báo cáo: Quản lý đơn hàng => Click button xem lịch sử xuất báo cáo 
+	2
+	
+
+Hệ thống hiển thị màn hình lịch sử xuất báo cáo 
+ 
+	________________
+3.6. Chức năng chuẩn bị hàng
+3.6.1. Thông tin chung
+
+
+Tên chức năng
+	Chuẩn bị hàng
+	Mô tả
+	Cho phép người bán chọn địa chỉ kho bàn giao cho đơn vị vận chuyển
+	Tác nhân
+	Người bán
+	Trigger
+	*Chuẩn bị hàng cho 1 đơn
+Seller F2C → Quản lý đơn hàng → Chọn tab tất cả với đơn có trạng thái chờ chuẩn bị hàng  → Chuẩn bị hàng
+Seller F2C → Quản lý đơn hàng → Chọn tab chờ giao hàng với đơn có trạng thái chờ chuẩn bị hàng→ Chuẩn bị hàng
+Seller F2C → Quản lý đơn hàng → Chọn tab chờ giao hàng/tất cả —> Xem chi tiết với đơn có trạng thái chờ chuẩn bị hàng → Chuẩn bị hàng
+
+*Chuẩn bị hàng cho nhiều đơn từ cùng 1 kho hàng
+Seller F2C → Quản lý đơn hàng → Chọn 1 hoặc nhiều hoặc tất cả đơn có trạng thái chờ chuẩn bị hàng  → Chuẩn bị hàng
+
+
+	Điều kiện đầu vào
+	Có ít nhất 1 đơn hàng ở trạng thái đơn seller = chờ chuẩn bị hàng
+	Luồng thông thường
+	Mô tả chi tiết trong luồng nghiệp vụ
+	Điều kiện đầu ra
+	Nhà bán chuẩn bị hàng thành công, chuyển trạng thái đơn seller thành đã chuẩn bị hàng
+	Business rule
+	Người dùng chỉ được phép thực hiện chuẩn bị hàng trước khi sinh ra vận đơn của đơn vị vận chuyển
+	3.6.2. Thiết kế giao diện
+
+
+3.6.2.1. Chuẩn bị hàng 1 đơn
+  
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Tên popup
+	Text
+	x
+	O
+	- Hiển thị tên popup “Bàn giao đơn vị vận chuyển”
+
+
+	2
+	Mã đơn hàng
+	Text
+	x
+	O
+	Hiển thị mã đơn hàng đang thao tác
+	3
+	Vận chuyển
+	Text
+	x
+	O
+	- Hiển thị tên đơn vị vận chuyển, mặc định hiện tại là Viettel Post
+	5
+	Lưu ý
+	Textbox
+	
+
+	I
+	- Cho phép nhập vào lưu ý cho đơn vị vận chuyển
+- Nhập freetext, giới hạn 200 ký tự, chặn nhập quá
+	6
+	Địa chỉ lấy hàng
+	Text
+	x
+	O
+	- Hiển thị địa chỉ lấy hàng mặc định được cấu hình bởi seller
+- Thông tin hiển thị gồm: 
+   * Tên người liên hệ
+   * Số điện thoại liên hệ
+   * Địa chỉ kho
+- Cho phép chọn “Thay đổi” để thay đổi địa chỉ kho lấy hàng
+→ hiển thị danh sách địa chỉ kho được cấu hình trên CMS có trạng thái active để nhà bán lựa chọn
+  
+
+- Nhà bán lựa chọn địa chỉ kho trong danh sách 
+	7
+	Hủy
+	Button
+	
+
+	
+
+	- Chọn button → để hủy thao tác chuẩn bị hàng, bàn giao cho đơn vị vận chuyển → đóng popup
+- Thông tin đã nhập trước đó cũng sẽ bị hủy bỏ
+	8
+	Xác nhận
+	Button
+	
+
+	
+
+	- Chọn button để hoàn thành việc chuẩn bị hàng, bàn giao cho đơn vị vận chuyển 
+- Trạng thái đơn hàng sẽ được cập nhật từ đang chuẩn bị hàng sang đã chuẩn bị hàng
+	9
+	  
+
+	Icon Button
+	
+
+	
+
+	- Chọn   để đóng popup bàn giao cho đơn vị vận chuyển
+- Thông tin đã nhập trước đó cũng sẽ bị hủy bỏ, điều hướng về màn hình chi tiết đơn hàng nếu thao tác từ màn chi tiết hoặc màn hình danh sách nếu thao tác từ màn danh sách đơn tab chờ giao hàng
+	3.6.2.2 Chuẩn bị hàng nhiều đơn
+  
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Tên popup
+	Text
+	x
+	O
+	- Hiển thị tên popup “Bàn giao đơn vị vận chuyển”
+
+
+	2
+	Mã đơn hàng
+	Text
+	x
+	O
+	- Hiển thị danh sách các đơn hàng đã được tick chọn để bàn giao
+- Danh sách mã đơn sắp xếp tối đa 5 hàng mỗi hàng 5 mã đơn, quá 5 hàng cho phép nhập scroll
+- Hover vào hiển thị icon “X” cho phép xóa đơn hàng khỏi danh sách
+	3
+	Vận chuyển
+	Text
+	x
+	O
+	- Hiển thị tên đơn vị vận chuyển, mặc định hiện tại là Viettel Post
+	5
+	Lưu ý
+	Textbox
+	
+
+	I
+	- Cho phép nhập vào lưu ý cho đơn vị vận chuyển
+- Nhập freetext, giới hạn 200 ký tự, chặn nhập quá
+	6
+	Địa chỉ lấy hàng
+	Text
+	x
+	O
+	- Hiển thị địa chỉ lấy hàng mặc định được cấu hình trên CMS
+- Thông tin hiển thị gồm: 
+   * Tên người liên hệ
+   * Số điện thoại liên hệ
+   * Địa chỉ kho
+- Cho phép chọn “Thay đổi” để thay đổi địa chỉ kho lấy hàng
+→ hiển thị danh sách địa chỉ kho được cấu hình trên CMS có trạng thái active để nhà bán lựa chọn
+  
+
+- Nhà bán lựa chọn địa chỉ kho trong danh sách 
+	7
+	Hủy
+	Button
+	
+
+	
+
+	- Chọn button → để hủy thao tác chuẩn bị hàng, bàn giao cho đơn vị vận chuyển → đóng popup
+- Thông tin đã nhập trước đó cũng sẽ bị hủy bỏ
+	8
+	Xác nhận
+	Button
+	
+
+	
+
+	- Click => Hiển thị popup Chuẩn bị hàng thành công gồm Đơn đã chuẩn bị thành công và Đơn chuẩn bị thất bại: 
+Đơn chuẩn bị thành công là những đơn đang trong trạng thái “chờ chuẩn bị hàng” và có thể kết nối được với máy chủ thành công. 
+Trường hợp không thế kết nối với máy chủ => báo lỗi “không thể kết nối với máy chủ. Vui lòng thử lại sau”
+Trường hợp đơn hàng đã bị hủy trước đó => báo lỗi “Đơn hàng đã bị hủy. Không thể thực hiện chuẩn bị hàng”
+  
+
+- Trạng thái đơn hàng sẽ được cập nhật từ “chờ chuẩn bị hàng” sang “đang chờ tạo đơn vận chuyển”
+	9
+	  
+
+	Icon Button
+	
+
+	
+
+	Khi người dùng chưa nhấn “xác nhận”
+- Chọn   để đóng popup bàn giao cho đơn vị vận chuyển
+- Thông tin đã nhập trước đó cũng sẽ bị hủy bỏ, điều hướng về màn hình danh sách
+Khi người dùng đã nhấn xác nhận => chuẩn bị đơn hàng thành công 
+- Chọn   để đóng popup => điều hướng về màn hình danh sách
+	
+
+3.6.3. Luồng nghiệp vụ
+Bước 
+	Mô tả
+	1
+	*Chuẩn bị hàng cho 1 đơn -> Quản lý đơn hàng → Chọn tab tất cả với đơn có trạng thái chờ chuẩn bị hàng  → Chuẩn bị hàng
+Seller F2C → Quản lý đơn hàng → Chọn tab chờ giao hàng với đơn có trạng thái chờ chuẩn bị hàng→ Chuẩn bị hàng
+Seller F2C → Quản lý đơn hàng → Chọn tab chờ giao hàng/tất cả —> Xem chi tiết với đơn có trạng thái chờ chuẩn bị hàng → Duyệt
+
+*Chuẩn bị hàng cho nhiều đơn từ cùng 1 kho hàng → Quản lý đơn hàng → Chọn 1 hoặc nhiều hoặc tất cả đơn có trạng thái chờ chuẩn bị hàng  → Chuẩn bị hàng
+	2.1
+	   *      * Hệ thống hiển thị màn hình như trên với địa chỉ kho mặc định đã được cấu hình -> Chuyển bước 3
+	2.2
+	  
+
+Hệ thống lấy danh sách đơn hàng đã chọn và địa chỉ mặc định để hiển thị như màn trên
+- Danh sách đơn theo thứ tự từ trái qua phải, từ trên xuống dưới theo thứ tự thời gian tích chọn giảm dần. 
+- Quá 5 dòng hệ thống hiển thị thanh cuộn
+- Khi hover vào đơn hàng nào thì hiển thị dấu “x” đồng thời đánh viền đỏ đơn hàng, cho phép xóa đơn khỏi danh sách
+-> Chuyển bước 3
+	3
+	      * Người dùng tiến hành cập nhật thông tin bàn giao cho đơn vị vận chuyển
+      * Nếu người dùng muốn đổi địa chỉ kho thì chọn “Thay đổi”  -> hệ thống hiển thị danh sách địa chỉ kho có trạng thái = active
+  
+
+      * Cho phép người dùng thay đổi địa chỉ kho bằng cách tích chọn địa chỉ kho mong muốn -> Quay lại màn hình trước đó và hiển thị địa chỉ đã chọn
+
+
+      * Người dùng ấn xác nhận để tiến hành chuẩn bị đơn
+	
+
+3.7. Chức năng in phiếu giao
+3.7.1. Thông tin chung
+
+
+Tên chức năng
+	In phiếu giao
+	Mô tả
+	Cho phép người bán chọn in phiếu giao cho 1 hoặc nhiều đơn hàng ở trạng thái đã chuẩn bị hàng tab chờ giao hàng
+	Tác nhân
+	Người bán
+	Trigger
+	- Seller F2C → Quản lý đơn hàng → tab chờ giao hàng/ tất cả → tick chọn đơn có trạng thái đã chuẩn bị hàng → Chọn in phiếu giao
+- Seller F2C → Quản lý đơn hàng → tab chờ giao hàng/ tất cả → Chi tiết đơn có trạng thái đã chuẩn bị hàng → Chọn in phiếu giao
+	Điều kiện đầu vào
+	- Người dùng đăng nhập thành công vào hệ thống Seller 
+- Có ít nhất 1 đơn hàng ở trạng thái đơn seller = đã chuẩn bị hàng
+	Luồng thông thường
+	Mô tả chi tiết tại luồng nghiệp vụ
+	Điều kiện đầu ra
+	- Nhà bán in thành công đơn hàng, cập nhật trạng thái đã in/ chưa in chưa từng đơn hàng
+	Business rule
+	- Chỉ có thể thực hiện chức năng in phiếu giao với những đơn hàng ở trạng thái “Đã chuẩn bị hàng”
+	
+
+3.7.2 Thiết kế giao diện
+
+
+TH1: In 1 đơn
+
+
+  
+
+
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Bắt buộc 
+	I/O 
+	Mô tả 
+	1 
+	Xác nhận chuyển trạng thái đã in
+	Checkbox
+	x
+	
+
+	NSD tích vào checkbox để chuyển trạng thái trong hệ thống là đã in, trường hợp NSD không tích thì trạng thái sẽ không được cập nhật.
+	2
+	Số liên cần in trên đơn
+	Radio Button
+	
+
+	
+
+	NSD chọn 1 trong 2 radio button 1 liên hoặc 2 liên, khi nhân vào 1 button, hệ thống sẽ tự động disable button còn lại
+	3
+	Chọn kích thước in
+	Button
+	
+
+	
+
+	NSD chọn 1 trong 3 button In A5, In nhiệt A6 và in A7.
+- NSD nhấn vào in A5 hệ thống sẽ hiển thị nhãn in A5
+  
+
+- NSD nhấn vào “In nhiệt A6” hệ thống sẽ hiển thị thị nhãn in A6 
+  
+
+- NSD nhấn vào in A7 hệ thống sẽ hiển thị nhãn in A7
+  
+
+
+
+	
+
+TH2: In nhiều đơn
+
+
+  
+
+
+
+
+
+STT
+	Tên trường
+	Type
+	I/O
+	Mô tả
+	1
+	Tiêu đề popup: IN PHIẾU GIAO
+	Label
+	O
+	Hiển thị tiêu đề của popup in phiếu giao
+	2
+	Checkbox xác nhận chuyển trạng thái đã in
+	Checkbox
+	I
+	Khi tick chọn, hệ thống sẽ tự động cập nhật trạng thái đơn hàng sang "Đã in" sau khi thực hiện in
+	3
+	Nhãn "Số liên cần in trên 1 đơn"
+	Label
+	O
+	Hiển thị mô tả cho nhóm lựa chọn số liên in
+	4
+	Radio chọn 1 liên
+	Radio button
+	I
+	Người dùng chọn in 1 liên cho mỗi đơn hàng. Mặc định được chọn
+	5
+	Radio chọn 2 liên
+	Radio button
+	I
+	Người dùng chọn in 2 liên cho mỗi đơn hàng
+	6
+	Nhãn "Chọn kích thước in"
+	Label
+	O
+	Hiển thị mô tả cho nhóm lựa chọn kích thước in
+	7
+	Button "In A5"
+	Button
+	I
+	Thực hiện in phiếu giao theo khổ giấy A5
+	8
+	Button "In nhiệt A6"
+	Button
+	I
+	Thực hiện in phiếu giao theo khổ giấy nhiệt A6
+	9
+	Button "In A7"
+	Button
+	I
+	Thực hiện in phiếu giao theo khổ giấy A7
+	10
+	Icon đóng (X)
+	Button/Icon
+	I
+	Đóng popup in phiếu giao mà không thực hiện thao tác in
+	________________
+
+
+3.6.3. Luồng nghiệp vụ
+Bước 
+	Mô tả
+	1
+	In phiếu giao  -> Quản lý đơn hàng → Chọn tab tất cả với đơn có trạng thái đã chuẩn bị hàng  → In phiếu giao
+In phiếu giao → Quản lý đơn hàng → Chọn tab chờ giao hàng với đơn có trạng thái đã chuẩn bị hàng→ In phiếu giao
+In phiếu giao → Quản lý đơn hàng → Chọn tab chờ giao hàng/tất cả —> Xem chi tiết với đơn có trạng thái đã chuẩn bị hàng → In phiếu giao
+	2.1
+	      *   Hệ thống hiển thị màn hình như trên:
+- Số liên cần in trên 1 đơn: tương ứng với số bản in của phiếu giao 
+- Chọn kích thước in theo khổ in A5, A6, A7
+ 
+	2.2
+	Hệ thống call API sang đối tác vận chuyển E2 và trả về hình ảnh phiếu giao
+Người dùng có thể thực hiện xem chi tiết, tải về 
+	________________
+3.8. Nâng cấp phần hóa đơn điện tử của Seller
+3.8.1. Thông tin chung
+
+
+Tên chức năng
+	Nâng cấp phần hóa đơn điện tử của Seller
+	Mô tả
+	Người dùng truy cập trang chi tiết → thực hiện các thao tác quản lý đối với hóa đơn điện tử
+	Tác nhân
+	Seller
+	Trigger
+	Yêu cầu xuất hóa đơn từ Seller
+	Điều kiện đầu vào
+	Buyer mua hàng và tích chọn yêu cầu xuất hóa đơn
+	Luồng thông thường
+	Seller truy cập vào hệ thống, truy cập chức năng quản lý đơn hàng và xem chi tiết đơn hàng đang yêu cầu xuất hoá đơn.
+Khi đó, Seller có thể thực hiện:
+         * Tải lên file hóa đơn
+         * Tải xuống file hóa đơn
+         * Sao chép thông tin xuất hóa đơn
+	Điều kiện đầu ra
+	Thực hiện thao tác thành công
+	Business rule
+	         1. Đối với đơn hàng đang yêu cầu xuất hóa đơn:
+         * Người dùng có thể thực hiện thao tác upload file Hóa đơn điện tử lên.
+         2. Đối với đơn hàng đã tải lên file hóa đơn:
+         * Người dùng có thể tải xuống file hóa đơn để xem lại.
+         3. Đối với đơn hàng dính vi phạm/khiếu nại:
+         * Người dùng có thể tải xuống file cũ đã upload, đồng thời có thể tải lên file mới. Khi tải lên file mới thì sẽ ghi đè file cũ và chuyển trạng thái đơn hàng về trạng thái (2).
+	
+
+3.8.2 Mô tả giao diện
+  
+  
+
+  
+
+
+
+STT 
+	Tên 
+	Kiểu  
+	Mô tả 
+	1
+	Tải hóa đơn
+  
+
+	Button
+	(1) Đối với đơn hàng đang yêu cầu xuất hóa đơn:
+         * Người dùng có thể thực hiện thao tác upload file Hóa đơn điện tử lên.
+(2) Đối với đơn hàng đã tải lên file hóa đơn:
+         * Người dùng có thể tải xuống file hóa đơn để xem lại.
+(3) Đối với đơn hàng dính vi phạm/khiếu nại:
+         * Người dùng có thể tải xuống file cũ đã upload, đồng thời có thể tải lên file mới. Khi tải lên file mới thì sẽ ghi đè file cũ và chuyển trạng thái đơn hàng về trạng thái (2).
+	2
+	Tải xuống file
+  
+
+	Button
+	3
+	Tải lại hóa đơn
+  
+
+	Button
+	________________
+
+
+3.9. Nâng cấp luồng trạng thái đơn hàng của đơn hàng quốc tế.
+3.9.1. Thông tin chung
+
+
+Tên chức năng
+	Nâng cấp phần trạng thái đơn hàng của đơn hàng quốc tế.
+	Mô tả
+	Đối với các đơn hàng quốc tế, cần bổ sung thêm luồng nghiệp vụ để xử lý riêng, vì vậy, sẽ phát sinh thêm các trạng thái đơn hàng mới.
+	Tác nhân
+	Seller
+	Trigger
+	Campaign kết thúc.
+	Điều kiện đầu vào
+	Buyer đặt hàng và thanh toán thành công.
+	Luồng thông thường
+	Hệ thống sau khi nhận biết được campaign này là đơn quốc tế
+	Điều kiện đầu ra
+	Thông luồng hàng quốc tế.
+	Business rule
+	Sẽ được mô tả chi tiết ở dưới.
+	
+
+3.9.2 Mô tả luồng ảnh hưởng
+Hiện tại, luồng đơn hàng đang chỉ đáp ứng cho đơn hàng nội địa.
+Mong muốn thay đổi:
+         * Sản phẩm sẽ được đánh tag để phân biệt là sản phẩm của đối tác.
+         * Khi campaign được tạo từ sản phẩm này, thì hệ thống sẽ nhận biết và xử lý như sau:
+         * [a]Thêm rule: Với tab Trả hàng: mã vận chuyển là mã của đơn hàng thu hồi nhé
+[b]done ạ
+[c]ĐVVC chưa lấy hàng thành công >> Tức là yêu cầu hoàn hàng đã được phê duyệt rồi đúng k? >> Nếu thế thì TT là Chờ hoàn tiền chứ?
+[d]ĐVVC lấy hàng thành công thì trạng thái mới là Chờ hoàn tiền ạ
+[e]ok
+[f]Lưu ý: nếu TT đơn là Giao thất bại - Lưu kho (không phải TT cuối), tức là sau đó vẫn có thể được giao lại -> nếu giao thành công (501), thanh trạng thái vẫn hiển thị Đã giao hàng như mục 3.2.2.9
+[g]done ạ
+[h]lấy dữ liệu BC lưu hàng, là BC giao từ EVTP luôn nhé >> c check lại tên trường rồi c note lại.
+[i]dạ
+[j]Chỗ này thêm case Thanh toán thất bại nữa e nhé
+[k]thanh toán thất bại cũng tính là chưa thanh toán rùi ạ
+[l]là 2 TT khác nhau chứ, e cứ chia case ra đi nhé
+[m]Chưa sửa này
+[n]done ạ

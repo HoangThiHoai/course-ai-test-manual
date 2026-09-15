@@ -1,0 +1,118 @@
+- generic [active] [ref=f5e1]:
+  - generic [ref=f5e2]:
+    - generic [ref=f5e3] [cursor=pointer]: 
+    - navigation [ref=f5e5]:
+      - generic [ref=f5e6]:
+        - generic [ref=f5e7]:
+          - generic [ref=f5e8]:
+            - searchbox "Search..." [ref=f5e9]
+            - button "" [ref=f5e11] [cursor=pointer]
+            - text:     
+          - list [ref=f5e13]:
+            - listitem "Quick Create" [ref=f5e14]:
+              - link "+" [ref=f5e15] [cursor=pointer]:
+                - /url: "#"
+              - text:             
+        - text: 
+        - list [ref=f5e18]:
+          - listitem [ref=f5e19]:
+            - link "Share documents, ideas.." [ref=f5e20] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f5e23]:
+            - link "2" [ref=f5e24] [cursor=pointer]:
+              - /url: https://crm.anhtester.com/admin/todo
+          - listitem "Admin Example" [ref=f5e28]:
+            - link [ref=f5e29] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f5e31]:
+            - link "1" [ref=f5e32] [cursor=pointer]:
+              - /url: "#"
+            - text:  
+          - listitem "Notifications" [ref=f5e37]:
+            - link [ref=f5e38] [cursor=pointer]:
+              - /url: "#"
+  - text: 
+  - complementary [ref=f5e42]:
+    - list [ref=f5e43]:
+      - listitem [ref=f5e44]:
+        - link [ref=f5e46] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/
+          - img "Perfex CRM | Anh Tester Demo" [ref=f5e47]
+      - listitem [ref=f5e48]:
+        - link " Dashboard" [ref=f5e49] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/
+          - generic [ref=f5e50]: 
+          - text: Dashboard
+      - listitem [ref=f5e51]:
+        - link " Customers" [ref=f5e52] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/clients
+          - generic [ref=f5e53]: 
+          - text: Customers
+      - listitem [ref=f5e54]:
+        - link " Projects" [ref=f5e55] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/projects
+          - generic [ref=f5e56]: 
+          - text: Projects
+      - listitem [ref=f5e57]:
+        - link " Tasks" [ref=f5e58] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/tasks
+          - generic [ref=f5e59]: 
+          - text: Tasks
+      - listitem [ref=f5e60]:
+        - link " Contracts" [ref=f5e61] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/contracts
+          - generic [ref=f5e62]: 
+          - text: Contracts
+      - listitem [ref=f5e63]:
+        - link " Sales " [ref=f5e64] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=f5e65]: 
+          - text: Sales
+          - generic [ref=f5e66]: 
+      - listitem [ref=f5e67]:
+        - link " Subscriptions" [ref=f5e68] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/subscriptions
+          - generic [ref=f5e69]: 
+          - text: Subscriptions
+      - listitem [ref=f5e70]:
+        - link " Expenses" [ref=f5e71] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/expenses
+          - generic [ref=f5e72]: 
+          - text: Expenses
+      - listitem [ref=f5e73]:
+        - link " Support" [ref=f5e74] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/tickets
+          - generic [ref=f5e75]: 
+          - text: Support
+      - listitem [ref=f5e76]:
+        - link " Leads" [ref=f5e77] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/leads
+          - generic [ref=f5e78]: 
+          - text: Leads
+      - listitem [ref=f5e79]:
+        - link " Estimate Request" [ref=f5e80] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/estimate_request
+          - generic [ref=f5e81]: 
+          - text: Estimate Request
+      - listitem [ref=f5e82]:
+        - link " Knowledge Base" [ref=f5e83] [cursor=pointer]:
+          - /url: https://crm.anhtester.com/admin/knowledge_base
+          - generic [ref=f5e84]: 
+          - text: Knowledge Base
+      - listitem [ref=f5e85]:
+        - link " Utilities " [ref=f5e86] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=f5e87]: 
+          - text: Utilities
+          - generic [ref=f5e88]: 
+      - listitem [ref=f5e89]:
+        - link " Reports " [ref=f5e90] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=f5e91]: 
+          - text: Reports
+          - generic [ref=f5e92]: 
+  - generic [ref=f5e93]: Something went wrong. Try again
+  - generic [ref=f5e99]:
+    - button "Close" [ref=f5e100] [cursor=pointer]: ×
+    - generic [ref=f5e101]: 
+    - generic [ref=f5e102]: Access denied
