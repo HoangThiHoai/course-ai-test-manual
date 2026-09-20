@@ -1,0 +1,16 @@
+Cấu trúc skills
+.claude/skills/<tên skill>/SKILL.md
+Trong file SKILL.md phải có 
+---
+name: tên skill (tên phải bằng với tên skill đặt tên folder)
+description: Sinh bộ Test Case Manual đầy đủ (Happy path, Negative case, Edge case) từ mô tả một chức năng. Dùng khi cần viết Test Case nhanh cho một chức năng cụ thể, có thể dùng ngay sau Skill skills-requirements-analyzer.
+---
+==> Tìm hiểu cách trình bày file markdown 
+
+Cách dùng:
+Lấy thư mục claude của thầy về thư mục của mình
+B1: Khám phá hệ thống: Gọi /discovery (nguồn UI, URL, tài liệu)
+B2: Phân tích requiment: /analyze-requiment-doccument
+B3: Update requirement: gọi /update-requiment-form-tiket giải quyết AMB cho requiment ??:(Còn các AMB khác lấy giá trị gợi ý của bạn (là câu trả lời tôi đã chốt))
+B4: Khi đỏi tài liệu phải update testcase gọi /update-testcase-from-impact
+B5: Lập kế hoạch kiểm thử: /generate-master-test-plan

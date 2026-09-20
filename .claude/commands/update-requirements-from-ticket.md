@@ -20,7 +20,8 @@ Module đang phát triển thì ticket liên tục sửa/bổ sung yêu cầu. W
 > **KHÔNG dùng workflow này khi:**
 > | Tình huống | Dùng thay thế |
 > |---|---|
-> | Module **chưa có** tài liệu requirements | `/generate-requirements-from-website` hoặc `/analyze-requirement-document` |
+> | Module **chưa có** tài liệu requirements | `/generate-requirements-from-website` (web) · `/generate-requirements-from-mobile` (app) · `/generate-requirements-from-api` (API) · hoặc `/analyze-requirement-document` |
+> | **Spec API đổi phiên bản** (không có ticket) | `/generate-requirements-from-api` — tự chạy delta khi `sha256` spec khác snapshot |
 > | Chỉ cần phân tích ticket, chưa muốn động vào tài liệu module | `/analyze-requirement-document` |
 > | Cần sinh lại test case sau khi cập nhật | `/generate-testcases-manual-rbt` (chỉ cho REQ 🟡/🟢 mới) |
 
@@ -102,7 +103,7 @@ Sửa **tại chỗ** `requirements_<module>.md`, theo đúng thứ tự:
 
 Báo cáo riêng cho tester. **PHẢI ghi ra file** `docs/requirements/<module>/impact/impact_<TICKET-ID>.md`, đồng thời hiển thị trong chat và là cột `TC cần xử lý` trong Nhật ký.
 
-> 🚨 **Không được để Impact Report chỉ nằm trong chat.** Nó là input **bắt buộc** của `/update-testcases-from-impact` và `/update-automation-from-impact` — hai workflow này thường chạy ở phiên khác, có khi hôm sau. Đóng phiên là mất, và không có cách nào dựng lại ngoài chạy lại cả workflow.
+> 🚨 **Không được để Impact Report chỉ nằm trong chat.** Nó là input **bắt buộc** của `/update-testcases-from-impact`, và qua file `delta_tc_<TICKET-ID>.md` mà workflow đó ghi ra, là gốc của `/update-automation-from-impact` — hai workflow này thường chạy ở phiên khác, có khi hôm sau. Đóng phiên là mất, và không có cách nào dựng lại ngoài chạy lại cả workflow.
 
 Nội dung file:
 
@@ -166,11 +167,11 @@ Nội dung file:
 
 | Tình huống | Workflow |
 |---|---|
-| Trước đó — tạo tài liệu module lần đầu | `/generate-requirements-from-website` |
+| Trước đó — tạo tài liệu module lần đầu | `/generate-requirements-from-website` (web) · `/generate-requirements-from-mobile` (app) · `/generate-requirements-from-api` (API) |
 | Trước đó — phân tích ticket độc lập, chưa merge vào module | `/analyze-requirement-document` |
 | Sau đó — **cập nhật TC bị ảnh hưởng (🟡) + archive TC bị gỡ (🗑️)** | `/update-testcases-from-impact` ⭐ mắt xích kế tiếp |
 | Sau đó — sinh TC cho REQ mới (🟢) | `/generate-testcases-manual-rbt` hoặc `/generate-testcases-from-requirements` |
 | Sau đó — chấm chất lượng bộ TC **sau khi** đã đồng bộ | `/review-testcases` |
 | Sau đó — cập nhật ma trận truy vết | `/generate-traceability-matrix` |
-| Sau đó — cập nhật automation script **đã có** theo Impact Report | `/update-automation-from-impact` |
+| Sau khi TC đã đồng bộ — cập nhật automation script **đã có** (đọc `delta_tc_<TICKET-ID>.md`, **không** đọc thẳng Impact Report) | `/update-automation-from-impact` |
 | Sau đó — automate TC mới hoàn toàn (chưa có script) | `/generate-automation-from-testcases` |
