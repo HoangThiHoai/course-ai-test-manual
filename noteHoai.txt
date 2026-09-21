@@ -20,3 +20,5 @@ VD:
 /generate-testcases-from-requirements
 GỘP
 Requirement: docs2\docs\requirements\login\web\requirements_login_web.md
+
+Khi muốn cập nhật Skill: Cập nhật lại những thay đổi đã trao đổi bên trên vào skill sinh TC giúp tôi
