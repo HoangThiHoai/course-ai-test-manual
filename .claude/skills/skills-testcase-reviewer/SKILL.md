@@ -1,6 +1,6 @@
 ---
 name: skills-testcase-reviewer
-description: Skill review chất lượng manual test cases có sẵn — phát hiện TC mơ hồ, thiếu assertion, trùng lặp, thiếu negative/boundary case, chấm điểm theo rubric và đề xuất cải thiện cụ thể.
+description: Skill review chất lượng manual test cases có sẵn — phát hiện TC mơ hồ, thiếu assertion, trùng lặp, thiếu negative/boundary case, chấm điểm theo rubric và đề xuất cải thiện cụ thể. Mode AUTOMATION chấm độc lập TC nào làm automation được (Yes/Partial/No) theo bảng tiêu chí, gom điều kiện cần xin dev.
 ---
 
 # Test Case Reviewer
@@ -14,7 +14,7 @@ Purpose: Đánh giá chất lượng bộ manual test cases (do người khác h
 Sử dụng skill này khi:
 
 - User đưa file test cases (Excel/Markdown/CSV) và yêu cầu "review", "đánh giá", "check chất lượng"
-- Trước khi convert manual TC sang automation (đảm bảo TC đủ tốt để automate)
+- Cần biết **TC nào làm automation được** — bộ TC bất kỳ, kể cả file khách gửi không có cột `Automation` → **Mode AUTOMATION** (mục riêng bên dưới)
 - Sau khi sinh TC bằng `skills-rbt-manual-testing` và cần một vòng kiểm tra độc lập
 - Onboard bộ TC cũ từ dự án khác
 
@@ -23,8 +23,6 @@ Sử dụng skill này khi:
 - **Requirements vừa đổi theo ticket, cần đồng bộ TC** → dùng `skills-rbt-manual-testing` **Mode DELTA** qua command `/update-testcases-from-impact`
 
 > 🚨 **Phân biệt rõ:** skill này chấm **chất lượng cách viết** theo rubric — một TC mô tả rất tốt về hành vi **đã bị thay đổi** vẫn đạt 12/12 điểm, vì rubric không đối chiếu với REQ mới. Nó **không bắt được TC stale**.
->
-> Ngoài ra Mode FIX của skill này sinh file `<tên>_improved.md` — **lạc tên index** `test_cases_<module>.md` mà các workflow phía sau đọc theo mẫu. Dùng nó để cập nhật theo ticket là vừa bỏ sót TC stale, vừa để lại hai bộ TC không ai biết bộ nào đang dùng.
 >
 > Thứ tự đúng: `/update-testcases-from-impact` đồng bộ nội dung **trước** → skill này chấm chất lượng **sau**.
 
@@ -98,6 +96,8 @@ Dùng **Bản Đồ Loại Kiểm Thử — 4 Vòng** trong `skills-rbt-manual-t
 
 ## Report Template
 
+Lưu tại `docs/testcases/<module>/review/testcase_review_report_<nền-tảng>_<YYYYMMDD>.md` — cạnh bộ TC được chấm.
+
 ```markdown
 # Báo Cáo Review Test Cases
 
@@ -144,12 +144,119 @@ Dùng **Bản Đồ Loại Kiểm Thử — 4 Vòng** trong `skills-rbt-manual-t
 - [ ] **Đã chạy đối soát 4 vòng** — mọi nhánh được chấm ✅/🟡/🔴/➖, không ô nào bỏ trống
 - [ ] **Đã đối soát bảng 15 loại field cho TỪNG field** — mục thiếu nêu đích danh (VD "Password thiếu: chặn dán, hiện/ẩn, max length")
 - [ ] Gap ghi kèm **vòng/nhánh** tương ứng, không ghi loại chung chung
-- [ ] Không tự ý sửa file TC gốc — chỉ báo cáo, trừ khi user yêu cầu sửa
-- [ ] Nếu user yêu cầu sửa → sinh phiên bản mới, giữ nguyên file gốc
+- [ ] Không tự ý sửa file TC — chỉ báo cáo, trừ khi user yêu cầu sửa
+- [ ] Nếu user yêu cầu sửa → sửa **tại chỗ** theo mục *Sửa TC (Mode FIX)*, **không** sinh bản sao `_improved` / `_v2` / `_new`
+- [ ] Đã đối chiếu execution report của module — ghi chú `⚠️ chưa có evidence` / `@NeedsVerify` đã được giải quyết được đưa vào báo cáo để dọn
+
+---
+
+## Sửa TC (Mode FIX) — TẠI CHỖ, không sinh bản sao
+
+| Việc | Cách làm |
+|---|---|
+| **Ghi vào đâu** | Chính file TC đang dùng — cùng tên, cùng vị trí. 🚨 **CẤM** sinh `<tên>_improved.md` / `_v2` / `_new` hay thư mục `archive/` |
+| **Giữ bản cũ thế nào** | Ghi **mốc git** (`git log -1 --format=%h -- <file>`) vào Nhật ký thay đổi của index; xem lại bằng `git show <mốc>:<file>` |
+| **File chưa được git theo dõi** (Excel/CSV khách gửi) | **Hỏi user** trước khi ghi đè — không có mốc git để lấy lại bản cũ |
+| **TC ID** | Giữ nguyên. TC bỏ hẳn → `🗑️ Deprecated`, không xoá dòng. TC mới → nối tiếp mã kế tiếp |
+| **Phạm vi** | Chỉ các TC user đã duyệt ở checkpoint — không tiện tay sửa TC khác |
+| **Sau khi sửa** | Đồng bộ file index (Assumptions · Coverage · Vùng chưa có evidence · 4 vòng · tổng TC/biến thể · Bộ chạy) + 1 dòng Nhật ký |
+
+> **Vì sao không sinh bản sao:** mọi workflow phía sau đọc file TC theo mẫu tên cố định (`TEST_CASES_<TÊN_MODULE>_SUMMARY.md` → `<nền-tảng>/test_cases_<module>_<nền-tảng>.md`). Bản `_improved` nằm cạnh bản gốc thì các workflow đó **vẫn đọc bản cũ**, và repo có hai bộ TC không ai biết bộ nào có hiệu lực. Việc duyệt trước khi sửa đã có checkpoint + báo cáo review; việc quay lại bản cũ đã có git.
+
+---
+
+## Mode AUTOMATION — TC nào làm automation được
+
+> Chấm theo **[Tiêu chí chấm cột Automation](../skills-rbt-manual-testing/references/automation_criteria.md)** — đúng bảng mà `skills-rbt-manual-testing` dùng lúc sinh TC, nên kết quả review độc lập so thẳng được với cột `Automation` người viết đã điền.
+>
+> Mode này **không** chấm rubric 6 tiêu chí, **không** đối soát 4 vòng. Nó trả lời đúng một câu: *TC nào automate được ngay, TC nào cần điều kiện gì, TC nào không làm và vì sao*. Cần cả chất lượng lẫn automation → chạy REVIEW trước, AUTOMATION sau.
+
+### Input nào cũng nhận
+
+| Input | Xử lý |
+|---|---|
+| Bộ TC của repo (`docs/testcases/<module>/…`) | Đọc index → theo `## Bản đồ tài liệu` sang file nền tảng. Có sẵn cột `Automation` → vẫn chấm **độc lập**, xong mới đối chiếu |
+| File Excel / CSV / Markdown bất kỳ, không có cột `Automation` | Chấm từ Title · Pre-Condition · Steps · Expected · Test Data — tra cột **Dấu hiệu** ở bảng 3A của tiêu chí |
+| TC không có TC ID | Đánh số tạm theo dòng (`#1`, `#2`…), ghi rõ trong báo cáo |
+
+### Quy trình
+
+1. **Chấm độc lập trước, đối chiếu sau** — bỏ qua cột `Automation` có sẵn trong lúc chấm. Đọc cột đó trước là chấm theo người viết, mất tính độc lập
+2. Với từng TC: xác định **Expected cốt lõi** → Trục 1 (bảng 3A theo dấu hiệu, không khớp dòng nào thì bảng 3B theo loại kiểm thử) → Trục 2 → Trục 3 → lấy mức thấp nhất
+3. Mọi kết luận khác `Yes` **trích nguyên văn** chữ trong TC làm căn cứ — VD *"Nhập mã OTP gửi về số điện thoại"* → SMS/OTP → `Partial`
+4. TC viết mơ hồ → `❓ Chưa chấm được`, **không đoán** — đề xuất Mode REVIEW cho các TC đó
+5. **Gom điều kiện**: mỗi điều kiện của `Partial` một dòng, đếm số TC nó mở khoá, xếp giảm dần — đây là danh sách QA mang đi xin dev/DevOps. Điều kiện chỉ mở 1–2 TC mà cần dựng hạ tầng mới → đề xuất `No` theo Trục 3
+6. Điều kiện **đã có sẵn** trên môi trường (user nói, hoặc bảng năng lực ở `docs/requirements/README.md`) → TC phụ thuộc chấm `Yes`, điều kiện ghi trạng thái ✅. Không biết → ghi `❓ Chưa rõ`, giữ `Partial`
+7. Vướng tạm thời (AMB 🔴 chưa chốt, `@NeedsVerify`, màn hình đang làm lại) → `⏸️ Hoãn`, **không** hạ giá trị. TC phơi bug (`@KnownBug`) **không** hoãn
+8. File có sẵn cột `Automation` → liệt kê **dòng lệch**, mỗi dòng nói vì sao
+9. Đề xuất thứ tự automate trong nhóm `Yes` theo mục 5 của tiêu chí
+
+### Report Template — Mode AUTOMATION
+
+Lưu tại `docs/testcases/<module>/review/automation_review_<nền-tảng>_<YYYYMMDD>.md`. File TC nằm ngoài `docs/` → lưu cạnh file đó.
+
+```markdown
+# Đánh Giá Khả Năng Automation — <module / tên file>
+
+## Tổng quan
+- **Nguồn:** <file path> · **Số TC:** N
+- **Tiêu chí:** `.claude/skills/skills-rbt-manual-testing/references/automation_criteria.md`
+- **Kết quả:** ✅ Yes x · 🟡 Partial y · ⛔ No z · ⏸️ Hoãn h · ❓ Chưa chấm được k
+- **Automate được ngay:** x/N · **khi đủ điều kiện:** (x+y)/N
+
+## Điều kiện cần chuẩn bị (xếp theo số TC mở khoá)
+| # | Điều kiện | Ai cấp | Trạng thái | Số TC | TC phụ thuộc |
+|---|---|---|---|---|---|
+| 1 | OTP cố định trên môi trường test | Dev backend | ❓ Chưa rõ | 7 | TC_012, TC_013, … |
+| 2 | Hộp thư test đọc được qua API | DevOps | ✅ Đã có | 3 | TC_031, TC_032, TC_040 |
+
+## Chi tiết từng TC
+| TC ID | Tên TC | Kết quả | Trục chặn | Căn cứ trích từ TC | Điều kiện · phần kiểm tay · lý do |
+|---|---|---|---|---|---|
+| TC_001 | Đăng nhập thành công | Yes | — | — | — |
+| TC_012 | Đăng ký bằng số điện thoại | Partial | 1 · SMS/OTP | *"Nhập mã OTP gửi về số điện thoại"* | Điều kiện #1 |
+| TC_044 | Form cân đối ở 1366px | No | 2 · Expected cần mắt người | *"Bố cục cân đối, không lệch"* | Chỉ kiểm tay |
+| TC_050 | Xuất báo cáo theo quý | Yes · ⏸️ Hoãn | — | — | Chờ chốt AMB-RPT-02 |
+| TC_061 | Kiểm tra chức năng hoạt động đúng | ❓ | — | *"Hệ thống xử lý đúng"* | TC mơ hồ — sửa bằng Mode REVIEW trước |
+
+## Lệch so với cột Automation hiện có
+| TC ID | Cột hiện tại | Chấm lại | Vì sao |
+|---|---|---|---|
+| TC_031 | Yes | Partial | Bước 4 *"Mở email và bấm link xác nhận"* — cần hộp thư test |
+
+## Thứ tự automate đề xuất (nhóm Yes)
+1. <TC @Smoke / @CriticalPath>
+2. <TC nhiều biến thể ở Validation · BVA>
+
+## Kết luận & Khuyến nghị
+- <3–5 hành động: xin điều kiện nào trước, TC nào automate trước, TC nào phải sửa cách viết>
+```
+
+> 🚨 Các bảng trong báo cáo có cột `TC ID` nhưng **không** đặt tên cột chứa `Expected` / `Scenario` / `Test Steps` / `Test Title` — `scripts/testcases-viewer` sẽ nhận nhầm bảng thành dòng TC.
+
+### Ghi ngược vào bộ TC — chỉ khi user duyệt
+
+Theo đúng luật của mục *Sửa TC (Mode FIX)*: sửa **tại chỗ**, ghi mốc git trước khi sửa, file chưa được git theo dõi thì hỏi trước khi ghi đè. Riêng mode này:
+
+- **Chỉ** sửa ô `Automation` (đúng một từ `Yes`/`Partial`/`No`) của các TC đã duyệt — **không** đụng Steps, Expected. TC mơ hồ để Mode FIX
+- File chưa có cột `Automation` → thêm cột tên đúng `Automation` (viewer map cột theo tên)
+- Ghi / cập nhật mục `## Đối soát cột Automation` ở index theo mẫu mục 7.1 của tiêu chí
+- 1 dòng Nhật ký thay đổi: nguồn `/review-testcases` Mode AUTOMATION + link báo cáo · số TC đổi giá trị · mốc git
+
+### Quality Checklist — Mode AUTOMATION
+
+- [ ] Chấm độc lập **trước khi** đọc cột `Automation` có sẵn
+- [ ] Mọi TC có kết luận hoặc `❓ Chưa chấm được` — không TC nào bỏ trống
+- [ ] Mọi `Partial` có điều kiện hoặc phần kiểm tay; mọi `No` có trục chặn và lý do
+- [ ] Mọi kết luận khác `Yes` có căn cứ **trích nguyên văn** từ TC
+- [ ] Điều kiện đã gom, đếm số TC mở khoá, xếp giảm dần, có trạng thái ✅ / ⏳ / ❓
+- [ ] Vướng tạm thời ghi `⏸️ Hoãn`, không hạ giá trị; TC phơi bug không bị hoãn
+- [ ] Không sửa file TC khi user chưa duyệt
 
 ---
 
 ## Rules References
 
 - `.claude/skills/skills-rbt-manual-testing/SKILL.md` — Chuẩn viết TC (để đối chiếu khi review)
+- `.claude/skills/skills-rbt-manual-testing/references/automation_criteria.md` — Tiêu chí chấm cột Automation (Mode AUTOMATION)
 - `.claude/skills/skills-coverage-traceability/SKILL.md` — Truy vết TC ↔ requirements sâu hơn

@@ -14,3 +14,9 @@ B2: Phân tích requiment: /analyze-requiment-doccument
 B3: Update requirement: gọi /update-requiment-form-tiket giải quyết AMB cho requiment ??:(Còn các AMB khác lấy giá trị gợi ý của bạn (là câu trả lời tôi đã chốt))
 B4: Khi đỏi tài liệu phải update testcase gọi /update-testcase-from-impact
 B5: Lập kế hoạch kiểm thử: /generate-master-test-plan
+B6: Sinh TC 
+Dùng /generate-testcase-manual-rbt hoặc /generate-testcases-from-requirements  
+VD:
+/generate-testcases-from-requirements
+GỘP
+Requirement: docs2\docs\requirements\login\web\requirements_login_web.md

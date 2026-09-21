@@ -199,7 +199,8 @@ Agent sử dụng skills trong `.claude/skills/` tùy theo nhiệm vụ:
 | `skills-test-report-analyzer`   | Phân tích test report **một lần chạy** — automation lẫn manual, gom nhóm failure theo root cause, đề xuất thứ tự xử lý |
 | `skills-test-progress-reporter` | Báo cáo tiến độ **một kỳ trong đợt** (ngày/tuần) — so thực tế với lịch plan, chỉ số trong kỳ, trở ngại, rủi ro mới, đề xuất điều chỉnh — ISTQB CTFL v4.0 mục 5.3.2 |
 | `skills-test-summary-reporter`  | Tổng hợp **toàn dự án tại một mốc** — gộp nhiều execution report + bug + RTM, đối chiếu tiêu chí exit, khuyến nghị go/no-go |
-| `skills-testcase-reviewer`      | Review chất lượng manual test cases — rubric 6 tiêu chí, coverage gaps               |
+| `skills-testcase-reviewer`      | Review chất lượng manual test cases — rubric 6 tiêu chí, coverage gaps · Mode AUTOMATION chấm TC nào làm automation được theo bảng tiêu chí |
+| `skills-srs-excel-testcases`    | Sinh TC cho **một mục SRS** (Google Docs/.docx) + Figma, học format file TC Excel/Google Sheet có sẵn, xuất **file Excel riêng** đúng format mẫu (công thức ID & thống kê, dropdown Trạng thái) kèm sheet bảng quyết định / chuyển trạng thái / giá trị biên |
 | `skills-coverage-traceability`  | Sinh ma trận truy vết RTM — Requirements ↔ Test Cases ↔ Automation                    |
 | `skills-api-mocking`            | Sinh mock/stub API (Playwright route, WireMock) — test UI độc lập backend             |
 | `skills-user-guide-writer`      | Sinh Hướng dẫn sử dụng cho người dùng cuối — viết theo việc cần làm, bám cấu trúc ISO/IEC/IEEE 26514 · 82079-1 |
@@ -240,7 +241,7 @@ docs/
 │   │   ├── sources/                           ← bản gốc tài liệu QA cung cấp · snapshot spec API
 │   │   └── evidence/*.png                     ← 1 ảnh tổng quan mỗi module (mỗi nền tảng)
 │   └── <module>/
-│       ├── requirements_<module>.md           ← INDEX — TÊN FILE BẤT BIẾN: phần CHUNG mọi nền tảng + Bản đồ tài liệu
+│       ├── REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md ← INDEX — TÊN FILE BẤT BIẾN: phần CHUNG mọi nền tảng + Bản đồ tài liệu
 │       ├── web/                               ← TẦNG NỀN TẢNG — chỉ 3 tên: web · mobile · api
 │       │   ├── requirements_<module>_web.md   ← REQ chỉ áp web · Field Spec · Validation · Trình duyệt khảo sát
 │       │   ├── evidence/*.png                 ← bằng chứng khảo sát web
@@ -256,7 +257,7 @@ docs/
 ├── testcases/
 │   ├── README.md                              ← DANH MỤC test cases
 │   └── <module>/
-│       ├── test_cases_<module>.md             ← INDEX — TÊN FILE BẤT BIẾN: tổng hợp + Bản đồ tài liệu, KHÔNG chứa dòng TC
+│       ├── TEST_CASES_<TÊN_MODULE>_SUMMARY.md ← INDEX — TÊN FILE BẤT BIẾN: tổng hợp + Bản đồ tài liệu, KHÔNG chứa dòng TC
 │       ├── web/test_cases_<module>_web.md     ← TC chạy trên web
 │       ├── mobile/test_cases_<module>_mobile.md ← TC chạy trên app (tag @Android / @iOS)
 │       ├── api/test_cases_<module>_api.md     ← TC gọi API
@@ -264,7 +265,8 @@ docs/
 │       ├── impact/impact_plan_<TICKET-ID>.md  ← /update-testcases-from-impact — kế hoạch, trước khi duyệt
 │       ├── impact/delta_tc_<TICKET-ID>.md     ← /update-testcases-from-impact APPLY — TC đã sửa theo nền tảng, input của automation
 │       ├── impact/automation_plan_<TICKET-ID>.md ← /update-automation-from-impact — script đã sửa theo ticket
-│       └── archive/test_cases_<module>_<nền-tảng>_vN.md ← phiên bản cũ
+│       ├── review/testcase_review_report_<nền-tảng>_<YYYYMMDD>.md ← /review-testcases — mode FIX sửa TC TẠI CHỖ, không sinh bản `_improved`
+│       └── review/automation_review_<nền-tảng>_<YYYYMMDD>.md ← /review-testcases mode AUTOMATION — TC nào làm automation được
 │
 ├── test-plans/                                  ← kế hoạch kiểm thử — lập TRƯỚC đợt
 │   ├── test_plan_<mốc>.md                      ← Master Test Plan — công bố phạm vi + tiêu chí exit TRƯỚC đợt
@@ -291,13 +293,12 @@ docs/
     └── <module>/
         ├── user_guide_<module>.md               ← INDEX — TÊN FILE BẤT BIẾN
         ├── images/*.png                          ← ảnh minh hoạ, đặt tên theo việc
-        ├── parts/part_NN_<slug>.md               ← chỉ khi > 15 việc
-        └── archive/user_guide_<module>_vN.md     ← bản cũ
+        └── parts/part_NN_<slug>.md               ← chỉ khi > 15 việc
 ```
 
 > `test_plan_<mốc>.md` nằm ở **`docs/test-plans/`** — plan là tài liệu **lập và duyệt trước đợt**, không phải kết quả thực thi. `test_progress_<mốc>_*.md` · `test_summary_<mốc>_*.md` nằm ở **gốc `executions/`**. Cả ba không thuộc module nào — chúng cắt ngang mọi module tại một mốc release. **Cùng slug `<mốc>`** (chữ thường, không dấu, VD `release_2.0`) là mối nối: báo cáo tiến độ theo dõi lịch của plan, báo cáo tổng hợp chấm lại đúng bộ tiêu chí exit đã công bố.
 >
-> **Tầng nền tảng `<nền-tảng>/`** — chỉ nhận đúng 3 tên `web` · `mobile` · `api` (Android và iOS chung `mobile/`, phân biệt bằng tiền tố ảnh `android_`/`ios_` và cột/tag nền tảng). Áp cho 4 nhánh `requirements/` · `testcases/` · `executions/` · `bugs/`, **luôn có** kể cả module mới chỉ có một nền tảng — thêm nền tảng thứ hai về sau không phải di chuyển file nào. File index `requirements_<module>.md` / `test_cases_<module>.md` **giữ nguyên tên và vị trí**; workflow phía sau đọc index trước, rồi theo `## Bản đồ tài liệu` sang file nền tảng. Tài liệu cũ chưa có tầng này: **không** di chuyển lịch sử (`run_*`, `BUG_*` giữ nguyên chỗ) — workflow đọc quét cả `<module>/<nền-tảng>/` lẫn `<module>/`; requirements/testcases cũ chuyển sang tầng nền tảng **một lần**, ở lần đầu một workflow sinh/cập nhật chạm lại module đó (ID giữ nguyên, ghi Nhật ký).
+> **Tầng nền tảng `<nền-tảng>/`** — chỉ nhận đúng 3 tên `web` · `mobile` · `api` (Android và iOS chung `mobile/`, phân biệt bằng tiền tố ảnh `android_`/`ios_` và cột/tag nền tảng). Áp cho 4 nhánh `requirements/` · `testcases/` · `executions/` · `bugs/`, **luôn có** kể cả module mới chỉ có một nền tảng — thêm nền tảng thứ hai về sau không phải di chuyển file nào. File index `REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md` / `TEST_CASES_<TÊN_MODULE>_SUMMARY.md` **giữ nguyên tên và vị trí**; workflow phía sau đọc index trước, rồi theo `## Bản đồ tài liệu` sang file nền tảng. Tài liệu cũ chưa có tầng này: **không** di chuyển lịch sử (`run_*`, `BUG_*` giữ nguyên chỗ) — workflow đọc quét cả `<module>/<nền-tảng>/` lẫn `<module>/`; requirements/testcases cũ chuyển sang tầng nền tảng **một lần**, ở lần đầu một workflow sinh/cập nhật chạm lại module đó (ID giữ nguyên, ghi Nhật ký).
 >
 > `docs/user-guides/` là nhánh **duy nhất** viết cho người ngoài đọc — khách hàng, người dùng cuối. Nó **dùng lại** kết quả recon của `requirements/` nhưng **không** chép nội dung sang: requirements nói *hệ thống phải làm gì*, hướng dẫn nói *người dùng làm thế nào*. 🔒 Ảnh trong nhánh này phải dùng **dữ liệu mẫu** — tài liệu được phát ra ngoài.
 >
@@ -317,13 +318,15 @@ Ba trang tĩnh trong `scripts/`, mở bằng cách double-click, chạy offline,
 
 | Quy tắc | Lý do |
 |---|---|
-| Tên file index **luôn** `requirements_<module>.md` / `test_cases_<module>.md` / `user_guide_<module>.md` | Mọi workflow phía sau đọc theo mẫu `docs/<nhánh>/<module>/<file>`. Đổi tên là vỡ chuỗi RTM |
-| **KHÔNG** nhét số phiên bản vào tên index (`_v2`, `_new`, `_index`…) | Bản mới **thay thế** index; bản cũ chuyển vào `archive/` |
+| Tên file index **luôn** `REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md` / `TEST_CASES_<TÊN_MODULE>_SUMMARY.md` (IN HOA — `<TÊN_MODULE>` = tên thư mục module viết HOA, `-` đổi thành `_` (VD `login` → `LOGIN`, `customers` → `CUSTOMERS`) — **không phải** prefix REQ (`CUST`)) / `user_guide_<module>.md` | Mọi workflow phía sau đọc theo mẫu `docs/<nhánh>/<module>/<file>`. Đổi tên là vỡ chuỗi RTM. IN HOA để file tổng **khác hẳn** file nền tảng `requirements_<module>_<nền-tảng>.md` / `test_cases_<module>_<nền-tảng>.md` — trước đây `test_cases_login.md` và `web/test_cases_login_web.md` trông gần như nhau, dễ mở nhầm. Giữ tên module trong tên file để tab editor / kết quả tìm kiếm vẫn biết đang ở module nào |
+| Tài liệu cũ còn index tên `requirements_<module>.md` / `test_cases_<module>.md` (quy ước trước 21-09-2026) | Workflow đọc **nhận cả hai tên**. Lần đầu một workflow sinh/cập nhật chạm lại module → đổi tên **một lần** sang tên mới, sửa mọi link trỏ tới, ghi Nhật ký. Không tự đổi hàng loạt khi chỉ đọc |
+| **KHÔNG** nhét số phiên bản vào tên index (`_v2`, `_new`, `_index`…) | Bản mới **thay thế** index tại chỗ; bản cũ tra bằng **lịch sử git** — `docs/` **không** có thư mục `archive/` |
 | Mỗi module một prefix **duy nhất** (`LOGIN`, `CUST`, `PRJ`…) | Chống trùng mã giữa các module — tra ở danh mục trước khi đặt |
 | **Một nghiệp vụ = một prefix trên mọi nền tảng** — web, app Android/iOS, API của cùng nghiệp vụ chung prefix, chung **thư mục module**, chung **dải REQ ID / TC ID**; nội dung riêng từng nền tảng nằm ở tầng `web/` · `mobile/` · `api/`, REQ áp ≥ 2 nền tảng nằm ở index. ❌ `LOGIN_APP`, `MCUST`, `docs/requirements/login_mobile/` | Tách prefix theo nền tảng là nhân đôi REQ cho cùng một rule — sửa ở web quên sửa ở app, RTM vẫn báo phủ đủ. Namespace `_<hệ-thống>/` **chỉ** dành cho hệ thống khác nghiệp vụ, không cho app/API của cùng hệ thống |
 | **KHÔNG đánh lại mã REQ từ `01`** khi module đã có tài liệu | Đụng mã là vỡ toàn bộ traceability |
+| **AMB / RISK mang prefix module, đánh số riêng từng module**: `AMB-<MODULE>-<nn>` · `RISK-<MODULE>-<nn>` (VD `AMB-CUST-01`). Module mới bắt đầu từ `01`, **không** nối số của module khác. Cấp hệ thống (cắt ngang, chưa quy về module): `AMB-SYS-<nn>` — `SYS` là prefix dành riêng | Mã trần `AMB-15` do hai module tự đánh số sẽ va nhau — một mã, hai câu hỏi. Có prefix thì grep ra đúng một nghĩa |
 | **KHÔNG xoá dòng REQ** — tính năng gỡ thì đổi trạng thái 🔴 Deprecated | Xoá dòng là mất dấu vết |
-| **KHÔNG đổi / đánh lại TC ID** khi cập nhật TC theo ticket — sửa tại chỗ index, bản cũ vào `archive/`, TC bị gỡ đổi trạng thái 🗑️ Deprecated | TC ID là khoá nối sang `allure.label('testId', ...)` trong script, cột TC ID của RTM và execution report cũ. Đổi là cắt cả ba mối nối, không có cách phát hiện tự động |
+| **KHÔNG đổi / đánh lại TC ID** khi cập nhật TC theo ticket — sửa tại chỗ, ghi **mốc git** (hash commit trước khi sửa) vào Nhật ký, TC bị gỡ đổi trạng thái 🗑️ Deprecated | TC ID là khoá nối sang `allure.label('testId', ...)` trong script, cột TC ID của RTM và execution report cũ. Đổi là cắt cả ba mối nối, không có cách phát hiện tự động |
 | Mọi thay đổi requirements phải ghi **Nhật ký thay đổi** ở cuối tài liệu module | Bộ nhớ liền mạch giữa các phiên, và là nơi báo TC nào đã stale |
 | Evidence nằm **cùng** tài liệu sinh ra nó (recon → `<module>/<nền-tảng>/evidence/`, execution → `<module>/<nền-tảng>/run_*/evidence/`) | Di chuyển/xoá không lạc file; link tương đối không gãy |
 | 🔒 **KHÔNG ghi giá trị bí mật thật vào `docs/`** — mật khẩu, token, cookie xác thực, session id, API key. Ghi **hình thái** (`<16 ký tự hex>`) thay cho giá trị | `docs/` được commit và **lịch sử git không xoá được bằng cách sửa file**. Credentials sống ở `.env` (đã `.gitignore`); tài liệu chỉ mô tả *hình dạng* |
@@ -334,8 +337,8 @@ Ba trang tĩnh trong `scripts/`, mở bằng cách double-click, chạy offline,
 | Thêm module = thêm thư mục + 1 dòng ở `README.md` danh mục | Không đụng gì khác trong repo |
 | 📅 **Ngày trong nội dung tài liệu viết `DD-MM-YYYY`** (VD `17-09-2026`) hoặc `DD/MM/YYYY`; có giờ thì `17-09-2026 14:10`. Áp cho mọi file trong `docs/`, mẫu trong `.claude/`, `plans/`, `prompts/` và phiếu nhập. **Tên file giữ dạng cũ**: `run_<timestamp>`, `test_progress_<mốc>_<YYYYMMDD>.md`, `openapi_<YYYY-MM-DD>.json` · mã có ngày như `PO-2026-08-18` giữ nguyên · dữ liệu nhập vào hệ thống (payload API, giá trị field) viết đúng **định dạng hệ thống yêu cầu**, không đổi theo quy tắc này | Người đọc tài liệu là QA/PM/khách Việt Nam. Tên file cần năm đứng đầu để xếp đúng thứ tự thời gian. Đọc tài liệu cũ (trước 17-09-2026) vẫn gặp `YYYY-MM-DD` → **nhận cả hai**, năm đứng đầu không thể nhầm; **không** bao giờ hiểu `05-10-2026` theo kiểu Mỹ |
 | `_discovery/` **không được** chứa mã `REQ-XXX-NN` — chỉ cấp **prefix** | Tầng khám phá chưa mở form, chưa trigger validation; cấp số REQ ở đó là chắc chắn phải đánh lại |
-| Bản đồ khám phá tách file thì index **vẫn** là `_discovery/system_map.md` + có mục `## Bản đồ tài liệu` | Cùng hợp đồng đọc với `requirements_<module>.md` — workflow sau chỉ nhớ một đường dẫn |
-| Gộp module vào chung 1 file khám phá **KHÔNG** gộp prefix, **KHÔNG** gộp `requirements_<module>.md` | Gộp là để đọc cho gọn; ranh giới truy vết vẫn là prefix. 3 module chung file khám phá vẫn ra 3 tài liệu requirements riêng |
+| Bản đồ khám phá tách file thì index **vẫn** là `_discovery/system_map.md` + có mục `## Bản đồ tài liệu` | Cùng hợp đồng đọc với `REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md` — workflow sau chỉ nhớ một đường dẫn |
+| Gộp module vào chung 1 file khám phá **KHÔNG** gộp prefix, **KHÔNG** gộp `REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md` | Gộp là để đọc cho gọn; ranh giới truy vết vẫn là prefix. 3 module chung file khám phá vẫn ra 3 tài liệu requirements riêng |
 
 Chi tiết: skill `skills-requirements-analyzer` mục 2.1 (nối tiếp mã), 5.3 (thư mục), 5.7 (danh mục), 6.9 (nhật ký) · skill `skills-rbt-manual-testing` mục "Quy Tắc Xuất File" phần 2 và 4.
 
@@ -349,15 +352,15 @@ docs/requirements/login/ ...         ← module của hệ thống mặc định
 docs/requirements/_book-api/         ← HỆ THỐNG THỨ HAI
 ├── README.md                        ← danh mục riêng — prefix, TC ID, AMB riêng
 ├── _discovery/api_map.md            ← hoặc system_map.md nếu là hệ thống có UI
-└── <module>/requirements_<module>.md
-docs/testcases/_book-api/<module>/test_cases_<module>.md
+└── <module>/REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md
+docs/testcases/_book-api/<module>/TEST_CASES_<TÊN_MODULE>_SUMMARY.md
 ```
 
 | Quy tắc | Lý do |
 |---|---|
 | Dấu `_` đầu tên = **không phải module** | Cùng quy ước với `_discovery/`. Workflow quét thư mục module sẽ bỏ qua, không nhầm namespace thành module |
 | Mỗi namespace có **`README.md` danh mục riêng** | Prefix, dải REQ, dải TC ID, AMB của hai hệ thống **không** dùng chung sổ |
-| Mã REQ mang **mã hệ thống**: `REQ-<HỆ_THỐNG>-<MODULE>-<nn>` · TC ID `<HỆ_THỐNG>_<MODULE>_TC_<nnn>` | Grep một mã ra đúng một hệ thống. Hệ thống mặc định giữ dạng cũ `REQ-<MODULE>-<nn>`, không phải đánh lại |
+| Mã REQ mang **mã hệ thống**: `REQ-<HỆ_THỐNG>-<MODULE>-<nn>` · `AMB-<HỆ_THỐNG>-<MODULE>-<nn>` · TC ID `<HỆ_THỐNG>_<MODULE>_TC_<nnn>` | Grep một mã ra đúng một hệ thống. Hệ thống mặc định giữ dạng cũ `REQ-<MODULE>-<nn>`, không phải đánh lại |
 | Hệ thống mặc định **không bị đụng vào** khi thêm namespace | Thêm hệ thống mới = thêm 1 thư mục, không sửa file nào đang có |
 | Chuyển dự án mới: xoá `docs/` là xoá **tất cả** hệ thống | Muốn giữ một cái thì sao lưu namespace đó trước |
 
@@ -377,7 +380,7 @@ Mặt API khác mặt UI 3 chỗ:
 
 ```
 /discover-system (nhánh API) ──→ /generate-requirements-from-api ──→ /generate-testcases-api ──→ /generate-automation-api
-      api_map.md                     requirements_<module>.md        test_cases_<module>_api.md    code + reports/
+      api_map.md                     REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md        test_cases_<module>_api.md    code + reports/
 ```
 
 - Nguồn nhận được: Swagger UI (kể cả nhiều spec) · Scalar (URL hoặc spec nhúng inline) · Redoc · Stoplight · RapiDoc · OpenAPI JSON/YAML · Postman collection · **tài liệu API dạng `.docx`/`.pdf`**. Cách lấy từng loại: skill `skills-requirements-analyzer` mục 3.4.1
@@ -499,6 +502,7 @@ Agent sử dụng workflows trong `.claude/commands/` qua slash commands:
 | `/update-requirements-from-ticket`      | **Delta mode** — cập nhật tài liệu requirements đã có từ ticket mới: nhận diện THÊM/SỬA/BỎ, giữ nguyên REQ ID, ghi Nhật ký thay đổi, xuất Impact Report cho test cases |
 | `/generate-testcases-manual-rbt`        | Sinh manual test cases theo AI-RBT 6 bước (FULL RBT mode) — sinh tuần tự theo **4 vòng** (Smoke → Functional → Technical → Non-functional), có bảng đối soát loại kiểm thử ở Quality Gate |
 | `/generate-testcases-from-requirements` | Sinh test cases nhanh từ requirements (QUICK mode)         |
+| `/generate-testcases-srs-excel`         | Sinh TC cho một mục SRS + Figma theo đúng format file TC Excel/Google Sheet có sẵn → xuất file Excel riêng vào `docs/testcases/<module>/<nền-tảng>/` (kèm `src/tcdata_<mục>.py` để dựng lại). KHÔNG sửa Google Sheet |
 | `/generate-checklist-test`              | Sinh checklist test tick tay (CHECKLIST mode) — smoke / post-hotfix / regression / release-readiness |
 | `/update-testcases-from-impact`         | **Delta mode cho test cases** — mắt xích giữa của chuỗi delta 3 tầng: từ Impact Report sửa TC stale tại chỗ, giữ nguyên TC ID, đánh dấu 🗑️ Deprecated TC bị gỡ, ghi Delta TC List ra `impact/delta_tc_<TICKET-ID>.md` có cột nền tảng (2 modes: PLAN/APPLY). KHÔNG sinh lại cả module |
 | `/generate-automation-from-testcases`   | **Bộ định tuyến** — tự nhận nền tảng của file TC (`web/` · `mobile/` · `api/`) rồi chuyển sang command nền tảng. Mode WEB (mặc định) / MOBILE / API để chỉ định rõ. Không chứa logic sinh code |
@@ -526,7 +530,7 @@ Agent sử dụng workflows trong `.claude/commands/` qua slash commands:
 | `/generate-master-test-plan`            | Master Test Plan cấp quản lý — đầu vào phiếu YAML `plans/master-test-plan/test_plan.config.yaml`. Phạm vi **module × nền tảng**, cấp độ · loại · độc lập kiểm thử, chiến lược tự động hoá · phi chức năng, tiêu chí vào/ra, môi trường · dữ liệu kiểm thử, quản lý lỗi, lịch · ước lượng · ngân sách, rủi ro dự án + sản phẩm. Xuất `docs/test-plans/test_plan_<mốc>.md`, bám 29119-3, phủ đủ ISTQB CTFL v4.0 mục 5.1.1 |
 | `/generate-test-progress-report`        | Báo cáo tiến độ **một kỳ** trong đợt — so thực tế với lịch plan, chỉ số trong kỳ, trở ngại, rủi ro mới, kế hoạch kỳ tới, đề xuất điều chỉnh. **Không** khuyến nghị go/no-go |
 | `/generate-test-summary-report`         | Báo cáo tổng hợp tại một mốc release/sprint — gộp mọi kết quả, đối chiếu tiêu chí exit, **khuyến nghị go/no-go** |
-| `/review-testcases`                     | Review chất lượng manual TCs (2 modes: REVIEW/FIX)         |
+| `/review-testcases`                     | Review chất lượng manual TCs (3 modes: REVIEW/FIX/AUTOMATION — AUTOMATION chấm độc lập TC nào làm automation được theo `skills-rbt-manual-testing/references/automation_criteria.md`) |
 | `/generate-traceability-matrix`         | Sinh ma trận truy vết RTM 3 tầng                          |
 | `/generate-api-mocks`                   | Sinh API mocks + tests cho edge cases                        |
 | `/generate-user-guide`                  | Sinh **Hướng dẫn sử dụng** cho người dùng cuối từ requirements + evidence đã khảo sát (2 modes: DOC/LIVE). KHÔNG phải tài liệu requirements viết lại giọng khác |

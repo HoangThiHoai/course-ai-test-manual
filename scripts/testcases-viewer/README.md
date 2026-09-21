@@ -12,7 +12,7 @@ Dùng để đọc output của các workflow sinh test case trong repo này:
 Mở file [`bundle.html`](bundle.html) bằng trình duyệt (double-click là được) — đây là bản build đã đóng gói toàn bộ HTML/CSS/JS vào 1 file duy nhất, chạy offline.
 
 Sau đó **kéo thả** hoặc bấm **+ Import file .md** để nạp file test cases, ví dụ:
-`docs/testcases/login/web/test_cases_login_web.md` — file theo nền tảng (`web/` · `mobile/` · `api/`); file index `test_cases_login.md` không chứa dòng TC. Các file nền tảng mang hậu tố riêng nên nạp cùng lúc không đè nhau
+`docs/testcases/login/web/test_cases_login_web.md` — file theo nền tảng (`web/` · `mobile/` · `api/`); file index `TEST_CASES_LOGIN_SUMMARY.md` không chứa dòng TC. Các file nền tảng mang hậu tố riêng nên nạp cùng lúc không đè nhau
 
 > Toàn bộ xử lý chạy trong trình duyệt, không gửi dữ liệu đi đâu. File đã import được lưu vào `localStorage` nên lần mở sau vẫn còn.
 
@@ -25,7 +25,7 @@ Sau đó **kéo thả** hoặc bấm **+ Import file .md** để nạp file test
 | **Import** | Kéo thả hoặc chọn file `.md` · nạp **nhiều file** cùng lúc (mỗi file = 1 tài liệu) · import lại cùng tên file sẽ ghi đè |
 | **Sidebar** | Cây `Tài liệu → Nhóm TC` kèm số lượng, click để lọc · nút `✕` gỡ từng file |
 | **Search** | Full-text trên TC ID, REQ ID, Test Scenario, Pre-Condition, Test Steps, Test Data, Expected Result, Tags |
-| **Filter** | Priority (chọn nhiều) · Automatable (Yes/Partial/No) · Tag (`@Smoke`, `@Regression`…) |
+| **Filter** | Priority (chọn nhiều) · Automation (Yes/Partial/No) · Tag (`@Smoke`, `@Regression`…) |
 | **Sort** | Click header để sort: TC ID (số tự nhiên — `TC_002` trước `TC_010`), Test Scenario, Nhóm, Priority, Risk |
 | **Chi tiết** | Click 1 dòng để mở panel Test Steps · Expected Result · Pre-Condition · Test Data (giữ nguyên xuống dòng `<br>` và định dạng `` `code` ``) |
 | **Thống kê** | Đếm TC theo Priority, cập nhật theo bộ lọc đang áp |
@@ -40,7 +40,7 @@ Hai nút `↓ CSV` và `↓ Excel` trên toolbar xuất **đúng những test ca
 và xoá hết bộ lọc trước.
 
 Cả 2 định dạng đều gồm 13 cột: `TC ID · REQ ID · Module · Risk Level · Test Scenario ·
-Pre-Condition · Test Steps · Test Data · Expected Result · Priority · Automatable · Auto Type · Tags`.
+Pre-Condition · Test Steps · Test Data · Expected Result · Priority · Automation · Auto Type · Tags`.
 Thẻ `<br>` được đổi thành xuống dòng thật, markdown inline (`` ` ``, `**`) được gỡ bỏ.
 
 | Định dạng | Đặc điểm |
@@ -63,7 +63,7 @@ Parser quét mọi bảng Markdown có cột **`TC ID`** và tự nhận diện 
 ```
 TC ID · REQ ID · Module · Risk Level · Test Scenario (hoặc Test Title)
 Pre-Condition · Test Steps · Test Data · Expected Result
-Priority · Automatable · Auto Type · Tags
+Priority · Automation · Auto Type · Tags
 ```
 
 Quy ước khác:

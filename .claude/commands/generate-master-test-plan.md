@@ -125,7 +125,6 @@ Thông tin **chỉ người mới biết** được gom vào một phiếu YAML,
 
 ```
 plans/master-test-plan/test_plan.config.yaml     ← PHIẾU CẤU HÌNH CHÍNH — người dùng điền trực tiếp
-plans/master-test-plan/test_plan.template.yaml   ← MẪU ĐÃ ĐIỀN ĐỦ (hệ thống hư cấu ShopMini) — chỉ để tham khảo, không sửa
 docs/test-plans/test_plan_<slug>.input.yaml      ← BẢN LƯU của phiếu tại lần lập/cập nhật plan — agent tự ghi, commit cùng plan
 ```
 
@@ -200,7 +199,7 @@ Agent dùng bảng này để kiểm phiếu ở Bước 2. Khoá trong bảng k
 
 | Tình huống | Xử lý |
 |---|---|
-| User không truyền gì | Đọc `plans/master-test-plan/test_plan.config.yaml`. `Mốc` → `Mã mốc` có giá trị → dùng. Phiếu còn trống (`Mốc` và `Phạm vi` → `Trong phạm vi` đều trống) → hỏi user: điền phiếu (chỉ tới mẫu `test_plan.template.yaml`) hay trả lời theo Bước 2 nhánh B |
+| User không truyền gì | Đọc `plans/master-test-plan/test_plan.config.yaml`. `Mốc` → `Mã mốc` có giá trị → dùng. Phiếu còn trống (`Mốc` và `Phạm vi` → `Trong phạm vi` đều trống) → hỏi user: điền phiếu hay trả lời theo Bước 2 nhánh B |
 | User truyền đường dẫn một phiếu YAML khác | Đọc phiếu đó thay cho `test_plan.config.yaml` |
 | User chỉ nói tên mốc, phiếu chính đang là mốc khác | Tìm bản lưu `docs/test-plans/test_plan_<slug>.input.yaml`. Không có → hỏi user có muốn điền phiếu cho mốc này không; **không** tự dùng phiếu của mốc khác |
 | User nói tên mốc **khác** `Mã mốc` trong phiếu chính | Báo lệch, hỏi user dùng cái nào — không tự chọn |
@@ -228,9 +227,9 @@ docs/executions/test_summary_<slug>_<timestamp>.md   ← báo cáo tổng hợp 
 | `docs/requirements/README.md` — danh mục · Vùng chưa cấp prefix · Trạng thái REQ | Module · prefix · trạng thái recon · số REQ · **AMB 🔴 treo** · REQ ⚪ ra ngoài phạm vi (kèm **lý do**) | 1.2 · 2.1 · 2.2 · 4.1 · 8.1 |
 | `docs/requirements/_*/README.md` (namespace) | Danh mục riêng từng hệ thống | 2.1 |
 | `docs/requirements/_discovery/system_map.md` (+ `api_map.md`) | Nền tảng từng module · phụ thuộc · **Vùng chưa xác minh** · **Vùng loại khỏi phạm vi** · module bị chặn | 2.1 · 2.2 · 3.2 · 8.1 |
-| `docs/requirements/<module>/…` — metadata · mục `RISK-xx` · Nhật ký thay đổi | `Trình duyệt khảo sát` / `Thiết bị khảo sát` / `Nguồn spec` · **rủi ro sản phẩm đã ghi** · tên + phiên bản tài liệu làm cơ sở | 1.2 · 5.1 · 8.2 |
+| `docs/requirements/<module>/…` — metadata · mục `RISK-<MODULE>-xx` · Nhật ký thay đổi | `Trình duyệt khảo sát` / `Thiết bị khảo sát` / `Nguồn spec` · **rủi ro sản phẩm đã ghi** · tên + phiên bản tài liệu làm cơ sở | 1.2 · 5.1 · 8.2 |
 | `docs/testcases/README.md` | Module đã có TC · số TC theo nền tảng · REQ bao phủ | 2.1 |
-| `docs/testcases/<module>/test_cases_<module>.md` → file nền tảng (kiểu cũ: chính index) | ⭐ **Bảng ISO/IEC 25010** — ô `➖` kèm người chịu · **Bảng 4 vòng** · kỹ thuật đã dùng · bộ chạy đề xuất · TC phi chức năng đã có (tag, nhóm Non-functional) · rủi ro RBT | 2.2 · 3.2 · 3.2.1 · 3.3 · 3.5 · 3.7 · 8.2 |
+| `docs/testcases/<module>/TEST_CASES_<TÊN_MODULE>_SUMMARY.md` → file nền tảng (kiểu cũ: chính index) | ⭐ **Bảng ISO/IEC 25010** — ô `➖` kèm người chịu · **Bảng 4 vòng** · kỹ thuật đã dùng · bộ chạy đề xuất · TC phi chức năng đã có (tag, nhóm Non-functional) · rủi ro RBT | 2.2 · 3.2 · 3.2.1 · 3.3 · 3.5 · 3.7 · 8.2 |
 | `docs/executions/<module>/<nền-tảng>/run_*/` · kiểu cũ `docs/executions/<module>/run_*/` | Module × nền tảng **đã từng chạy** | 2.1 |
 | `docs/bugs/README.md` → `BUG_*.md` (cả hai kiểu thư mục) | Bug đang mở theo Severity · Priority · trạng thái đang dùng | 4.1 · 4.2 · 8.1 · 9 |
 | `.claude/skills/skills-bug-reporter/SKILL.md` — *Severity & Priority Guide* · *4 trạng thái retest* | Thang Severity/Priority mặc định **nguyên văn** · kết quả retest | 9 |
@@ -311,8 +310,6 @@ Nhận câu trả lời → **ghi vào `plans/master-test-plan/test_plan.config.
 
 File: `docs/test-plans/test_plan_<slug>.md` — thư mục **`docs/test-plans/`** (tạo nếu chưa có), cắt ngang mọi module và nền tảng. Plan là tài liệu lập **trước** đợt nên **không** đặt trong `docs/executions/` — nơi chứa kết quả thực thi. **Một mốc một plan**, kể cả khi đợt gồm nhiều hệ thống — phân biệt bằng cột *Hệ thống* ở 2.1.
 
-> 📘 **Bản mẫu đã điền đủ:** plan [`test_plan_release_example.md`](../../plans/master-test-plan/test_plan_release_example.md) sinh từ phiếu [`test_plan.template.yaml`](../../plans/master-test-plan/test_plan.template.yaml) — hệ thống hư cấu có Web · Mobile · API, đã duyệt v1.1. Tham khảo **độ chi tiết**; **không** chép số liệu, tên người, ngày tháng sang plan thật.
-
 ```markdown
 # Master Test Plan — <Dự án> · <Mốc>
 
@@ -362,7 +359,7 @@ File: `docs/test-plans/test_plan_<slug>.md` — thư mục **`docs/test-plans/`*
 
 | Tài liệu | Phiên bản / ngày cập nhật | Module | Ghi chú |
 |---|---|---|---|
-| `docs/requirements/<module>/requirements_<module>.md` | Nhật ký thay đổi <ngày> | <module> | <N> REQ · <N> AMB 🔴 treo |
+| `docs/requirements/<module>/REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md` | Nhật ký thay đổi <ngày> | <module> | <N> REQ · <N> AMB 🔴 treo |
 | Spec API `openapi_<ngày>.json` | `info.version` <x> | <module> | |
 
 > Cơ sở kiểm thử **đổi giữa đợt** (ticket sửa yêu cầu) → cập nhật bằng `/update-requirements-from-ticket` rồi tăng phiên bản plan — TC viết theo cơ sở cũ là TC sai.
@@ -674,7 +671,7 @@ File: `docs/test-plans/test_plan_<slug>.md` — thư mục **`docs/test-plans/`*
 
 ### 8.2 Rủi ro SẢN PHẨM — tóm tắt
 
-> **Nguồn chính** vẫn là tài liệu requirements (`RISK-xx`) và tài liệu test case (đánh giá RBT) của từng module — bảng này chỉ **tóm tắt 3–5 rủi ro cao nhất mỗi module** để người duyệt plan thấy ngay, kèm link. Sửa rủi ro ở tài liệu nguồn, **không** sửa ở đây.
+> **Nguồn chính** vẫn là tài liệu requirements (`RISK-<MODULE>-xx`) và tài liệu test case (đánh giá RBT) của từng module — bảng này chỉ **tóm tắt 3–5 rủi ro cao nhất mỗi module** để người duyệt plan thấy ngay, kèm link. Sửa rủi ro ở tài liệu nguồn, **không** sửa ở đây.
 
 | Module | Rủi ro | Mức | Kiểm soát bằng | Nguồn |
 |---|---|---|---|---|

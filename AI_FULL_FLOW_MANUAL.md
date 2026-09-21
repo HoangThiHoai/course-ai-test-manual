@@ -66,7 +66,7 @@ Khám phá **một lần** cho cả hệ thống, sau đó mỗi module chạy c
 | 5 · Bug · retest | `/create-bug-report` · `/retest-fixed-bugs` | `/create-bug-report` (retest ⚠️ chưa có) | `/create-bug-report` (retest ⚠️ chưa có) |
 | 6–7 · RTM · báo cáo | `/generate-traceability-matrix` · `/generate-test-summary-report` — gộp mọi nền tảng, độ phủ tính riêng từng nền tảng | ← | ← |
 
-> **Thứ tự nên chạy ở chặng 1:** web → mobile → API. Mặt có giao diện cho tên nghiệp vụ; lượt sau đối chiếu với REQ đã có — rule chạy giống nhau thì REQ được chuyển lên index `requirements_<module>.md` (giữ nguyên mã), rule chạy khác thì tách REQ riêng kèm `AMB` hỏi PO.
+> **Thứ tự nên chạy ở chặng 1:** web → mobile → API. Mặt có giao diện cho tên nghiệp vụ; lượt sau đối chiếu với REQ đã có — rule chạy giống nhau thì REQ được chuyển lên index `REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md` (giữ nguyên mã), rule chạy khác thì tách REQ riêng kèm `AMB` hỏi PO.
 
 ---
 
@@ -130,7 +130,7 @@ docs/requirements/_discovery/doc_inventory.md  ← chỉ khi có tài liệu
 
 **Đầu ra:**
 ```
-docs/requirements/<module>/requirements_<module>.md          ← INDEX, tên file BẤT BIẾN — REQ dùng chung · Bản đồ tài liệu
+docs/requirements/<module>/REQUIREMENTS_<TÊN_MODULE>_SUMMARY.md          ← INDEX, tên file BẤT BIẾN — REQ dùng chung · Bản đồ tài liệu
 docs/requirements/<module>/web/requirements_<module>_web.md   ← REQ chỉ áp web
 docs/requirements/<module>/web/evidence/*.png
   (app mobile → mobile/ · API → api/ — cùng thư mục module, chung dải REQ)
@@ -177,7 +177,7 @@ Cộng thêm: `README.md` cập nhật `Trạng thái recon` ⬜ → ✅.
 
 **Đầu ra:**
 ```
-docs/testcases/<module>/test_cases_<module>.md               ← INDEX, tên file BẤT BIẾN — tổng hợp · Bản đồ tài liệu · coverage
+docs/testcases/<module>/TEST_CASES_<TÊN_MODULE>_SUMMARY.md               ← INDEX, tên file BẤT BIẾN — tổng hợp · Bản đồ tài liệu · coverage
 docs/testcases/<module>/<nền-tảng>/test_cases_<module>_<nền-tảng>.md   ← TC của từng nền tảng: web · mobile · api
 docs/testcases/<module>/<nền-tảng>/parts/part_NN_<nền-tảng>_<slug>.md  ← khi file nền tảng > 40 TC
 docs/checklists/checklist_<loại>_<module>.md     ← nếu chạy mode CHECKLIST
@@ -196,13 +196,14 @@ docs/checklists/checklist_<loại>_<module>.md     ← nếu chạy mode CHECKLI
 | Mode | Làm gì |
 |---|---|
 | **REVIEW** (mặc định) | Chấm rubric 6 tiêu chí, chỉ ra TC mơ hồ / trùng lặp / thiếu negative-boundary / coverage gap |
-| **FIX** | Như trên + sinh file TC phiên bản cải thiện (**giữ nguyên file gốc**) |
+| **FIX** | Như trên + **sửa tại chỗ** các TC bạn duyệt, giữ TC ID, ghi Nhật ký có mốc git — **không** sinh bản sao `_improved` |
+| **AUTOMATION** | Chấm độc lập từng TC `Yes` / `Partial` / `No` theo bảng tiêu chí automation, kèm căn cứ trích từ TC · gom **điều kiện cần xin dev** (OTP cố định, hộp thư test, sandbox…) · chỉ ra TC đang gắn sai cột `Automation`. Nhận cả file Excel khách gửi không có cột này |
 
-Nói *"sửa luôn"* / *"cải thiện giùm"* → AI tự chuyển sang **FIX**.
+Nói *"sửa luôn"* / *"cải thiện giùm"* → AI tự chuyển sang **FIX**. Nói *"case nào automate được"* → **AUTOMATION**.
 
 > Chặng này hay bị bỏ qua. Nhưng review 30 phút rẻ hơn nhiều so với chạy tay 50 TC rồi mới phát hiện một nửa viết sai.
 
-> 🤖 **Muốn automate bộ TC này?** Đây là điểm rẽ — bộ TC đã review xong là **đầu vào của** [`AI_FULL_FLOW_AUTOMATION.md`](AI_FULL_FLOW_AUTOMATION.md). Hai flow chạy song song được: automation lo phần regression lặp lại, manual lo phần còn lại.
+> 🤖 **Muốn automate bộ TC này?** Chạy `/review-testcases` Mode **AUTOMATION** trước để biết TC nào làm được và cần xin dev điều kiện gì. Đây là điểm rẽ — bộ TC đã review xong là **đầu vào của** [`AI_FULL_FLOW_AUTOMATION.md`](AI_FULL_FLOW_AUTOMATION.md). Hai flow chạy song song được: automation lo phần regression lặp lại, manual lo phần còn lại.
 
 ---
 
@@ -215,8 +216,6 @@ Nói *"sửa luôn"* / *"cải thiện giùm"* → AI tự chuyển sang **FIX**
 📋 Prompt mẫu: [`prompts/prompt_25_generate_master_test_plan.txt`](prompts/prompt_25_generate_master_test_plan.txt)
 
 📝 Phiếu cần điền: [`plans/master-test-plan/test_plan.config.yaml`](plans/master-test-plan/test_plan.config.yaml) — tên ô tiếng Việt, chú thích ghi sẵn giá trị hợp lệ và ô nào bắt buộc
-
-📘 Bản mẫu đã điền đủ (hệ thống hư cấu): phiếu [`test_plan.template.yaml`](plans/master-test-plan/test_plan.template.yaml) → plan [`test_plan_release_example.md`](plans/master-test-plan/test_plan_release_example.md)
 
 Sinh **Master Test Plan** — tài liệu quản lý để PM/khách hàng **duyệt trước** khi bắt đầu chạy test: kiểm soát tài liệu · mục tiêu & cơ sở kiểm thử · phạm vi · cấp độ, loại, mức độc lập kiểm thử · **kiểm thử phi chức năng** · **chiến lược tự động hoá** · tiêu chí vào/ra · môi trường · **dữ liệu kiểm thử** · **quản lý lỗi** (quy trình, Severity/Priority, thời hạn xử lý) · nhân lực · lịch · **ước lượng công sức & ngân sách** · rủi ro dự án và sản phẩm. Bám cấu trúc ISO/IEC/IEEE 29119-3 và phủ đủ nội dung điển hình của test plan theo **ISTQB CTFL v4.0 mục 5.1.1**. **Không** sinh test scenario, **không** sinh TC.
 
@@ -233,7 +232,7 @@ Sinh **Master Test Plan** — tài liệu quản lý để PM/khách hàng **duy
 | Danh sách module · nền tảng · số REQ/TC · lần chạy đã có | **Mốc** · module × nền tảng trong đợt · mục tiêu |
 | Môi trường đã khảo sát · năng lực kiểm thử của QA | **Ngoài phạm vi bổ sung** + ai chịu trách nhiệm |
 | Vùng đã loại khỏi phạm vi (`system_map.md`, bảng ISO 25010, REQ ⚪) | Cấp độ kiểm thử · mức độc lập · loại test · cách chạy TC mobile/API · **ngưỡng phi chức năng** · **chiến lược tự động hoá** |
-| Bug đang mở · AMB 🔴 còn treo · rủi ro sản phẩm `RISK-xx` | **Lịch** · **ước lượng công sức** · **ngân sách** · **nhân lực** |
+| Bug đang mở · AMB 🔴 còn treo · rủi ro sản phẩm `RISK-<MODULE>-xx` | **Lịch** · **ước lượng công sức** · **ngân sách** · **nhân lực** |
 | Bài học và thời lượng thực tế của báo cáo mốc trước · thang Severity/Priority mặc định | Môi trường · **dữ liệu kiểm thử** đợt này · công cụ · **quy trình lỗi, người phân loại, thời hạn xử lý** · bên liên quan · người review, người duyệt · Test Policy/Strategy tổ chức |
 
 Không muốn điền phiếu → gọi lệnh kèm tên mốc, AI **hỏi một lượt** theo đúng các nhóm của phiếu rồi tự ghi vào `test_plan.config.yaml`. Ô nào bạn chưa có thông tin → AI để `❓` và liệt kê ở **đầu tài liệu**, **không** bịa ngày hay tên người.
@@ -440,7 +439,7 @@ REQ mới (🟢) → /generate_testcases_*     TC phải sửa (🟡) + TC bị 
 
 > **Tầng thứ ba chỉ chạy khi module đã có automation.** `/update-testcases-from-impact` mode APPLY ghi `delta_tc_<TICKET-ID>.md` — danh sách TC đã sửa kèm nền tảng. `/update-automation-from-impact` đọc đúng file đó, sửa script web · mobile · API tương ứng và chạy lại. Chi tiết: [`AI_FULL_FLOW_AUTOMATION.md`](AI_FULL_FLOW_AUTOMATION.md) chặng 5.
 
-> 🚨 **Không dùng `/review-testcases` mode FIX cho nhánh 🟡.** Nó chấm rubric chất lượng, không đối chiếu với REQ mới — TC viết rất tốt về hành vi **cũ** vẫn đạt 12/12 điểm. Nó cũng sinh file `_improved` lạc tên index. Đồng bộ bằng `/update-testcases-from-impact` trước, chấm chất lượng bằng `/review-testcases` sau.
+> 🚨 **Không dùng `/review-testcases` mode FIX cho nhánh 🟡.** Nó chấm rubric chất lượng, không đối chiếu với REQ mới — TC viết rất tốt về hành vi **cũ** vẫn đạt 12/12 điểm, và nó không sinh Delta TC List cho automation. Đồng bộ bằng `/update-testcases-from-impact` trước, chấm chất lượng bằng `/review-testcases` sau.
 
 Cột **`TC cần xử lý`** trong Nhật ký thay đổi của tài liệu requirements là **mắt xích cảnh báo duy nhất** cho tester biết TC nào đã lỗi thời. Bỏ qua nó là chạy test trên bộ TC sai mà không biết.
 
