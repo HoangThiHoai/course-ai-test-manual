@@ -1,0 +1,10 @@
+- generic [ref=e2]:
+  - link [ref=e4] [cursor=pointer]:
+    - /url: https://crm.anhtester.com/
+    - img "Perfex CRM | Anh Tester Demo" [ref=e5]
+  - heading "Forgot Password" [level=1] [ref=e6]
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]: Email Address
+      - textbox "Email Address" [ref=e11]
+    - button "Confirm" [ref=e13] [cursor=pointer]

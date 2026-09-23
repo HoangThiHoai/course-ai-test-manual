@@ -9,7 +9,7 @@
 | Hệ thống | Perfex CRM — Anh Tester Demo (`https://crm.anhtester.com`) |
 | Quy ước mã bug | `BUG_<module>_<timestamp>_<TC_ID>` — `timestamp` epoch giây lúc sinh (đảm bảo không trùng), `TC_ID` là mã TC ngắn (VD `TC004`) để nhìn tên là biết ngay thuộc TC nào, không phải mở file/tra bảng |
 | Đường dẫn file | `docs/bugs/<module>/<nền-tảng>/BUG_<module>_<timestamp>_<TC_ID>.md` — `<nền-tảng>` chỉ nhận `web` · `mobile` · `api` |
-| Ngày cập nhật | 19-09-2026 |
+| Ngày cập nhật | 23-09-2026 |
 
 ---
 
@@ -25,6 +25,10 @@
 | [BUG_login_1787226517_TC029](login/web/BUG_login_1787226517_TC029.md) | `LOGIN` | Ô Email ở Quên mật khẩu không tự reset sau khi submit email không tồn tại | 🟢 Trivial | P3 | 🔴 **Đang mở** | `CRM_LOGIN_TC_029` | 20-08-2026 |
 
 > `BUG_login_1785678750_TC039` đã được **rà lại và sửa xong** ngày 20-08-2026: tham chiếu TC ID/REQ ID lệch nghĩa đã sửa đúng (`CRM_LOGIN_TC_039` / `REQ-LOGIN-01`), evidence gốc đã mất được bổ sung evidence xác nhận lại từ `run_1787215085`, và đã ghi 1 dòng Lịch sử retest (`❌ NOT_FIXED` — lỗi vẫn còn). Xem chi tiết trong file bug.
+>
+> `BUG_login_1787226513_TC004` — **23-09-2026:** tái hiện lại ở `run_1790175154` → ghi `❌ NOT_FIXED` vào Lịch sử retest, trạng thái giữ **Đang mở**. Không tạo bug trùng.
+>
+> ⚠️ **23-09-2026:** 5 file bug còn lại trong bảng (`TC039`, `TC016`, `TC018`, `TC028`, `TC029`) **đang bị xoá khỏi working tree** (git báo `D`, chưa commit) — link ở bảng trên tạm gãy. Nội dung vẫn còn ở git mốc `82a814d`. File `TC004` và danh mục này đã được ghi lại từ mốc đó.
 
 ---
 

@@ -15,7 +15,6 @@
 #   • Dòng bắt đầu bằng # là chú thích — giữ nguyên.
 #   • 🔒 KHÔNG ghi URL có token, mật khẩu, API key — những thứ đó ở .env.
 #
-#  Mẫu đã điền đủ (hệ thống hư cấu): plans/master-test-plan/test_plan.template.yaml
 #  Nhãn đầu mỗi nhóm: BẮT BUỘC / tuỳ chọn · người thường nắm thông tin.
 # ══════════════════════════════════════════════════════════════════════
 
@@ -60,12 +59,12 @@ Phạm vi:
     #   Người chịu trách nhiệm:  # ai/đợt nào lo phần này
     #   Người quyết định:
     #   Ngày quyết định:
-    - Nội dung: 19 module CRM còn lại (ITEM · TASK · INV · PAY · EST · PROP · CRN · CTR · EXP · LEAD · TKT · SUB · ESTREQ · KB · DASH · PROFILE · RPT · UTIL · SETUP)
+    - Nội dung: 20 module CRM còn lại (CONT · LEAD · TASK · EST · PROP · INV · PAY · CN · SUB · CTR · EXP · ITEM · TICK · ESTREQ · KB · REP · DASH · TODO · REM · PROF)
       Lý do: Không thuộc Release 1.0
       Người chịu trách nhiệm: Đợt sau
       Người quyết định: Anh Tester — QA Lead
       Ngày quyết định: 17-09-2026
-    - Nội dung: Hệ thống F2C (namespace _f2c/ — ORDADM · ORDSEL · ORDBUY)
+    - Nội dung: Hệ thống Book API (namespace _book-api/)
       Lý do: Không thuộc Release 1.0
       Người chịu trách nhiệm: Đợt sau
       Người quyết định: Anh Tester — QA Lead
@@ -148,7 +147,7 @@ Công cụ:
   Quản lý lỗi: Jira · file markdown trong repo
   Quản lý kết quả kiểm thử: Jira · file markdown trong repo
   Nguồn chính khi lệch: Jira cho trạng thái bug · repo cho execution report   # nơi được coi là đúng khi hai công cụ lệch nhau
-  Tự động hoá: Playwright + TypeScript + Allure report + GitHub Actions CI   # framework · ngôn ngữ · report
+  Tự động hoá: Playwright + Typescript + Allure report + GitLab Actions CI   # framework · ngôn ngữ · report
   Khác:
 
 
@@ -235,7 +234,7 @@ Mục tiêu:
 Ước lượng:
   Kỹ thuật: ba điểm   # tỷ lệ | ngoại suy | Wideband Delphi | Planning Poker | ba điểm | không ước lượng
   Tổng công sức (người-ngày):    # kỹ thuật "ba điểm" → để trống, agent tự tính
-  Giả định: LOGIN đã có requirements (37 REQ) nhưng chưa có TC · CUST và PRJ chưa khảo sát — phải recon và viết requirements trước khi viết TC · không tính công sức PO/BA làm UAT · không tính thời gian Dev sửa bug
+  Giả định: LOGIN đã có 50 TC nên chủ yếu viết mới cho CUST (79 REQ) và PRJ (104 REQ) · không tính công sức PO/BA làm UAT · không tính thời gian Dev sửa bug
   Chi tiết ba điểm:
     # Chỉ khi Kỹ thuật = ba điểm. Đơn vị người-ngày.
     # - Hạng mục:

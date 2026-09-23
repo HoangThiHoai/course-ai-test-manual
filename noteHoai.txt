@@ -10,10 +10,15 @@ description: Sinh bộ Test Case Manual đầy đủ (Happy path, Negative case,
 Cách dùng:
 Lấy thư mục claude của thầy về thư mục của mình
 B1: Khám phá hệ thống: Gọi /discovery (nguồn UI, URL, tài liệu)
+
 B2: Phân tích requiment: /analyze-requiment-doccument
+
 B3: Update requirement: gọi /update-requiment-form-tiket giải quyết AMB cho requiment ??:(Còn các AMB khác lấy giá trị gợi ý của bạn (là câu trả lời tôi đã chốt))
+
 B4: Khi đỏi tài liệu phải update testcase gọi /update-testcase-from-impact
+
 B5: Lập kế hoạch kiểm thử: /generate-master-test-plan
+
 B6: Sinh TC 
 Dùng /generate-testcase-manual-rbt hoặc /generate-testcases-from-requirements  
 VD:
@@ -22,3 +27,13 @@ GỘP
 Requirement: docs2\docs\requirements\login\web\requirements_login_web.md
 
 Khi muốn cập nhật Skill: Cập nhật lại những thay đổi đã trao đổi bên trên vào skill sinh TC giúp tôi
+
+B7: Review tc: 
+/review-testcases REVIEW
+docs2\docs\testcases\login\web ( có 2 mode Review và Fix)
+
+B8: Thực hiện TC: /execute-test-cases  docs2\docs\testcases\login\web\parts\part_01_web_giao_dien_nhap_lieu.md
+
+B9: Log bug: /create-bug-report 
+link execute hoặc /analyze-bug-report
+B10: Retest: /retest-fixed-bug
