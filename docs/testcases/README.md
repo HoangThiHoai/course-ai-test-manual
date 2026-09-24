@@ -7,7 +7,7 @@
 | # | Module | Namespace | Prefix TC ID | Số TC | Độ hạt | REQ bao phủ | Tài liệu | Cập nhật |
 |---|---|---|---|---|---|---|---|---|
 | 1 | `ORDBUY` — Quản lý đơn hàng, App Buyer (luồng Trả hàng/Hoàn tiền v3.0.0) | `_f2c/` | `F2C_ORDBUY_TC_` | 62 | GỘP | REQ-F2C-ORDBUY-01 → 33 (33/33) | [test_cases_ORDBUY.md](ORDBUY/test_cases_ORDBUY.md) | 2026-09-18 |
-| 2 | `goi-cuoc` — Quản lý gói cước, CMS admin (UC1 Danh sách, UC2 Tạo mới) — Excel theo format sheet Quanlykho | — | `TC-` (công thức theo file mẫu) | 233 | Excel | Truy vết theo STT SRS ở cột Ghi chú (chưa có REQ ID) | [TCs_GOICUOC_Quanlygoicuoc_UC1_UC2.xlsx](goi-cuoc/web/TCs_GOICUOC_Quanlygoicuoc_UC1_UC2.xlsx) | 24-09-2026 |
+| 2 | `goi-cuoc` — Quản lý gói cước, CMS admin (UC1 Danh sách, UC2 Tạo mới, UC3 Xem chi tiết, UC4 Ban hành) — Excel theo format sheet Quanlykho | — | `TC-` (công thức theo file mẫu) | 353 (233 + 120) | Excel | Truy vết theo STT SRS ở cột Ghi chú (chưa có REQ ID) | [TCs_GOICUOC_Quanlygoicuoc_UC1_UC2.xlsx](goi-cuoc/web/TCs_GOICUOC_Quanlygoicuoc_UC1_UC2.xlsx) · [TCs_GOICUOC_Chitiet_Banhanh_UC3_UC4.xlsx](goi-cuoc/web/TCs_GOICUOC_Chitiet_Banhanh_UC3_UC4.xlsx) | 24-09-2026 |
 
 ## 2. Độ phủ so với requirements
 
