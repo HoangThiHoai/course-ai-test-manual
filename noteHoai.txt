@@ -41,3 +41,29 @@ B10: Retest: /retest-fixed-bug
 B11:Nếu có update req dùng /update-red-form ticket 
 Ticket {Ticket cần update}
 Mô tả nội dung
+
+B12: update TC
+Gọi /update -TC-form-impact 
+/update-testcases-from-impact
+Mode: PLAN
+Impact Report: docs/requirements/login/impact/impact_CRM-LOGIN-101.md
+
+B13: Thực thi TC impact
+/execute-test-cases
+File TC: docs/testcases/login/TEST_CASES_LOGIN_SUMMARY.md
+Phạm vi: chỉ CRM_LOGIN_TC_025
+URL và tài khoản: lấy từ .env (EMAIL_PM / PASSWORD_PM)
+Môi trường dùng chung: CÓ
+Build: demo-2026-09-28
+
+B14: tạo bug
+/create-bug-report
+Từ TC FAIL CRM_LOGIN_TC_025 của lần chạy vừa rồi trong docs/executions/login/web/
+Nền tảng: web. Không đẩy Jira.
+
+B15: Retest
+/retest-fixed-bugs
+Mode: RETEST
+Bug: docs/bugs/login/web/<file BUG_..._TC025 vừa tạo>.md
+Build mới: demo-2026-10-05 (dev báo đã fix khoá tài khoản)
+Tài khoản: .env (EMAIL_PM / PASSWORD_PM) · Môi trường dùng chung: CÓ
