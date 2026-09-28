@@ -37,3 +37,7 @@ B8: Thực hiện TC: /execute-test-cases  docs2\docs\testcases\login\web\parts\
 B9: Log bug: /create-bug-report 
 link execute hoặc /analyze-bug-report
 B10: Retest: /retest-fixed-bug
+
+B11:Nếu có update req dùng /update-red-form ticket 
+Ticket {Ticket cần update}
+Mô tả nội dung
