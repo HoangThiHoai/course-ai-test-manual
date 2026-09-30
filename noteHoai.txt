@@ -39,7 +39,7 @@ link execute hoặc /analyze-bug-report
 B10: Retest: /retest-fixed-bug
 
 B11:Nếu có update req dùng /update-red-form ticket 
-Ticket {Ticket cần update}
+Ticket {Ticket cần update} cho req nao
 Mô tả nội dung
 
 B12: update TC
@@ -66,4 +66,10 @@ B15: Retest
 Mode: RETEST
 Bug: docs/bugs/login/web/<file BUG_..._TC025 vừa tạo>.md
 Build mới: demo-2026-10-05 (dev báo đã fix khoá tài khoản)
+
+
 Tài khoản: .env (EMAIL_PM / PASSWORD_PM) · Môi trường dùng chung: CÓ
+
+
+==> Khi muốn chỉnh sửa quy tắc: Chỉnh RULE trước , SKILL sau, COMMAND sau cùng
+-Muốn chỉnh format vào skills_rbt_manual chỉnh B6

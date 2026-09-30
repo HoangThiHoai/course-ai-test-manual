@@ -5,6 +5,9 @@
 Cách dùng:
     python build_quanlykho_format.py --template tcs.xlsx --data tcdata_qlgc_uc1_uc2.py --out <file.xlsx> \
         --sheet-name "Quanlygoicuoc" --screen "..." --doc-link "..." --created "24/09/2026"
+
+Dòng TC có thể thêm phần tử thứ 8 là ngày tạo riêng: ('T', func, purpose, steps, expected, data, note, '30/09/2026')
+-> dùng cho TC bổ sung chèn vào giữa bộ cũ; không có thì lấy --created.
 """
 import argparse
 import copy
@@ -42,10 +45,10 @@ def validate(rows):
             if item[0] == 'S':
                 section = item[1]
             continue
-        if item[0] != 'T' or len(item) != 7:
+        if item[0] != 'T' or len(item) not in (7, 8):
             errors.append(f'#{i}: sai cấu trúc')
             continue
-        _, func, purpose, steps, expected, _, _ = item
+        _, func, purpose, steps, expected = item[:5]
         if need_func and not func:
             errors.append(f'#{i} ({purpose}): TC đầu nhóm thiếu Chức năng')
         need_func = False
@@ -115,7 +118,7 @@ def main():
             ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=span[kind])
             ws.row_dimensions[r].height = max(20, 16 * (item[1].count('\n') + 1)) if kind == 'P' else 20
         else:
-            _, func, purpose, steps, expected, data, note = item
+            _, func, purpose, steps, expected, data, note = item[:7]
             n += 1
             first_tc = first_tc or r
             ws.cell(row=r, column=1, value=f'=$C$4&"-"&TEXT(COUNTA($D${CONTENT_START}:D{r}),"00")')
@@ -128,8 +131,9 @@ def main():
             ws.cell(row=r, column=COL_EXP, value=expected)
             if data:
                 ws.cell(row=r, column=COL_DATA, value=data)
-            if args.created:
-                ws.cell(row=r, column=COL_CREATED, value=args.created)
+            created = item[7] if len(item) == 8 else args.created
+            if created:
+                ws.cell(row=r, column=COL_CREATED, value=created)
             if note:
                 ws.cell(row=r, column=COL_NOTE, value=note)
             lines = max(steps.count('\n'), expected.count('\n'), len(expected) // 45, len(note or '') // 30) + 1
