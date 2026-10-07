@@ -5,6 +5,66 @@
 
 ---
 
+## 🧠 Bộ nhớ dự án `memories/` (BẮT BUỘC — đọc trước mọi việc)
+
+Kiến thức tích luỹ qua các phiên (người dùng muốn làm việc thế nào, link nguồn đúng của từng hệ thống, TC đã viết, AMB đang chờ BA, sự cố công cụ, việc còn treo) lưu **trong repo** tại `memories/`, **không** dựa vào bộ nhớ trên máy.
+
+**Thứ tự đọc khi nhận bất kỳ yêu cầu nào:**
+
+1. `CLAUDE.md` (file này)
+2. **`memories/MEMORY.md`** — file map: bảng *"Làm việc gì → đọc gì"* + danh sách việc đang treo
+3. Chỉ mở các file chủ đề trong `memories/` mà bảng đó chỉ tới cho việc đang làm — **không** đọc hết thư mục
+4. Sau đó mới tới `docs/` theo chuỗi 3 tầng (mục 6b)
+
+**Ghi bộ nhớ:** xong một việc có kết quả (TC mới, AMB mới, quyết định của user/BA, feedback về cách làm, sự cố công cụ) → cập nhật file chủ đề tương ứng + thêm 1 dòng vào `memories/08_nhat-ky-phien/nhat-ky-phien.md` + cập nhật mục "Việc đang treo" trong `MEMORY.md`. Quy tắc chi tiết ở cuối `memories/MEMORY.md`. 🔒 Không ghi giá trị bí mật vào `memories/`.
+
+---
+
+## 📣 Gửi report lên Slack (BẮT BUỘC)
+
+**Luôn gửi report lên Slack** mỗi khi có một trong các sự kiện sau. Không cần user nhắc:
+
+| Sự kiện | Phát sinh từ |
+|---|---|
+| **Chạy test case xong** (manual hoặc automation) | `/execute-test-cases` · `/retest-fixed-bugs` · `/run-and-fix-tests` · chạy suite automation (`npm test`, `npx playwright test`, `mvn test`…) trong các lệnh `/generate-automation-*` và `/update-automation-from-impact` |
+| **Có summary report mới** | `/generate-test-summary-report` (file `docs/executions/test_summary_<mốc>_*.md`) |
+
+### Cách gửi — theo thứ tự ưu tiên
+
+1. **Slack connector / MCP** nếu phiên có sẵn tool Slack.
+2. **Incoming Webhook**: đọc `SLACK_WEBHOOK_URL` trong `.env` rồi `POST` JSON bằng `curl`. Nếu `.env` có `SLACK_CHANNEL` thì dùng làm kênh đích.
+3. Cả hai đều không có → **không chặn** việc test. Ghi report như bình thường, rồi báo user: *"Chưa gửi Slack — thiếu `SLACK_WEBHOOK_URL` trong `.env`"*. Giao luôn nội dung tin nhắn đã soạn để user tự dán lên Slack.
+
+### Xác nhận trước khi gửi
+
+Gửi tin là đăng nội dung ra ngoài, nên **mỗi lần gửi** agent làm hai bước:
+- Hiện **bản xem trước** của tin nhắn trong chat.
+- Hỏi *"Gửi lên Slack?"* rồi chỉ gửi khi user trả lời đồng ý.
+
+Rule này bắt buộc agent **luôn soạn và đề nghị gửi**, không được quên bước này. Rule này **không** thay cho câu xác nhận của từng lần gửi.
+
+### Nội dung tin nhắn (Tiếng Việt, ngắn gọn)
+
+```
+🧪 [<Loại: Execution | Retest | Automation | Summary>] <Hệ thống> · <module>/<nền tảng> · Build <build>
+Kết quả: ✅ PASS <n> · ❌ FAIL <n> · ⛔ BLOCKED <n> · ⏭️ SKIPPED <n> — Pass rate <x>%
+FAIL/BLOCKED chính: <TC ID — mô tả ngắn> (tối đa 5 dòng)
+Bug mới / đã fix: <BUG ID …>   (Summary: thêm Khuyến nghị Go/No-go)
+Report: <đường dẫn file report trong repo>
+Thời điểm: <DD-MM-YYYY HH:mm>
+```
+
+- Pass rate = PASS / (PASS + FAIL + BLOCKED). Không tính SKIPPED vào mẫu số, giống execution-viewer.
+- 🔒 **KHÔNG** đưa vào tin nhắn: mật khẩu, token, cookie, giá trị `.env`, dữ liệu khách hàng. **Không** đính kèm screenshot. Chỉ trỏ đường dẫn evidence.
+- Gửi xong (hoặc gửi lỗi) → ghi 1 dòng `Slack: đã gửi <DD-MM-YYYY HH:mm>` / `Slack: chưa gửi — <lý do>` vào cuối report vừa sinh.
+
+---
+
+## Được phép lấy thông tin tài khoản mật khẩu từ .env để nhập liệu trong quá trình chạy.
+Tôi cho phép Claude đọc file `.env` trong root project để lấy thông tin tài khoản, mật khẩu, token, cookie xác thực, session id, API key… phục vụ cho việc chạy test automation. File `.env` **không** được commit lên git (đã `.gitignore`) — Claude chỉ đọc để dùng, không ghi lại hay hiển thị ra log.
+
+---
+
 ## Git Pull Restriction Rule
 
 * Tuyệt đối KHÔNG dùng lệnh GIT làm thay đổi trạng thái code (như `git pull`, `git checkout`, `git merge`, `git rebase`, `git reset`) để lấy code hoặc thay đổi nhánh.
@@ -138,6 +198,7 @@ Test chỉ được coi là **hoàn thành** khi đáp ứng **toàn bộ** các
 - [ ] Tóm tắt kết quả: số test PASS / FAIL / SKIP
 - [ ] Nêu rõ các TC đã implement và TC nào bị skip (kèm lý do)
 - [ ] Ghi chú các known issues hoặc limitation nếu có
+- [ ] Đã gửi report lên **Slack** theo mục "📣 Gửi report lên Slack" (hoặc đã báo rõ vì sao chưa gửi được)
 
 ---
 
