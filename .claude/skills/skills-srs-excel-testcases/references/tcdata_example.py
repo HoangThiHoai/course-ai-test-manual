@@ -2,16 +2,21 @@
 """File dữ liệu mẫu cho build_tc_excel.py — copy ra thành src/tcdata_<mục>.py rồi sửa.
 
 ROWS:
-  ('S', 'Tên section')                          -> dòng nhóm màn hình (nền màu, merge)
+  ('S', 'Tên section')                          -> dòng nhóm màn hình / UC (nền màu, merge)
+  ('G', 'Kiểm tra validate')                    -> dòng nhóm con (Format B - sheet Quanlykho)
   ('P', 'Pre-condition: \\nBước 1: ...')         -> dòng điều kiện tiên quyết
-  ('T', chức_năng | None, mục_đích, các_bước, kết_quả_mong_muốn, dữ_liệu, ghi_chú)
+  ('T', chức_năng | None, mục_đích | None, các_bước, kết_quả_mong_muốn, dữ_liệu, ghi_chú[, ngày_tạo])
         chức_năng = None -> cùng nhóm với TC ngay phía trên (ô được merge dọc)
-        TC đầu tiên sau mỗi section BẮT BUỘC có chức_năng
+        mục_đích  = None -> cùng mục đích với TC phía trên, khác bước/dữ liệu (ô được merge dọc)
+        ngày_tạo         -> 'DD/MM/YYYY' riêng cho TC bổ sung; bỏ trống thì lấy --created
+        TC đầu tiên sau mỗi section/nhóm con BẮT BUỘC có chức_năng và mục_đích
 
 TECHNIQUES (tuỳ chọn) -> sheet "Kỹ thuật thiết kế TC":
   [{'title': ..., 'header': [...], 'rows': [[...], ...]}, ...]
 
-Ví dụ thật đầy đủ: docs/testcases/qldh/mobile/src/tcdata_1.3.4.py
+Ví dụ thật đầy đủ:
+  Format A (mobile):  docs/testcases/qldh/mobile/src/tcdata_1.3.4.py
+  Format B (web CMS): docs/testcases/goi-cuoc/web/src/tcdata_qlgc_uc1_uc2.py
 """
 
 ROWS = [

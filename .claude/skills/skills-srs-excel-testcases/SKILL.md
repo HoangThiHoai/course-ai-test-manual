@@ -69,9 +69,21 @@ python scripts/inspect_tc_template.py <src>/tcs.xlsx                        # li
 python scripts/inspect_tc_template.py <src>/tcs.xlsx --sheet "<sheet>" --rows 90
 ```
 
-Soi **2–3 sheet cùng loại màn hình** (VD viết màn chi tiết → soi `Chi tiết đơn hàng`, `Hủy đơn hàng`, `Đánh giá đơn hàng`) để học: cột, section, Pre-condition, cách viết Mục đích/Bước/Kết quả, mức độ tách TC, TC giao diện chuẩn, cách ghi N/A. Đối chiếu với [`references/tc_writing_rules.md`](references/tc_writing_rules.md) — file mẫu khác thì **file mẫu thắng**.
+Soi **2–3 sheet cùng loại màn hình** (VD viết màn chi tiết → soi `Chi tiết đơn hàng`, `Hủy đơn hàng`, `Đánh giá đơn hàng`; viết màn CRUD web CMS → soi `Quanlykho`, `Quanlynhaban`) để học: cột, section, Pre-condition, cách viết Mục đích/Bước/Kết quả, mức độ tách TC, TC giao diện chuẩn, cách ghi N/A. Đối chiếu với [`references/tc_writing_rules.md`](references/tc_writing_rules.md) — file mẫu khác thì **file mẫu thắng**.
 
-Chọn **1 sheet làm khuôn** (sheet gọn, có đủ dòng section + Pre-condition + TC, VD `QLĐH_Hủy đơn hàng`).
+**Nhận diện họ format trước** (chi tiết: `tc_writing_rules.md` mục 1):
+
+| | Format A — mobile (`QLĐH_*`) | Format B — web CMS (`Quanlykho`) |
+|---|---|---|
+| Khối header | nhãn cột D / giá trị cột E | nhãn cột A / giá trị cột C |
+| ID | `=$E$4&…COUNTA(cột Kết quả)` | `=$C$4&…COUNTA(cột Các bước)` |
+| Section | 1 cấp | 3 cấp: `UCn: …` → nhóm con (`Kiểm tra gui UI/UX` / `Kiểm tra validate` / `Kiểm tra chức năng`) → Pre-condition |
+| Trạng thái | `Pass, Fail, N/A` | `Pass, Fail, Pending, N/A` |
+| TC giao diện đầu màn | 4 TC (giao diện, hiển thị, sáng, tối) | 5 TC (mặc định, tổng thể, Tab, Shift-Tab, phóng to/thu nhỏ) + 4 TC cho popup |
+
+Chọn **1 sheet làm khuôn** (sheet gọn, có đủ dòng section + Pre-condition + TC, VD `QLĐH_Hủy đơn hàng`; Format B cần có cả dòng nhóm con, VD `Quanlykho`). Format B: **không** dời vị trí khối header — sheet `Overview` của file gốc tham chiếu `C2`, `C6`–`C9` của từng sheet.
+
+> File mẫu là bài làm thật, có lỗi (đánh số bước lệch, lệch cột, chính tả, UC trùng số). Học **cấu trúc và cách phủ**, không chép lỗi — danh sách ở `tc_writing_rules.md` mục 7.
 
 ### Bước 5 — Phân tích & viết TC
 
@@ -80,8 +92,8 @@ Chọn **1 sheet làm khuôn** (sheet gọn, có đủ dòng section + Pre-condi
    - **Sơ đồ chuyển trạng thái**: vòng đời đối tượng (trạng thái hiện tại → sự kiện → trạng thái kế tiếp), kể cả chuyển không hợp lệ và tranh chấp
    - **Giá trị biên**: mọi con số trong SRS (ký tự, MB, số file, ngày, giờ, số lượt) → dưới/tại/trên biên
    - **Phân vùng tương đương**: các lớp đầu vào (phương thức thanh toán, có/không voucher, loại tài khoản…)
-2. Duyệt **từng dòng STT** của bảng field theo checklist ở `tc_writing_rules.md` mục 4. Mỗi dòng STT phải có ≥ 1 TC
-3. Viết vào `docs/testcases/<module>/<nền-tảng>/src/tcdata_<mục>.py` theo mẫu [`references/tcdata_example.py`](references/tcdata_example.py) (`ROWS` + `TECHNIQUES`). File này **được lưu cùng file Excel** để lần sau sửa/dựng lại mà không phải viết lại
+2. Duyệt **từng dòng STT** của bảng field theo checklist ở `tc_writing_rules.md` mục 4 — **4a** thành phần chung/mobile · **4b** màn CRUD web CMS (ô tìm kiếm, dropdown lọc, kết hợp điều kiện, danh sách, phân trang, form, combobox, SĐT theo regex đầu số, checkbox mặc định, Lưu thành công/thất bại, giới hạn số bản ghi, xoá có ràng buộc dữ liệu, 2 tab đồng thời). Mỗi dòng STT phải có ≥ 1 TC
+3. Viết vào `docs/testcases/<module>/<nền-tảng>/src/tcdata_<mục>.py` theo mẫu [`references/tcdata_example.py`](references/tcdata_example.py) (`ROWS` + `TECHNIQUES`). File này **được lưu cùng file Excel** để lần sau sửa/dựng lại mà không phải viết lại. Format B: dùng `('G', 'Kiểm tra validate')` cho nhóm con; nhiều biến thể dữ liệu chung một mục đích → TC sau để Mục đích `None` (ô được merge dọc như file mẫu)
 4. Cột Ghi chú: số mục/STT SRS truy vết · kỹ thuật dùng · điểm cần BA confirm
 
 > File dữ liệu dài → tạo bằng Write tool, **không** nhét vào heredoc của Bash (Windows báo `ENAMETOOLONG`).
@@ -94,14 +106,20 @@ python scripts/build_tc_excel.py --template <src>/tcs.xlsx --template-sheet "<sh
   --out  docs/testcases/<module>/<nền-tảng>/TCs_<MODULE>_<TenManKhongDau>_<mục>.xlsx \
   --sheet-name "<tên sheet theo quy ước file mẫu>" \
   --screen "<Tên màn hình> (SRS mục <mục>)" \
-  --doc-link "SRS: <tên tài liệu> - mục <mục> | Figma: <tên file> node <node-id>"
+  --doc-link "SRS: <tên tài liệu> - mục <mục> | Figma: <tên file> node <node-id>" \
+  --created <DD/MM/YYYY>
 ```
 
-Script tự:
-- kiểm tra dữ liệu (thiếu Mục đích/Bước/Kết quả, TC đầu nhóm thiếu Chức năng, TC trùng) → dừng nếu lỗi
-- giữ khối header + style + độ rộng cột của sheet khuôn, merge section/Pre-condition/cột Chức năng như file mẫu
-- sinh **công thức** ID (`=$E$4&"-"&TEXT(COUNTA(...),"00")`) và thống kê Pass/Fail/Chưa test/Tổng giống file mẫu, dropdown `Pass,Fail,N/A` cho cột Trạng thái
+`--created` ghi cột `Ngày tạo TCs` (TC bổ sung có ngày riêng ở phần tử thứ 8 của dòng `'T'`); `--author` ghi ô `Người tạo` nếu khuôn có.
+
+Script tự nhận Format A / B từ sheet khuôn và:
+- kiểm tra dữ liệu (thiếu Mục đích/Bước/Kết quả, TC đầu nhóm thiếu Chức năng, TC trùng trong cùng section + nhóm + chức năng) → dừng nếu lỗi
+- tìm đúng dòng tiêu đề cột (cột A = `ID` **và** có cột `Mục đích` — Format B còn một ô `ID` trong khối header)
+- giữ khối header + style + độ rộng cột của sheet khuôn, merge section / nhóm con / Pre-condition / cột Chức năng / cột Mục đích như file mẫu
+- **chép công thức ID của khuôn** (ô mã + cột được đếm) và **dropdown Trạng thái của khuôn**; thống kê Pass/Fail/Pending/N/A/Chưa test/Tổng bằng công thức theo nhãn có trong khối header
 - xoá các sheet khác, thêm sheet `Kỹ thuật thiết kế TC` nếu có `TECHNIQUES`
+
+> **Bổ sung TC vào sheet đã có** (giữ nguyên TC cũ, chèn đúng nhóm, nền vàng cho dòng mới): chép nguyên sheet gốc rồi chèn — mẫu `docs/testcases/goi-cuoc/web/src/build_insert_bosung.py`. ID là công thức đếm nên ID phía sau **dịch đi** → báo user bảng ID cũ → mới.
 
 Sau khi xuất: mở lại file bằng openpyxl kiểm tra số TC, vài ô công thức, vùng merge; gửi file cho người dùng.
 

@@ -26,9 +26,9 @@ Làm đúng **6 bước** trong SKILL.md:
 1. Tải nguồn — `fetch_sources.py` (bỏ qua nếu đã tải trong phiên này)
 2. Trích mục SRS + mục được tham chiếu — `extract_srs.py --section <mục>`
 3. Đọc design — ảnh nhúng trong mục SRS trước, Figma để xác nhận
-4. Học format — `inspect_tc_template.py` trên 2–3 sheet cùng loại màn hình, chọn 1 sheet khuôn
-5. Dựng bảng quyết định / sơ đồ chuyển trạng thái / giá trị biên → viết `src/tcdata_<mục>.py`
-6. Xuất — `build_tc_excel.py`, kiểm tra lại file, gửi cho người dùng
+4. Học format — `inspect_tc_template.py` trên 2–3 sheet cùng loại màn hình, **nhận diện Format A (mobile `QLĐH_*`) hay Format B (web CMS `Quanlykho`)**, chọn 1 sheet khuôn
+5. Dựng bảng quyết định / sơ đồ chuyển trạng thái / giá trị biên → viết `src/tcdata_<mục>.py` theo checklist `tc_writing_rules.md` mục 4 (4b cho màn CRUD web CMS)
+6. Xuất — `build_tc_excel.py` (tự chép công thức ID + dropdown Trạng thái của khuôn), kiểm tra lại file, gửi cho người dùng
 
 ## Nguyên tắc
 
@@ -36,4 +36,5 @@ Làm đúng **6 bước** trong SKILL.md:
 - Chỉ viết TC cho **đúng mục** được yêu cầu
 - **Không** sửa Google Sheet — luôn tạo file Excel riêng trong `docs/testcases/<module>/<nền-tảng>/`
 - Mâu thuẫn / thiếu thông tin → ghi cột Ghi chú "BA confirm", liệt kê lại trong báo cáo cuối
+- Học cấu trúc và cách phủ của file mẫu, **không** chép lỗi của nó (lệch số bước, lệch cột, chính tả) — `tc_writing_rules.md` mục 7
 - Báo cáo bằng **Tiếng Việt**: nguồn đã đọc · số TC theo nhóm · kỹ thuật áp dụng · điểm cần BA xác nhận · link file
