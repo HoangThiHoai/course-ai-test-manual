@@ -72,4 +72,32 @@ Tài khoản: .env (EMAIL_PM / PASSWORD_PM) · Môi trường dùng chung: CÓ
 
 
 ==> Khi muốn chỉnh sửa quy tắc: Chỉnh RULE trước , SKILL sau, COMMAND sau cùng
+- Rule chung --> File claude.md
 -Muốn chỉnh format vào skills_rbt_manual chỉnh B6
+==> Hỏi AI bảo AI chỉnh cho : {} cập nhật lại rule, skill để tôi sử dụng cho các lần sau
+
+
+Lưu bộ nhớ local:
+-->Lúc đầu:
+Bạn hãy lưu bộ nhớ vào trong chính repo này của tôi trong quá trình trao đổi làm việc hay khám phá hệ thống tại thư mục "memories"
+
+- Phải có file MEMORY.md làm file map
+
+- Chia nhỏ các bộ nhớ theo từng phần hoặc module chức năng để không bị nhiễu và phình to
+
+- Đảm bảo khi tôi yêu cầu làm chức năng gì đó thì phải đọc CLAUDE.md sau đó đọc bộ nhớ trong repo này tại MEMORY.md làm map chỉ đường cho đúng đắn không bị thiếu sót thông tin
+
+- Đặt tên folder con hoặc file bộ nhớ cho rõ ràng dễ hiểu theo từng phần
+
+--> Đã lỡ:
+Bạn hãy mang hết tất cả những bộ nhớ trong máy liên quan đến repo này của tôi đã xây dựng trong thời gian qua và lưu trữ nó vào chính repo này tại thư mục "memories"
+
+ 
+
+* Phải có file MEMORY.md làm file map
+
+* Chia nhỏ các bộ nhớ theo từng phần hoặc module chức năng để không bị nhiễu và phình to
+
+* Đảm bảo khi tôi yêu cầu làm chức năng gì đó thì phải đọc CLAUDE.md sau đó đọc bộ nhớ trong repo này tại MEMORY.md làm map chỉ đường cho đúng đắn không bị thiếu sót thông tin
+
+* Đặt tên folder con hoặc file bộ nhớ cho rõ ràng dễ hiểu theo từng phần
