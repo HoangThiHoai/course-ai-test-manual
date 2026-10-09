@@ -67,7 +67,7 @@ memories/
 6. Nhánh `backup/before-remove-large-files` còn tồn tại.
 7. Slack chưa cấu hình: `.env` chưa có `SLACK_WEBHOOK_URL` → report chưa gửi tự động được.
 8. Cập nhật skill `skills-srs-excel-testcases` theo sheet Quanlykho đã commit 07-10 · `docs/testcases/goi-cuoc/web/src/build_quanlykho_format.py` nay trùng chức năng với script skill — chờ user quyết giữ/xoá.
-9. Bộ TC **CMS Quản lý đơn hàng** (289 TC, 07-10) chờ user review · 24 AMB chưa gửi BA · đã commit 07-10 (chưa push) · README danh mục chưa cập nhật.
+9. Bộ TC **CMS Quản lý đơn hàng** (289 TC, 07-10) chờ user review · 24 AMB chưa gửi BA · đã commit + push 07-10 · README danh mục chưa cập nhật.
 
 ## Quy tắc ghi bộ nhớ
 

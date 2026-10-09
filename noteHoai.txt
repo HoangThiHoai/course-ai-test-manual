@@ -101,3 +101,16 @@ Bạn hãy mang hết tất cả những bộ nhớ trong máy liên quan đến
 * Đảm bảo khi tôi yêu cầu làm chức năng gì đó thì phải đọc CLAUDE.md sau đó đọc bộ nhớ trong repo này tại MEMORY.md làm map chỉ đường cho đúng đắn không bị thiếu sót thông tin
 
 * Đặt tên folder con hoặc file bộ nhớ cho rõ ràng dễ hiểu theo từng phần
+
+B16: Muốn sinh checklist:
+-Dùng: /generate-checklist-testcase Module:Login, Loại: những case chính hoặc tất cả các case, TC: {link TC}, ReQ: {link REQ} ==> Có thể bỏ req ra vì có TC rồi
+-Muốn chạy checklist: gọi /excute-test-case gắn link checklist. Sau khi bạn chạy xong hãy gắn trạng thái vào file checklist giúp tôi. Phân biệt lượt chạy và thời gian chạy (thêm cột sau cùng)
+
+B17: Sinh ma trận truy vết
+/generate-traceability-matrix
+Phạm vi: module Login
+Mục đích: Báo cáo coverage trước release
+Requirements: docs\requirements\login\web\requirements_login_web.md
+Test cases: docs\testcases\login\web\test_cases_login_web.md
+Automation: D:\AI_Testing_Automation_Course\playwright-typescript-framework\src\tests\crm\login\crm-login.spec.ts
+
